@@ -1,1 +1,71 @@
-<p> HELLO </p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <h1 class="text-3xl font-bold">
+    Find a house with AI!
+  </h1>
+  <form id="searchForm" method="POST" action="/parse-properties">
+    <label for="story">Tell us about your dream home</label>
+
+    <textarea id="searchInput" class="block w-full bg-transparent py-4 pl-4 pr-12 text-base text-slate-900 placeholder:text-slate-600 sm:text-sm sm:leading-6" placeholder="Enter description..." aria-label="Enter description" id="headlessui-combobox-input-9" role="combobox" aria-expanded="false" aria-autocomplete="list" data-headlessui-state="" value="" style="caret-color: rgb(107, 114, 128);" tabindex="0" cols="33"> </textarea>
+    <button id="submit">Submit</button>
+</form>
+<h2>You entered: </h2>
+
+<p id="inputText"></p>
+
+<script type="text/javascript">
+const searchInput = document.getElementById("searchInput");
+const submitButton = document.getElementById("submit");
+const inputText = document.getElementById("inputText");
+const form = document.getElementById("searchForm");
+
+submitButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+  const description = searchInput.value;
+  inputText.textContent = description;
+
+  const url = form.action;
+  const formData = "test"
+
+  const responseData = await postFormDataAsJson({ url, formData });
+  console.log({ responseData });
+
+});
+
+async function postFormDataAsJson({ url, formData }) {
+	// const plainFormData = Object.fromEntries(formData.entries());
+	const formDataJsonString = JSON.stringify(formData);
+
+	const fetchOptions = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: formDataJsonString,
+	};
+
+	const response = await fetch(url, fetchOptions);
+
+	if (!response.ok) {
+		const errorMessage = await response.text();
+        console.log(errorMessage)
+		throw new Error(errorMessage);
+	}
+    
+
+console.log({response})
+	return response.json();
+}
+
+
+
+  </script>
+</body>
+</html>
