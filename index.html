@@ -31,11 +31,9 @@ submitButton.addEventListener("click", async (e) => {
   inputText.textContent = description;
 
   const url = form.action;
-  const formData = "test"
+  const formData = { post: description }
 
   const responseData = await postFormDataAsJson({ url, formData });
-  console.log({ responseData });
-
 });
 
 async function postFormDataAsJson({ url, formData }) {
@@ -58,14 +56,9 @@ async function postFormDataAsJson({ url, formData }) {
         console.log(errorMessage)
 		throw new Error(errorMessage);
 	}
-    
 
-console.log({response})
 	return response.json();
 }
-
-
-
   </script>
 </body>
 </html>
