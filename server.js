@@ -3,6 +3,8 @@ import express from "express";
 import fs from "fs";
 import { dirname } from "path";
 import path from "path";
+import llmApi from "./llm.js";
+
 const app = express();
 const port = process.env.PORT || 3000;
 const router = express.Router();
@@ -11,14 +13,20 @@ const __dirname = path.resolve(path.dirname(""));
 
 app.use(express.json({ strict: false }));
 
-app.post("/parse-properties", function (req, res) {
-  console.log("in parse properties post", req.body);
-  res.json(`Here is what you sent me: ${req.body.post}`);
-});
+app.post("/parse-properties", async function (req, res) {
+  const requirements = req.body.post;
+  const response = await llmApi(requirements);
 
-// app.get("/parse-properties", function (req, res) {
-//   console.log("in parse properties");
-// });
+  const { properties } = JSON.parse(response);
+  console.log({ response });
+  const propertiesRequirements = {
+    price_ending: properties.price_ending?.value,
+    price_starting: properties?.price_starting?.value,
+    bedrooms: properties?.bedrooms?.value,
+  };
+
+  res.json(propertiesRequirements);
+});
 
 app.use("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
