@@ -15,17 +15,18 @@ app.use(express.json({ strict: false }));
 
 app.post("/parse-properties", async function (req, res) {
   const requirements = req.body.post;
-  const response = await llmApi(requirements);
+  // const response = await llmApi(requirements);
 
-  const { properties } = JSON.parse(response);
-  console.log({ response });
-  const propertiesRequirements = {
-    price_ending: properties.price_ending?.value,
-    price_starting: properties?.price_starting?.value,
-    bedrooms: properties?.bedrooms?.value,
-  };
+  // const { properties } = JSON.parse(response);
+  // console.log({ response });
+  // const propertiesRequirements = {
+  //   price_ending: properties.price_ending?.value,
+  //   price_starting: properties?.price_starting?.value,
+  //   bedrooms: properties?.bedrooms?.value,
+  // };
 
-  res.json(propertiesRequirements);
+  // res.json(propertiesRequirements);
+  res.json("Hello");
 });
 
 app.use("/", function (req, res) {

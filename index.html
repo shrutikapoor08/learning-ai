@@ -6,19 +6,28 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  <h1 class="text-3xl font-bold">
-    Find a house with AI!
-  </h1>
-  <form id="searchForm" method="POST" action="/parse-properties">
-    <label for="story">Tell us about your dream home</label>
+  <div class="flex max-w-5xl mx-auto flex-col justify-center items-center my-10 min-h-screen">
 
-    <textarea id="searchInput" class="block w-full bg-transparent py-4 pl-4 pr-12 text-base text-slate-900 placeholder:text-slate-600 sm:text-sm sm:leading-6" placeholder="Enter description..." aria-label="Enter description" id="headlessui-combobox-input-9" role="combobox" aria-expanded="false" aria-autocomplete="list" data-headlessui-state="" value="" style="caret-color: rgb(107, 114, 128);" tabindex="0" cols="33"> </textarea>
-    <button id="submit">Submit</button>
+  <h1 class="sm:text-6xl text-4xl text-slate-900 font-bold">
+    Use AI to find a house 
+  </h1>
+
+  <form class="max-w-xl w-full" id="searchForm" method="POST" action="/parse-properties">
+
+  <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Describe your dream house here</label>
+
+  <textarea id="searchInput" rows="4" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="I am looking for a 3 bedroom single family house in Seattle..."></textarea>
+
+
+  <button type="button" class="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10">Search</button>
+
 </form>
+
 <h2>You entered: </h2>
 
 <p id="inputText"></p>
 
+</div>
 <script type="text/javascript">
 const searchInput = document.getElementById("searchInput");
 const submitButton = document.getElementById("submit");

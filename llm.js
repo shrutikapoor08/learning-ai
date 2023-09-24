@@ -10,8 +10,7 @@ const llmApi = async (description) => {
 
   const parser = StructuredOutputParser.fromNamesAndDescriptions({
     price_ending: "Ending range of price of properties. Parse as a number",
-    price_starting:
-      "Starting range of price of properties. Parse as a number. If not present, add 0",
+    price_starting: "Starting range of price of properties. Parse as a number",
     bedrooms: "Number of bedrooms as an integer",
     // neighborhoods:
     //   "comma separated list of neighborhoods in the text such as seattle, botthel",
@@ -27,7 +26,7 @@ const llmApi = async (description) => {
     partialVariables: { format_instructions: formatInstructions },
   });
 
-  const model = new OpenAI({ temperature: 0 });
+  const model = new OpenAI();
 
   // const description =
   //   "I need a single family home in the city of Seattle, Ballard, Shoreline, Bothell neighborhoods starting from 900000 to 1.2 million. also need 3 bedrooms. I want it to have a fireplace, garage, backyard";
@@ -37,6 +36,9 @@ const llmApi = async (description) => {
 
   const response = await model.call(input);
 
-  return response;
+  console.log({ input });
+  console.log(response);
+  console.log(await parser.parse(response));
+  return await parser.parse(response);
 };
 export default llmApi;
