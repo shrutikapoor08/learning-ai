@@ -5,44 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="flex max-w-5xl mx-auto flex-col justify-center items-center my-10 min-h-screen">
+<body class="flex max-w-5xl flex-col">
+  <div class=" mx-auto justify-center items-center my-10 min-h-screen">
 
   <h1 class="sm:text-6xl text-4xl text-slate-900 font-bold">
     Use AI to find a house 
   </h1>
 
-  <form class="max-w-xl w-full" id="searchForm" method="POST" action="/parse-properties">
+  <!-- <form class="max-w-xl w-full my-10" id="searchForm" method="POST" action="#"> -->
 
-  <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Describe your dream house here</label>
+  <label for="searchInput" class="block mb-2 text-sm font-medium text-gray-900">Describe your dream house here</label>
 
   <textarea id="searchInput" rows="4" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="I am looking for a 3 bedroom single family house in Seattle..."></textarea>
 
+  <button id="submitButton" class="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10">Search</button>
 
-  <button type="button" class="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10">Search</button>
+<!-- </form> -->
 
-</form>
-
-<h2>You entered: </h2>
-
+<h2 class="w-full">Showing results for </h2>
 <p id="inputText"></p>
+<ul id="properties"></ul>
 
 </div>
 <script type="text/javascript">
 const searchInput = document.getElementById("searchInput");
-const submitButton = document.getElementById("submit");
+const submitButton = document.getElementById("submitButton");
 const inputText = document.getElementById("inputText");
 const form = document.getElementById("searchForm");
+const propertiesListContainer = document.getElementById("properties");
+
+const renderProperties = ({responseData}) => {
+console.log(responseData)
+
+
+  responseData.map( ({bedrooms, bathrooms ,city, streetAddress, price, imgSrc, homeType }) => {
+    // const listData = (<li>
+    //                       {bedrooms}
+    //                         {bathrooms}
+    //                         {streetAddress}
+    //                        {city}
+    //                         {price}
+    //                         {imgSrc}
+    //                         {homeType}</li>
+    //                   )
+
+    // const listItem = (<li>{bedrooms}</li>)
+            
+    propertiesListContainer.innerHTML = `<li>${streetAddress}</li>`;
+  })
+ 
+}
+
+
 
 submitButton.addEventListener("click", async (e) => {
     e.preventDefault();
   const description = searchInput.value;
   inputText.textContent = description;
 
-  const url = form.action;
+  const url = '/parse-properties'
   const formData = { post: description }
 
   const responseData = await postFormDataAsJson({ url, formData });
+  renderProperties({responseData});
+  return false;
 });
 
 async function postFormDataAsJson({ url, formData }) {
