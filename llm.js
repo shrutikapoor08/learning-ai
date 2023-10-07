@@ -9,9 +9,11 @@ const llmApi = async (description) => {
   });
 
   const parser = StructuredOutputParser.fromNamesAndDescriptions({
-    price_ending: "Ending range of price of properties. Parse as a number",
-    price_starting: "Starting range of price of properties. Parse as a number",
-    bedrooms: "Number of bedrooms as an integer",
+    price_ending:
+      "Ending range of price of properties. Parse as a number. Return 1 million if value not given",
+    price_starting:
+      "Starting range of price of properties. Parse as a number. Return 0 if value not given",
+    bedrooms: "Number of bedrooms as an integer. Return 1 if value not given",
     // neighborhoods:
     //   "comma separated list of neighborhoods in the text such as seattle, botthel",
     // requirements:
@@ -35,10 +37,10 @@ const llmApi = async (description) => {
   const input = await prompt.format({ description: description });
 
   const response = await model.call(input);
+  // console.log(JSON.parse(response));
+  return response;
 
-  console.log({ input });
-  console.log(response);
-  console.log(await parser.parse(response));
-  return await parser.parse(response);
+  // console.log(await parser.parse(response));
+  // return await parser.parse(response);
 };
 export default llmApi;
