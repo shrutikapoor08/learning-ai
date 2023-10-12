@@ -38,7 +38,7 @@ function addIssueToContext(ctx, issueData) {
             ctx.common.contextualErrorMap,
             ctx.schemaErrorMap,
             (0, errors_1.getErrorMap)(),
-            en_1.default,
+            en_1.default, // then global default map
         ].filter((x) => !!x),
     });
     ctx.common.issues.push(issue);
@@ -89,7 +89,8 @@ class ParseStatus {
                 status.dirty();
             if (value.status === "dirty")
                 status.dirty();
-            if (typeof value.value !== "undefined" || pair.alwaysSet) {
+            if (key.value !== "__proto__" &&
+                (typeof value.value !== "undefined" || pair.alwaysSet)) {
                 finalObject[key.value] = value.value;
             }
         }

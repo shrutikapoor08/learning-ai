@@ -5,7 +5,7 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "langchain": "^0.0.105",
+    "langchain": "^0.0.162",
     "serpapi": "^1.1.1"
   }
 }
