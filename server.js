@@ -43,11 +43,8 @@ const fetchProperties = async ({ propertiesRequirements }) => {
 app.post("/parse-properties", async function (req, res) {
   const requirements = req.body.post;
   const response = await llmApi(requirements);
-  const responseJson = response;
 
-  // console.log({ responseJson });
-  console.log(response);
-  console.log(JSON.parse(response));
+  // console.log(response);
 
   const propertiesRequirements = {
     price_ending: response?.price_ending,
@@ -55,18 +52,12 @@ app.post("/parse-properties", async function (req, res) {
     bedrooms: response?.bedrooms,
   };
 
-  // console.log({ propertiesRequirements });
-
-  // const propertiesRequirements = {
-  //   price_ending: "1000000",
-  //   price_starting: "500000",
-  //   bedrooms: 3,
-  // }
+  console.log({ propertiesRequirements });
 
   // call API for fetching properties
-  // const propertiesResponse = await fetchProperties({ propertiesRequirements });
+  const propertiesResponse = await fetchProperties({ propertiesRequirements });
 
-  // res.send(propertiesResponse);
+  res.send(propertiesResponse);
 });
 
 app.use("/", function (req, res) {

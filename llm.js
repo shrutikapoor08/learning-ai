@@ -9,9 +9,6 @@ import { z } from "zod";
 
 import "dotenv/config";
 
-const description =
-  "Looking for a house in the range of 900000 to 1.2 million. Needs to have 3 bedrooms";
-
 const llmApi = async (description) => {
   const llm = new OpenAI({
     openAIApiKey: process.env.OPENAI_API_KEY,
@@ -72,35 +69,13 @@ What is a good name for a startup that uses AI to create {product}?`
 
   */
 
-  /*
-  ***** PROPERTY API 
+  // /*
+  // *
+  // *
+  // * Example 3: Property API
+  // *
+  // *
 
-  const parser = StructuredOutputParser.fromNamesAndDescriptions({
-    price_ending:
-      "Ending range of price of properties. Parse as a number. Return 1 million if value not given",
-    price_starting:
-      "Starting range of price of properties. Parse as a number. Return 0 if value not given",
-    bedrooms: "Number of bedrooms as an integer. Return 1 if value not given",
-  });
-
-  const formatInstructions = parser.getFormatInstructions();
-
-  const prompt = new PromptTemplate({
-    template: "\n{format_instructions}\n{description}",
-    inputVariables: ["description"],
-    partialVariables: { format_instructions: formatInstructions },
-  });
-
-  const input = await prompt.format({ description: description });
-
-  const response = await llm.call(input);
-
-  // Sample response -
-  // {"price_ending": "1.2 million", "price_starting": "900000", "bedrooms": "3", "fireplace": "true", "garage": "true", "backyard": "true"}
-  return response;
-  */
-
-  // We can use zod to define a schema for the output using the `fromZodSchema` method of `StructuredOutputParser`.
   const parser = StructuredOutputParser.fromZodSchema(
     z.object({
       price_ending: z
@@ -109,6 +84,7 @@ What is a good name for a startup that uses AI to create {product}?`
       price_starting: z
         .string()
         .describe("Starting price of budget. Return 0 if not passed"),
+      bedrooms: z.number().describe("Number of bedrooms."),
     })
   );
 
@@ -120,16 +96,16 @@ What is a good name for a startup that uses AI to create {product}?`
     parser,
   ]);
 
-  // console.log(parser.getFormatInstructions());
-
   const response = await chain.invoke({
     description: description,
     format_instructions: parser.getFormatInstructions(),
   });
 
   return response;
+  // */
 };
 export default llmApi;
 
 // llmApi();
-console.log(await llmApi(description));
+const description =
+  "Looking for a house in the range of 900000 to 1200000. Needs to have three bedrooms";
