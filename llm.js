@@ -5,7 +5,12 @@ import { StringOutputParser } from "langchain/schema/output_parser";
 import { RunnableSequence } from "langchain/schema/runnable";
 import { ChatAnthropic } from "langchain/chat_models/anthropic";
 
+import { z } from "zod";
+
 import "dotenv/config";
+
+const description =
+  "Looking for a house in the range of 900000 to 1.2 million. Needs to have 3 bedrooms";
 
 const llmApi = async (description) => {
   const llm = new OpenAI({
@@ -67,6 +72,9 @@ What is a good name for a startup that uses AI to create {product}?`
 
   */
 
+  /*
+  ***** PROPERTY API 
+
   const parser = StructuredOutputParser.fromNamesAndDescriptions({
     price_ending:
       "Ending range of price of properties. Parse as a number. Return 1 million if value not given",
@@ -90,11 +98,38 @@ What is a good name for a startup that uses AI to create {product}?`
   // Sample response -
   // {"price_ending": "1.2 million", "price_starting": "900000", "bedrooms": "3", "fireplace": "true", "garage": "true", "backyard": "true"}
   return response;
+  */
+
+  // We can use zod to define a schema for the output using the `fromZodSchema` method of `StructuredOutputParser`.
+  const parser = StructuredOutputParser.fromZodSchema(
+    z.object({
+      price_ending: z
+        .string()
+        .describe("Ending price of budget. Return 0 if not passed"),
+      price_starting: z
+        .string()
+        .describe("Starting price of budget. Return 0 if not passed"),
+    })
+  );
+
+  const chain = RunnableSequence.from([
+    PromptTemplate.fromTemplate(
+      "Parse the description provided by user to extract information about real estate preferences.\n{format_instructions}\n{description}."
+    ),
+    new OpenAI({ temperature: 0 }),
+    parser,
+  ]);
+
+  // console.log(parser.getFormatInstructions());
+
+  const response = await chain.invoke({
+    description: description,
+    format_instructions: parser.getFormatInstructions(),
+  });
+
+  return response;
 };
 export default llmApi;
-
-const description =
-  "I need a single family home in the city of Seattle, Ballard, Shoreline, Bothell neighborhoods starting from 900000 to 1.2 million. also need 3 bedrooms. I want it to have a fireplace, garage, backyard";
 
 // llmApi();
 console.log(await llmApi(description));
