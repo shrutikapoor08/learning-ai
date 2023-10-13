@@ -43,7 +43,7 @@ console.log(responseData)
     propertiesListContainer.appendChild(document.createTextNode(streetAddress));
     propertiesListContainer.appendChild(document.createTextNode(` ${bedrooms} bedrooms`));
     propertiesListContainer.appendChild(document.createTextNode(` ${bathrooms} bathrooms`));
-    propertiesListContainer.appendChild(document.createTextNode(` ${price} DOLLA`));
+    propertiesListContainer.appendChild(document.createTextNode(` ${price} DOLLA DOLLA BILLS`));
 
     propertiesListContainer.appendChild(newDiv)
 
@@ -55,6 +55,7 @@ submitButton.addEventListener("click", async (e) => {
     e.preventDefault();
   const description = searchInput.value;
 
+  // Send data to parse properties
   const url = '/parse-properties'
   const formData = { post: description }
 
@@ -64,7 +65,6 @@ submitButton.addEventListener("click", async (e) => {
 });
 
 async function postFormDataAsJson({ url, formData }) {
-	// const plainFormData = Object.fromEntries(formData.entries());
 	const formDataJsonString = JSON.stringify(formData);
 
 	const fetchOptions = {

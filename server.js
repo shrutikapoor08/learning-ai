@@ -44,8 +44,6 @@ app.post("/parse-properties", async function (req, res) {
   const requirements = req.body.post;
   const response = await llmApi(requirements);
 
-  // console.log(response);
-
   const propertiesRequirements = {
     price_ending: response?.price_ending,
     price_starting: response?.price_starting,

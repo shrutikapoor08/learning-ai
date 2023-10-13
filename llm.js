@@ -26,26 +26,24 @@ What is a good name for a startup that uses AI to create {product}?`
   );
 
   const chain = prompt.pipe(llm);
-  const result = await chain.invoke({ product: "real estate listings" });
+  const result = await chain.invoke({ product: "fashion design" });
 
   console.log(result);
 
   */
 
-  /*
   // *
   // *
   // * Example 2: Chained Prompt Templates
   // *
   // *
-
-
+  /*
   const prompt1 = PromptTemplate.fromTemplate(
     `What are the three most preferred cities in the world for a person working as a {job}? Only respond with the name of the cities.`
   );
   const prompt2 = PromptTemplate.fromTemplate(
     ` You are a starting a new AI startup and thinking of a name.
-    Suggest three good names for a startup that uses AI to create {product}
+    Suggest a name for a startup that uses AI to create {product}
      in the city {city}. Include the name of the city in the name.`
   );
 
@@ -61,15 +59,13 @@ What is a good name for a startup that uses AI to create {product}?`
   ]);
 
   const result = await combinedChain.invoke({
-    job: "Software Engineer",
-    product: "Real Estate Listings",
+    job: "Fashion Designer",
+    product: "Wedding outfits",
   });
 
   console.log(result);
+*/
 
-  */
-
-  // /*
   // *
   // *
   // * Example 3: Property API
@@ -102,10 +98,9 @@ What is a good name for a startup that uses AI to create {product}?`
   });
 
   return response;
-  // */
 };
 export default llmApi;
 
 // llmApi();
-const description =
-  "Looking for a house in the range of 900000 to 1200000. Needs to have three bedrooms";
+// const description =
+//   "Looking for a house in the range of 900000 to 1200000. Needs to have three bedrooms";
