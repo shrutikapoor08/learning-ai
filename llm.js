@@ -1,8 +1,8 @@
-import { PromptTemplate } from "langchain/prompts";
-import { OpenAI } from "langchain/llms/openai";
+import { PromptTemplate } from "@langchain/core/prompts";
+import { OpenAI } from "@langchain/openai";
 import { StructuredOutputParser } from "langchain/output_parsers";
-import { StringOutputParser } from "langchain/schema/output_parser";
-import { RunnableSequence } from "langchain/schema/runnable";
+import { StringOutputParser } from "@langchain/core/output_parsers";
+import { RunnableSequence } from "@langchain/core/runnables";
 import { ChatAnthropic } from "langchain/chat_models/anthropic";
 
 import { z } from "zod";
@@ -13,7 +13,6 @@ const llmApi = async (description) => {
   const llm = new OpenAI({
     openAIApiKey: process.env.OPENAI_API_KEY,
   });
-
   /*
   // *
   // *
@@ -21,23 +20,23 @@ const llmApi = async (description) => {
   // *
   // *
   const prompt = PromptTemplate.fromTemplate(
-    `You are a starting a new AI startup and thinking of a name.
+    `I am starting a new AI startup and thinking of a name.
 What is a good name for a startup that uses AI to create {product}?`
   );
 
   const chain = prompt.pipe(llm);
-  const result = await chain.invoke({ product: "fashion design" });
+  const result = await chain.invoke({ product: "instagram reels" });
 
   console.log(result);
-
   */
 
+  /*
   // *
   // *
   // * Example 2: Chained Prompt Templates
   // *
   // *
-  /*
+  // /*
   const prompt1 = PromptTemplate.fromTemplate(
     `What are the three most preferred cities in the world for a person working as a {job}? Only respond with the name of the cities.`
   );
@@ -59,13 +58,14 @@ What is a good name for a startup that uses AI to create {product}?`
   ]);
 
   const result = await combinedChain.invoke({
-    job: "Fashion Designer",
-    product: "Wedding outfits",
+    job: "fashion",
+    product: "heels",
   });
 
   console.log(result);
-*/
+  */
 
+  // /*
   // *
   // *
   // * Example 3: Property API
@@ -97,10 +97,14 @@ What is a good name for a startup that uses AI to create {product}?`
     format_instructions: parser.getFormatInstructions(),
   });
 
+  console.log({ response });
   return response;
+  // */
 };
+
 export default llmApi;
 
+const description =
+  "Looking for a house in the range of 900000 to 1200000. Needs to have four bedrooms with a lake view of lake union";
+llmApi(description);
 // llmApi();
-// const description =
-//   "Looking for a house in the range of 900000 to 1200000. Needs to have three bedrooms";

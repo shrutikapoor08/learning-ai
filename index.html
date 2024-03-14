@@ -55,6 +55,8 @@ submitButton.addEventListener("click", async (e) => {
     e.preventDefault();
   const description = searchInput.value;
 
+  console.log({description})
+
   // Send data to parse properties
   const url = '/parse-properties'
   const formData = { post: description }
@@ -72,6 +74,8 @@ async function postFormDataAsJson({ url, formData }) {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
+      
+
 		},
 		body: formDataJsonString,
 	};

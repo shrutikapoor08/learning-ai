@@ -7,12 +7,17 @@ import llmApi from "./llm.js";
 import axios from "axios";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const router = express.Router();
 
 const __dirname = path.resolve(path.dirname(""));
 
 app.use(express.json({ strict: false }));
+
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 const fetchProperties = async ({ propertiesRequirements }) => {
   const options = {
@@ -42,6 +47,7 @@ const fetchProperties = async ({ propertiesRequirements }) => {
 
 app.post("/parse-properties", async function (req, res) {
   const requirements = req.body.post;
+  console.log({ requirements });
   const response = await llmApi(requirements);
 
   const propertiesRequirements = {
@@ -54,6 +60,8 @@ app.post("/parse-properties", async function (req, res) {
 
   // call API for fetching properties
   const propertiesResponse = await fetchProperties({ propertiesRequirements });
+
+  res.set("Access-Control-Allow-Origin", "*");
 
   res.send(propertiesResponse);
 });
