@@ -31,7 +31,7 @@ const fetchProperties = async ({ propertiesRequirements }) => {
       price_max: propertiesRequirements.price_ending,
     },
     headers: {
-      "X-RapidAPI-Key": "1082b29331mshf1c50763d566794p1aa9ffjsne135989b6a1b",
+      "X-RapidAPI-Key": process.env.RAPID_API_KEY,
       "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
     },
   };
@@ -40,7 +40,6 @@ const fetchProperties = async ({ propertiesRequirements }) => {
     const response = await axios.request(options);
     return response.data.results;
   } catch (error) {
-    console.log("issue coming");
     console.error(error);
   }
 };
@@ -51,8 +50,8 @@ app.post("/parse-properties", async function (req, res) {
   const response = await llmApi(requirements);
 
   const propertiesRequirements = {
-    price_ending: response?.price_ending,
-    price_starting: response?.price_starting,
+    price_ending: response?.price_ending?.replace(/,/g, ""),
+    price_starting: response?.price_starting?.replace(/,/g, ""),
     bedrooms: response?.bedrooms,
   };
 
