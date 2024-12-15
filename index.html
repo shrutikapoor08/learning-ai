@@ -1,95 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="flex max-w-5xl">
-  <div class=" mx-auto justify-center items-center my-10 min-h-screen">
-
-  <h1 class="sm:text-6xl text-4xl text-slate-900 font-bold">
-    Use AI to look for Seattle real estate
-  </h1>
-
-  <textarea id="searchInput" rows="4" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="I am looking for a 3 bedroom single family house in Seattle..."></textarea>
-
-  <button id="submitButton" class="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10">Search</button>
-
-<div id="properties"></div>
-
-</div>
-<script type="text/javascript">
-const searchInput = document.getElementById("searchInput");
-const submitButton = document.getElementById("submitButton");
-const form = document.getElementById("searchForm");
-const propertiesListContainer = document.getElementById("properties");
-propertiesListContainer.className="flex flex-col"
-
-const renderProperties = ({responseData}) => {
-console.log(responseData)
-
-
-  responseData.map( ({bedrooms, bathrooms ,city, streetAddress, price, imgSrc, homeType }) => {
-            
-    const newDiv = document.createElement("div");
-    newDiv.className = 'block rounded-lg p-4 shadow-sm shadow-indigo-100'
-
-    const image = document.createElement('img');
-    image.setAttribute('src', imgSrc);
-    image.className = 'h-56 w-full rounded-md object-cover'
-
-    newDiv.appendChild(image)
-    propertiesListContainer.appendChild(document.createTextNode(streetAddress));
-    propertiesListContainer.appendChild(document.createTextNode(` ${bedrooms} bedrooms`));
-    propertiesListContainer.appendChild(document.createTextNode(` ${bathrooms} bathrooms`));
-    propertiesListContainer.appendChild(document.createTextNode(` ${price} DOLLA DOLLA BILLS`));
-
-    propertiesListContainer.appendChild(newDiv)
-
-  })
- 
-}
-
-submitButton.addEventListener("click", async (e) => {
-    e.preventDefault();
-  const description = searchInput.value;
-
-  console.log({description})
-
-  // Send data to parse properties
-  const url = '/parse-properties'
-  const formData = { post: description }
-
-  const responseData = await postFormDataAsJson({ url, formData });
-  renderProperties({responseData});
-  return false;
-});
-
-async function postFormDataAsJson({ url, formData }) {
-	const formDataJsonString = JSON.stringify(formData);
-
-	const fetchOptions = {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json",
-      
-
-		},
-		body: formDataJsonString,
-	};
-
-	const response = await fetch(url, fetchOptions);
-
-  if (!response.ok) {
-		const errorMessage = await response.text();
-        console.log(errorMessage)
-		throw new Error(errorMessage);
-	}
-
-	return response.json();
-}
-  </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
