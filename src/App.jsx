@@ -28,7 +28,7 @@ function App() {
   };
 
   const renderProperties = (responseData) => {
-    responseData.map(
+    return responseData.map(
       ({
         bedrooms,
         bathrooms,
@@ -68,6 +68,7 @@ function App() {
     const url = "/parse-properties";
     const formData = { post: description };
 
+    //wrap this in try catch
     const responseData = await fetch(url, {
       method: "POST",
       headers: {
@@ -85,10 +86,6 @@ function App() {
     const parsedData = await responseData.json();
     setProperties(parsedData);
   };
-
-  useEffect(() => {
-    renderProperties(properties);
-  }, [properties]);
 
   return (
     <div className="flex max-w-5xl p-4 m-4">
@@ -113,27 +110,7 @@ function App() {
         </button>
 
         <div id="properties" className="flex flex-col">
-          {properties.map((property) => (
-            <div
-              key={property.streetAddress}
-              className="flex flex-col rounded-lg p-4 m-4 shadow-sm shadow-indigo-100 text-center"
-            >
-              <img
-                src={property.imgSrc}
-                className="h-56 w-full rounded-md object-cover"
-              />
-              <p>{property.streetAddress}</p>
-              <p>{property.bedrooms} bedrooms</p>
-              <p>{property.bathrooms} bathrooms</p>
-              <p>${property.price}</p>
-              <button
-                onClick={saveProperty}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-              >
-                Save
-              </button>
-            </div>
-          ))}
+          {renderProperties(properties)}
         </div>
       </div>
     </div>
