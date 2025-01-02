@@ -85,7 +85,7 @@ app.post("/api/parse-properties", async function (req, res) {
   res.send(propertiesResponse);
 });
 
-app.post("/save-property", async function (req, res) {
+app.post("/api/save-property", async function (req, res) {
   // const propertyParams = {
   //   price_ending: response?.price_ending?.replace(/,/g, ""),
   //   price_starting: response?.price_starting?.replace(/,/g, ""),

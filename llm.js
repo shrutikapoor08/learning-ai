@@ -39,9 +39,3 @@ const llmApi = async (description) => {
 };
 
 export default llmApi;
-
-const description =
-  "Looking for a house in the range of 900000 to 1200000. Needs to have four bedrooms";
-
-llmApi(description);
-// llmApi();

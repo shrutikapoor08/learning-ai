@@ -7,7 +7,7 @@ function App() {
 
   const saveProperty = async () => {
     // Send data to parse properties
-    const url = "/save-property";
+    const url = "/api/save-property";
     const formData = {};
 
     const responseData = await fetch(url, {
@@ -69,15 +69,13 @@ function App() {
     const formData = { post: description };
     console.log({ formData });
 
-    //wrap this in try catch
     const responseData = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData.post),
+      body: JSON.stringify(formData),
     });
-    console.log({ responseData });
     if (!responseData.ok) {
       const errorMessage = await responseData.text();
       console.error(errorMessage);
