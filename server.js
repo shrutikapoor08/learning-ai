@@ -10,7 +10,7 @@ import { createDirectus, rest, createItem, readItems } from "@directus/sdk";
 const client = createDirectus("https://database.directus.app").with(rest());
 
 const app = express();
-const port = process.env.PORT || 5173;
+const port = process.env.PORT || 3001;
 
 const __dirname = path.resolve(path.dirname(""));
 
@@ -65,9 +65,9 @@ const savePropertiesToDB = async ({ propertyParams }) => {
   return item;
 };
 
-app.post("/parse-properties", async function (req, res) {
-  const requirements = req.body.post;
+app.post("/api/parse-properties", async function (req, res) {
   console.log("parse properties");
+  const requirements = req.body.post;
   const response = await llmApi(requirements);
 
   const propertiesRequirements = {
@@ -104,6 +104,7 @@ app.post("/save-property", async function (req, res) {
 });
 
 app.use("/", function (req, res) {
+  console.log("hitting path /");
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 

@@ -65,8 +65,9 @@ function App() {
     const description = searchInput;
 
     // Send data to parse properties
-    const url = "/parse-properties";
+    const url = "/api/parse-properties";
     const formData = { post: description };
+    console.log({ formData });
 
     //wrap this in try catch
     const responseData = await fetch(url, {
@@ -74,9 +75,9 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(formData.post),
     });
-
+    console.log({ responseData });
     if (!responseData.ok) {
       const errorMessage = await responseData.text();
       console.error(errorMessage);
@@ -101,6 +102,17 @@ function App() {
           className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           placeholder="I am looking for a 3 bedroom single family house in Seattle..."
         ></textarea>
+
+        <button
+          onClick={() =>
+            setSearchInput(
+              "Looking for a 3 bedroom house in Seattle in the starting range of 1 million to 2 million"
+            )
+          }
+          className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
+        >
+          Fill Description
+        </button>
 
         <button
           onClick={handleSubmit}

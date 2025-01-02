@@ -9,7 +9,7 @@ import "dotenv/config";
 
 const llmApi = async (description) => {
   const llm = new OpenAI({
-    openAIApiKey: "process.env.OPENAI_API_KEY",
+    openAIApiKey: process.env.OPENAI_API_KEY,
   });
 
   const parser = StructuredOutputParser.fromZodSchema(
