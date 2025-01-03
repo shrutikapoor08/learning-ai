@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+// TODO
+// ✅ Add Tailwind
+// Make it look pretty
+// ✅  add address as a heading.
+// add link to zillow
+// price should be in a bigger font
+// save button should be smaller.
+// Add save functionality.
+// Save items to the DB.
+// Fetch from DB.
+
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [properties, setProperties] = useState([]);
 
-  const saveProperty = async () => {
+  const saveProperty = async (property) => {
     // Send data to parse properties
     const url = "/api/save-property";
-    const formData = {};
 
     const responseData = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(property),
     });
 
     if (!responseData.ok) {
@@ -28,6 +38,7 @@ function App() {
   };
 
   const renderProperties = (responseData) => {
+    console.log({ responseData });
     return responseData.map(
       ({
         bedrooms,
@@ -37,19 +48,37 @@ function App() {
         price,
         imgSrc,
         homeType,
+        zpid,
       }) => {
         return (
           <div
-            key={streetAddress}
+            key={zpid}
             className="flex flex-col rounded-lg p-4 m-4 shadow-sm shadow-indigo-100 text-center"
           >
-            <img src={imgSrc} className="h-56 w-full rounded-md object-cover" />
-            <p>{streetAddress}</p>
-            <p>{bedrooms} bedrooms</p>
-            <p>{bathrooms} bathrooms</p>
+            <a href="#">
+              <img
+                src={imgSrc}
+                className="h-56 w-full rounded-md object-cover"
+              />
+            </a>
+            <p className="text-xl font-bold">{streetAddress}</p>
+            <p className="text-sm">
+              {bedrooms} bedrooms, {bathrooms} bathrooms
+            </p>
             <p>${price}</p>
             <button
-              onClick={saveProperty}
+              onClick={() =>
+                saveProperty({
+                  bedrooms,
+                  bathrooms,
+                  city,
+                  streetAddress,
+                  price,
+                  imgSrc,
+                  homeType,
+                  zpid,
+                })
+              }
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
             >
               Save
@@ -63,11 +92,11 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const description = searchInput;
+    if (!description) return;
 
     // Send data to parse properties
     const url = "/api/parse-properties";
     const formData = { post: description };
-    console.log({ formData });
 
     const responseData = await fetch(url, {
       method: "POST",
@@ -76,9 +105,9 @@ function App() {
       },
       body: JSON.stringify(formData),
     });
+
     if (!responseData.ok) {
       const errorMessage = await responseData.text();
-      console.error(errorMessage);
       throw new Error(errorMessage);
     }
 
@@ -99,7 +128,7 @@ function App() {
           rows="4"
           className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           placeholder="I am looking for a 3 bedroom single family house in Seattle..."
-        ></textarea>
+        />
 
         <button
           onClick={() =>
@@ -119,7 +148,7 @@ function App() {
           Search
         </button>
 
-        <div id="properties" className="flex flex-col">
+        <div id="properties" className="grid grid-cols-3 gap-4">
           {renderProperties(properties)}
         </div>
       </div>

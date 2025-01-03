@@ -46,14 +46,29 @@ const fetchProperties = async ({ propertiesRequirements }) => {
   }
 };
 
-const savePropertiesToDB = async ({ propertyParams }) => {
-  console.log("TESTING$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+const savePropertyToDB = async (property) => {
+  const {
+    bedrooms,
+    bathrooms,
+    city,
+    streetAddress,
+    price,
+    imgSrc,
+    homeType,
+    zpid,
+  } = property;
   let item;
   try {
     item = await client.request(
       createItem("Property", {
-        id: "2",
-        starting_range: "300000",
+        zpid,
+        bedrooms,
+        bathrooms,
+        city,
+        streetAddress,
+        price,
+        imgSrc,
+        homeType,
       })
     );
   } catch (e) {
@@ -61,7 +76,6 @@ const savePropertiesToDB = async ({ propertyParams }) => {
     throw new Error(e.message);
   }
 
-  console.log({ item });
   return item;
 };
 
@@ -86,17 +100,9 @@ app.post("/api/parse-properties", async function (req, res) {
 });
 
 app.post("/api/save-property", async function (req, res) {
-  // const propertyParams = {
-  //   price_ending: response?.price_ending?.replace(/,/g, ""),
-  //   price_starting: response?.price_starting?.replace(/,/g, ""),
-  //   bedrooms: response?.bedrooms,
-  //   zpid: response?.zpid,
-  // };
-
-  const propertyParams = {};
-
+  const property = req.body;
   // call DB API for fetching properties
-  const propertiesResponse = await savePropertiesToDB({ propertyParams });
+  const propertiesResponse = await savePropertyToDB(property);
 
   res.set("Access-Control-Allow-Origin", "*");
 

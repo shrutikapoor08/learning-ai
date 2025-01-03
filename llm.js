@@ -8,6 +8,7 @@ import { z } from "zod";
 import "dotenv/config";
 
 const llmApi = async (description) => {
+  console.log({ description });
   const llm = new OpenAI({
     openAIApiKey: process.env.OPENAI_API_KEY,
   });
@@ -35,6 +36,7 @@ const llmApi = async (description) => {
     format_instructions: parser.getFormatInstructions(),
   });
 
+  console.log({ response });
   return response;
 };
 
