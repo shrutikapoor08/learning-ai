@@ -56,9 +56,11 @@ const savePropertyToDB = async (property) => {
     imgSrc,
     homeType,
     zpid,
+    preference,
   } = property;
   let item;
   try {
+    console.log({ preference });
     item = await client.request(
       createItem("Property", {
         zpid,
@@ -69,6 +71,7 @@ const savePropertyToDB = async (property) => {
         price,
         imgSrc,
         homeType,
+        preference,
       })
     );
   } catch (e) {
@@ -76,6 +79,7 @@ const savePropertyToDB = async (property) => {
     throw new Error(e.message);
   }
 
+  console.log({ item });
   return item;
 };
 

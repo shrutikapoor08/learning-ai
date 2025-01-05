@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-// TODO
-// ✅ Add Tailwind
-// Make it look pretty
-// ✅  add address as a heading.
-// add link to zillow
-// price should be in a bigger font
-// save button should be smaller.
-// Add save functionality.
-// Save items to the DB.
-// Fetch from DB.
+const PREFERENCE = {
+  LIKED: true,
+  DISLIKED: false,
+  NO_PREFERENCE: undefined,
+};
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -53,36 +48,60 @@ function App() {
         return (
           <div
             key={zpid}
-            className="flex flex-col rounded-lg p-4 m-4 shadow-sm shadow-indigo-100 text-center"
+            className="flex flex-col rounded-lg s-p-1 s-m-1 lg-p-4 lg-m-4 shadow-sm shadow-indigo-100 text-center"
           >
             <a href="#">
               <img
                 src={imgSrc}
-                className="h-56 w-full rounded-md object-cover"
+                className="max-h-2x w-full rounded-s object-cover"
               />
             </a>
-            <p className="text-xl font-bold">{streetAddress}</p>
-            <p className="text-sm">
+            <p className="text-l font-bold">${price}</p>
+            <p className="text-xs m-1">
               {bedrooms} bedrooms, {bathrooms} bathrooms
             </p>
-            <p>${price}</p>
-            <button
-              onClick={() =>
-                saveProperty({
-                  bedrooms,
-                  bathrooms,
-                  city,
-                  streetAddress,
-                  price,
-                  imgSrc,
-                  homeType,
-                  zpid,
-                })
-              }
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-            >
-              Save
-            </button>
+            <p className="text-xs">
+              {streetAddress}, {city}
+            </p>
+
+            <div className="flex flex-row justify-center align-center">
+              <button
+                onClick={() =>
+                  saveProperty({
+                    bedrooms,
+                    bathrooms,
+                    city,
+                    streetAddress,
+                    price,
+                    imgSrc,
+                    homeType,
+                    zpid,
+                    preference: true,
+                  })
+                }
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
+              >
+                Like
+              </button>
+              <button
+                onClick={() =>
+                  saveProperty({
+                    bedrooms,
+                    bathrooms,
+                    city,
+                    streetAddress,
+                    price,
+                    imgSrc,
+                    homeType,
+                    zpid,
+                    preference: false,
+                  })
+                }
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
+              >
+                Dislike
+              </button>
+            </div>
           </div>
         );
       }
@@ -116,7 +135,7 @@ function App() {
   };
 
   return (
-    <div className="flex max-w-5xl p-4 m-4">
+    <div className="flex p-4 m-4">
       <div className="mx-auto justify-center items-center m-10 min-h-screen">
         <h1 className="sm:text-6xl text-4xl text-slate-900 mb-10 font-bold sans-serif">
           Search for properties in Seattle
@@ -148,7 +167,12 @@ function App() {
           Search
         </button>
 
-        <div id="properties" className="grid grid-cols-3 gap-4">
+        <div id="properties" className="flex flex-row flex-wrap">
+          {properties.length > 0 && (
+            <h2 className="font-bold text-xl">
+              Seattle WA Real Estate & Homes For Sale
+            </h2>
+          )}
           {renderProperties(properties)}
         </div>
       </div>

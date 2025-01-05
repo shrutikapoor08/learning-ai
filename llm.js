@@ -20,6 +20,15 @@ const llmApi = async (description) => {
         .describe("Ending price of budget. Return 1000000 if not passed"),
       price_starting: z.string().describe("Starting price of budget."),
       bedrooms: z.number().describe("Number of bedrooms."),
+      bathrooms: z
+        .number()
+        .describe("Number of bathrooms. Return 1 if not passed"),
+      nice_to_haves: z
+        .string()
+        .array()
+        .describe(
+          "Nice to haves such as backyard, frontyard. Return as an array of string"
+        ),
     })
   );
 
