@@ -33,7 +33,6 @@ function App() {
   };
 
   const renderProperties = (responseData) => {
-    console.log({ responseData });
     return responseData.map(
       ({
         bedrooms,
@@ -48,12 +47,12 @@ function App() {
         return (
           <div
             key={zpid}
-            className="flex flex-col rounded-lg s-p-1 s-m-1 lg-p-4 lg-m-4 shadow-sm shadow-indigo-100 text-center"
+            className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
           >
             <a href="#">
               <img
                 src={imgSrc}
-                className="max-h-2x w-full rounded-s object-cover"
+                className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
               />
             </a>
             <p className="text-l font-bold">${price}</p>
@@ -152,24 +151,24 @@ function App() {
         <button
           onClick={() =>
             setSearchInput(
-              "Looking for a 3 bedroom house in Seattle in the starting range of 1 million to 2 million"
+              "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000"
             )
           }
-          className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
+          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
         >
           Fill Description
         </button>
 
         <button
           onClick={handleSubmit}
-          className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
+          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
         >
           Search
         </button>
 
-        <div id="properties" className="flex flex-row flex-wrap">
+        <div id="properties" className="flex flex-row justify-center flex-wrap">
           {properties.length > 0 && (
-            <h2 className="font-bold text-xl">
+            <h2 className="font-bold text-xl w-full">
               Seattle WA Real Estate & Homes For Sale
             </h2>
           )}
