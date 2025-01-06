@@ -13,8 +13,16 @@
 ## Jan 4, 2025
 ### Recommendation engine
 - Step 1: Create a dataset for liked / disliked properties.
-- Step 2: Ensure dataset has relevant fields - city, address, number of bedroom,bathrooms, nice to haves.
+- Step 2: Ensure dataset has relevant fields - city, address, number of bedroom, bathrooms, nice to haves.
 - Step 2.1: Parse "nice to haves" to json from the property listing.
+
+
 - Step 3: generate "corpus"
-- Step 4: create vector embeddings
-- Step 5: store vector embeddings in databse. 
+- Step 4: create vector embeddings for properties
+- Step 5: store vector embeddings in database. 
+
+## Jan 5, 2025
+### Create dataset
+- Step 1: Create a dataset for liked / disliked properties.
+- Step 2: Ensure dataset has relevant fields - city, address, number of bedroom, bathrooms, nice to haves.
+- Step 2.1: Parse "nice to haves" to json from the property listing.
