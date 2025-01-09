@@ -1,5 +1,17 @@
 # Real Estate App with Open AI, LangChain, DirectUs and Tailwind CSS
 
+## Tech Stack
+
+- React
+- Tailwind CSS
+- LangChain
+- Open AI
+- DirectUs
+- Express
+- Vite
+- NodeJS
+
+
 **Getting Started**
 
 To start the application, 

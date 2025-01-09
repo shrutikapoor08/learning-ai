@@ -21,6 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
+//TODO: Move to utility.
 const fetchProperties = async ({ propertiesRequirements }) => {
   const options = {
     method: "GET",
@@ -60,7 +61,6 @@ const savePropertyToDB = async (property) => {
   } = property;
   let item;
   try {
-    console.log({ preference });
     item = await client.request(
       createItem("Property", {
         zpid,
@@ -79,12 +79,10 @@ const savePropertyToDB = async (property) => {
     throw new Error(e.message);
   }
 
-  console.log({ item });
   return item;
 };
 
 app.post("/api/parse-properties", async function (req, res) {
-  console.log("parse properties");
   const requirements = req.body.post;
   const response = await llmApi(requirements);
 
@@ -111,6 +109,29 @@ app.post("/api/save-property", async function (req, res) {
   res.set("Access-Control-Allow-Origin", "*");
 
   res.send(propertiesResponse);
+});
+
+app.get("/api/property-details", async function (req, res) {
+  const zpid = req.query.zpid;
+
+  console.log({ zpid });
+  const response = fetch(
+    `https://zillow56.p.rapidapi.com/property?zpid=${zpid}`,
+    {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+        "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
+      },
+    }
+  );
+
+  console.log({ response });
+  const propertyDetail = await response.json();
+
+  console.log(propertyDetail);
+  res.set("Access-Control-Allow-Origin", "*");
+  res.send(propertyDetail);
 });
 
 app.use("/", function (req, res) {

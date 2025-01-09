@@ -26,7 +26,9 @@ const llmApi = async (description) => {
       nice_to_haves: z
         .string()
         .array()
-        .describe("Nice to haves. Return as an array of string"),
+        .describe(
+          "Nice to haves. Return as an array of string. If nothing is passed, return backyard."
+        ),
     })
   );
 
