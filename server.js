@@ -41,7 +41,7 @@ const fetchProperties = async ({ propertiesRequirements }) => {
 
   try {
     const response = await axios.request(options);
-    return response.data.results;
+    return response?.data?.results;
   } catch (error) {
     console.error(error);
   }
@@ -114,9 +114,8 @@ app.post("/api/save-property", async function (req, res) {
 app.get("/api/property-details", async function (req, res) {
   const zpid = req.query.zpid;
 
-  console.log({ zpid });
-  const response = fetch(
-    `https://zillow56.p.rapidapi.com/property?zpid=${zpid}`,
+  const response = await fetch(
+    `https://zillow56.p.rapidapi.com/propertyV2?zpid=${zpid}`,
     {
       method: "GET",
       headers: {
@@ -126,10 +125,8 @@ app.get("/api/property-details", async function (req, res) {
     }
   );
 
-  console.log({ response });
   const propertyDetail = await response.json();
 
-  console.log(propertyDetail);
   res.set("Access-Control-Allow-Origin", "*");
   res.send(propertyDetail);
 });
