@@ -19,6 +19,7 @@ function PropertyDetails({
     const url = `/api/property-details/?zpid=${zpid}`;
     const response = await fetch(url);
     const responseData = await response.json();
+    console.log({ responseData });
   };
 
   return (
