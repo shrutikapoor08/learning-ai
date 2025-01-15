@@ -14,11 +14,14 @@ function PropertyDetails({
     saveProperty,
   },
 }) {
+  const [propertyDetails, setPropertyDetails] = useState({});
+
   const fetchDetails = async () => {
     console.log("fetching details", zpid);
     const url = `/api/property-details/?zpid=${zpid}`;
     const response = await fetch(url);
     const responseData = await response.json();
+    setPropertyDetails(responseData);
   };
 
   return (

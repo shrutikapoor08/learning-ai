@@ -32,37 +32,27 @@ function App() {
   };
 
   const renderProperties = (properties) => {
-    return properties
-      ?.map?.((property) => property)
-      .map(
-        ({
-          bedrooms,
-          bathrooms,
-          city,
-          streetAddress,
-          price,
-          imgSrc,
-          homeType,
-          zpid,
-        }) => {
-          return (
-            <PropertyDetails
-              key={zpid}
-              property={{
-                bedrooms,
-                bathrooms,
-                city,
-                streetAddress,
-                price,
-                imgSrc,
-                homeType,
-                zpid,
-                saveProperty,
-              }}
-            />
-          );
-        }
+    return properties?.map?.(({ property }) => {
+      const { bedrooms, bathrooms, address, price, media, propertyType, zpid } =
+        property;
+
+      return (
+        <PropertyDetails
+          key={zpid}
+          property={{
+            bedrooms,
+            bathrooms,
+            city: address.city,
+            streetAddress: address.streetAddress,
+            price: price?.value,
+            imgSrc: media?.allPropertyPhotos?.highResolution[0],
+            homeType: propertyType,
+            zpid,
+            saveProperty,
+          }}
+        />
       );
+    });
   };
 
   const handleSubmit = async (e) => {

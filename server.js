@@ -1,15 +1,15 @@
 import express from "express";
 import path from "path";
 import llmApi from "./llm.js";
-import axios from "axios";
 
+import "dotenv/config";
 import { createDirectus, rest, createItem, readItems } from "@directus/sdk";
 import { URLSearchParams } from "url";
 const client = createDirectus("https://database.directus.app").with(rest());
 
 const ZILLOW_API = {
   SEARCH: "https://zillow-working-api.p.rapidapi.com/search/byaddress",
-  PROPERTY_DETAILS: "https://zillow-working-api.p.rapidapi.com/propertyV2",
+  PROPERTY_DETAILS: "https://zillow-working-api.p.rapidapi.com/byzpid",
 };
 
 const app = express();
@@ -104,7 +104,6 @@ app.post("/api/parse-properties", async function (req, res) {
   const propertiesResponse = await fetchProperties({ propertiesRequirements });
 
   res.set("Access-Control-Allow-Origin", "*");
-
   res.send(propertiesResponse);
 });
 
