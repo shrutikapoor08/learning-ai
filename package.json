@@ -13,15 +13,19 @@
     "@directus/sdk": "^18.0.3",
     "@langchain/core": "^0.3.26",
     "@langchain/openai": "^0.3.16",
+    "@tanstack/react-router": "^1.97.0",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "langchain": "^0.3.8",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@tanstack/router-devtools": "^1.97.0",
+    "@tanstack/router-plugin": "^1.97.0",
+    "@tanstack/router-vite-plugin": "^1.97.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
