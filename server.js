@@ -1,13 +1,16 @@
 import express from "express";
-// import testAPI from "./client.js";
-import fs from "fs";
-import { dirname } from "path";
 import path from "path";
 import llmApi from "./llm.js";
 import axios from "axios";
 
 import { createDirectus, rest, createItem, readItems } from "@directus/sdk";
+import { URLSearchParams } from "url";
 const client = createDirectus("https://database.directus.app").with(rest());
+
+const ZILLOW_API = {
+  SEARCH: "https://zillow-working-api.p.rapidapi.com/search/byaddress",
+  PROPERTY_DETAILS: "https://zillow-working-api.p.rapidapi.com/propertyV2",
+};
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -23,27 +26,31 @@ app.use((req, res, next) => {
 
 //TODO: Move to utility.
 const fetchProperties = async ({ propertiesRequirements }) => {
+  const params = new URLSearchParams({
+    location: "Seattle, WA",
+    listingStatus: "For_Sale",
+    bed_min: propertiesRequirements.bedrooms,
+    bed_max: "No_Max",
+    min: propertiesRequirements.price_starting,
+    max: propertiesRequirements.price_ending,
+  }).toString();
+  const url = `${ZILLOW_API.SEARCH}?${params}`;
   const options = {
     method: "GET",
-    url: "https://zillow56.p.rapidapi.com/search",
-    params: {
-      location: "seattle",
-      status: "forSale",
-      beds: propertiesRequirements.bedrooms,
-      price_min: propertiesRequirements.price_starting,
-      price_max: propertiesRequirements.price_ending,
-    },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
+      "X-RapidAPI-Host": "zillow-working-api.p.rapidapi.com",
     },
   };
 
+  let result;
   try {
-    const response = await axios.request(options);
-    return response?.data?.results;
+    const response = await fetch(url, options);
+
+    result = JSON.parse(await response.text());
+    return result?.searchResults;
   } catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 };
 
@@ -114,16 +121,13 @@ app.post("/api/save-property", async function (req, res) {
 app.get("/api/property-details", async function (req, res) {
   const zpid = req.query.zpid;
 
-  const response = await fetch(
-    `https://zillow56.p.rapidapi.com/propertyV2?zpid=${zpid}`,
-    {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-        "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
-      },
-    }
-  );
+  const response = await fetch(`${ZILLOW_API.PROPERTY_DETAILS}?zpid=${zpid}`, {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+      "X-RapidAPI-Host": "zillow-working-api.p.rapidapi.com",
+    },
+  });
 
   const propertyDetail = await response.json();
 

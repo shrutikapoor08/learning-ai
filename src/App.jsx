@@ -31,36 +31,38 @@ function App() {
     }
   };
 
-  const renderProperties = (responseData) => {
-    return responseData.map(
-      ({
-        bedrooms,
-        bathrooms,
-        city,
-        streetAddress,
-        price,
-        imgSrc,
-        homeType,
-        zpid,
-      }) => {
-        return (
-          <PropertyDetails
-            key={zpid}
-            property={{
-              bedrooms,
-              bathrooms,
-              city,
-              streetAddress,
-              price,
-              imgSrc,
-              homeType,
-              zpid,
-              saveProperty,
-            }}
-          />
-        );
-      }
-    );
+  const renderProperties = (properties) => {
+    return properties
+      ?.map?.((property) => property)
+      .map(
+        ({
+          bedrooms,
+          bathrooms,
+          city,
+          streetAddress,
+          price,
+          imgSrc,
+          homeType,
+          zpid,
+        }) => {
+          return (
+            <PropertyDetails
+              key={zpid}
+              property={{
+                bedrooms,
+                bathrooms,
+                city,
+                streetAddress,
+                price,
+                imgSrc,
+                homeType,
+                zpid,
+                saveProperty,
+              }}
+            />
+          );
+        }
+      );
   };
 
   const handleSubmit = async (e) => {
