@@ -15,17 +15,41 @@
  ----
 ## Jan 4, 2025
 ### Recommendation engine
-- Step 1: Create a dataset for liked / disliked properties.
-- Step 2: Ensure dataset has relevant fields - city, address, number of bedroom, bathrooms, nice to haves.
-- Step 2.1: Parse "nice to haves" to json from the property listing.
-
-
-- Step 3: generate "corpus"
-- Step 4: create vector embeddings for properties
-- Step 5: store vector embeddings in database. 
+- ✅Step 1: Create a dataset for liked / disliked properties.
+- ✅Step 2: Ensure dataset has relevant fields - city, address, number of bedroom, bathrooms, nice to haves.
 
 ## Jan 5, 2025
 ### Create dataset
 - ✅Step 1: Create a dataset for liked / disliked properties.
 - ✅Step 2: Ensure dataset has relevant fields - city, address, number of bedroom, bathrooms, nice to haves.
+
+## Jan 20, 2025
+- ✅Step 1: Find a database that is compatible with vector data. -> Convex. 
+- Step 2: Create vector embeddings for properties. Use LangChain to generate embeddings. 
+- Step 3: Create table in database. 
+- Step 4: store vector embeddings in database. 
+- Step 5: Define a vector index
+- Step 5: Perform vector Similarity search
+  
+
+### Database choices. 
+
+#### Turso
+1. Need to use drizzle/prisma to avoid writing SQL. 
+   
+
+Pro - 
+
+Cons - 
+
+#### Convex
+1. Use`ctx.vectorSearch`
+2. Use within a convex action. 
+
+Pro - 
+1. No need to write SQL
+2. 
+
+
+## Later
 - Step 2.1: Parse "nice to haves" to json from the property listing.
