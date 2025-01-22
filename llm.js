@@ -1,5 +1,6 @@
 import { PromptTemplate } from "@langchain/core/prompts";
-import { OpenAI } from "@langchain/openai";
+import { JSONLoader } from "langchain/document_loaders/fs/json";
+import { OpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { StructuredOutputParser } from "langchain/output_parsers";
 import { RunnableSequence } from "@langchain/core/runnables";
 
@@ -38,9 +39,17 @@ const llmApi = async (description) => {
     PromptTemplate.fromTemplate(
       "Parse the description provided by user to extract information about real estate preferences.\n{format_instructions}\n{description}."
     ),
-    new OpenAI({ temperature: 0 }),
+    llm,
     parser,
   ]);
+
+  const loader = new JSONLoader("./src/data.json");
+  const jsonParsedData = await loader.load();
+  console.log(jsonParsedData);
+
+  const embeddings_model = new OpenAIEmbeddings();
+  const embeddings = await embeddings_model.embedDocuments(jsonParsedData);
+  console.log(embeddings);
 
   const response = await chain.invoke({
     description: description,

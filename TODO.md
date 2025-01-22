@@ -36,11 +36,10 @@
 
 #### Turso
 1. Need to use drizzle/prisma to avoid writing SQL. 
-   
 
 Pro - 
-
 Cons - 
+1. Hard to do as compared to Convex. 
 
 #### Convex
 1. Use`ctx.vectorSearch`
@@ -48,7 +47,12 @@ Cons -
 
 Pro - 
 1. No need to write SQL
-2. 
+1. Familiar codebase. 
+
+### Embeddings
+- Embeddings create vector representations of a piece of text. 
+- OpenAI provides embeddings. 
+- `embed_documents` takes multiple texts as input. 
 
 
 ## Later
