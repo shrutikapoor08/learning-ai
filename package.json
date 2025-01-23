@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"format": "biome check --write",
 		"build": "vite build",
-		"lint": "eslint .",
+		"lint": "biome check",
 		"preview": "vite preview"
 	},
 	"dependencies": {
