@@ -7,7 +7,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
-  routeTree,
+	routeTree,
 });
 
 // TODO: Add this after converting codebase to TS
@@ -18,7 +18,7 @@ const router = createRouter({
 // }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+	<StrictMode>
+		<RouterProvider router={router} />
+	</StrictMode>,
 );
