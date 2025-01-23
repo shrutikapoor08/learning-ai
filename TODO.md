@@ -25,10 +25,12 @@
 
 ## Jan 20, 2025
 - ✅Step 1: Find a database that is compatible with vector data. -> Convex. 
-- Step 2: Create vector embeddings for properties. Use LangChain to generate embeddings. 
-- Step 3: Create table in database. 
+-  ✅Step 2: Create vector embeddings for properties (text). Use LangChain to generate embeddings. 
+-  ✅Step 2.1: create vector embeddings for json. 
+- Step 3: Create table in database and create schema. 
+  - Step 3.1: Define a vector index
+
 - Step 4: store vector embeddings in database. 
-- Step 5: Define a vector index
 - Step 5: Perform vector Similarity search
   
 
@@ -39,7 +41,7 @@
 
 Pro - 
 Cons - 
-1. Hard to do as compared to Convex. 
+1. Hard to do as-compared to Convex. 
 
 #### Convex
 1. Use`ctx.vectorSearch`
@@ -57,3 +59,17 @@ Pro -
 
 ## Later
 - Step 2.1: Parse "nice to haves" to json from the property listing.
+
+
+
+## Jan 22, 2025 - Create vector embeddings for JSON. Put in DB
+## Jan 23, 2025 - Put in DB. Create index.
+## Jan 24, 2025 - Perform vector similarity search.
+## Jan 25, 2025 DAY OFF 
+## Jan 26, 2025 DAY OFF 
+## Jan 27, 2025 - Fetch similarity JSON object from similarity search
+## Jan 28, 2025 - Fetch similar propertyies from Zillow API
+## Jan 29, 2025 - Render properties on the page
+## Jan 30, 2025 - Buffer day. Be lazy. Test.
+## Jan 31, 2025: Ship 
+

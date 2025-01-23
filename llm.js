@@ -43,11 +43,30 @@ const llmApi = async (description) => {
     parser,
   ]);
 
-  const loader = new JSONLoader("./src/data.json");
-  const jsonParsedData = await loader.load();
+  const data = [
+    {
+      price_ending: "1000000",
+      price_starting: "0",
+      bedrooms: 3,
+      bathrooms: 1,
+      nice_to_haves: ["backyard"],
+    },
+    {
+      price_ending: "1000000",
+      price_starting: "0",
+      bedrooms: 4,
+      bathrooms: 1,
+      nice_to_haves: ["backyard"],
+    },
+  ];
 
+  const stringfiedData = data.map((item) => JSON.stringify(item));
+  // const jsonParsedData = stringfiedData.join("\n");
+  // const jsonParsedData = JSON.stringify(data, null, 2);
+
+  console.log({ stringfiedData });
   const embeddings_model = new OpenAIEmbeddings();
-  const embeddings = await embeddings_model.embedDocuments(jsonParsedData);
+  const embeddings = await embeddings_model.embedDocuments(stringfiedData);
   console.log(embeddings);
 
   const response = await chain.invoke({
