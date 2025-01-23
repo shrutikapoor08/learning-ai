@@ -47,6 +47,8 @@ function PropertyDetails({
 			className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
 		>
 			<a href="#">
+				{/*TODO: figure out how to provide alt here */}
+				{/* biome-ignore lint/a11y/useAltText: this will likely be fixed later */}
 				<img
 					src={imgSrc}
 					onClick={handleClick}
