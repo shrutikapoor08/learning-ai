@@ -60,6 +60,7 @@ function PropertyDetails({
 						})
 					}
 					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
+					type="button"
 				>
 					Like
 				</button>
@@ -78,6 +79,7 @@ function PropertyDetails({
 						})
 					}
 					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
+					type="button"
 				>
 					Dislike
 				</button>
