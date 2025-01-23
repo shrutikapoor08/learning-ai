@@ -136,7 +136,7 @@ app.get("/api/property-details", async (req, res) => {
 
 app.use("/", (req, res) => {
 	console.log("hitting path /");
-	res.sendFile(path.join(__dirname + "/index.html"));
+	res.sendFile(path.join(`${__dirname}/index.html`));
 });
 
 app.listen(port, () => {
