@@ -46,6 +46,8 @@ function PropertyDetails({
 			key={zpid}
 			className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
 		>
+			{/*TODO: figure out how to provide the correct anchor, or remove the link part entirely */}
+			{/* biome-ignore lint/a11y/useValidAnchor: this will likely be fixed later */}
 			<a href="#">
 				{/*TODO: figure out how to provide alt here */}
 				{/* biome-ignore lint/a11y/useAltText: this will likely be fixed later */}
