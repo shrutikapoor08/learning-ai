@@ -17,7 +17,7 @@
 To start the application, 
 1. run `npm install` to install the dependencies
 2. `npm run dev` to start the development server. The app will be available at `http://localhost:5174`.
-3. run server by `npm start`. The server is available at `http://localhost:3001`.
+3. run server by `nodemon server.js`. The server is available at `http://localhost:3001`.
 
 **Features**
 

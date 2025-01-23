@@ -45,7 +45,6 @@ const llmApi = async (description) => {
 
   const loader = new JSONLoader("./src/data.json");
   const jsonParsedData = await loader.load();
-  console.log(jsonParsedData);
 
   const embeddings_model = new OpenAIEmbeddings();
   const embeddings = await embeddings_model.embedDocuments(jsonParsedData);
