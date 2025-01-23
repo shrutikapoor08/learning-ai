@@ -3,9 +3,7 @@ import { RunnableSequence } from "@langchain/core/runnables";
 import { OpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { JSONLoader } from "langchain/document_loaders/fs/json";
 import { StructuredOutputParser } from "langchain/output_parsers";
-
 import { z } from "zod";
-
 import "dotenv/config";
 
 const llmApi = async (description) => {
