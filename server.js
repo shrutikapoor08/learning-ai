@@ -89,7 +89,7 @@ const savePropertyToDB = async (property) => {
 	return item;
 };
 
-app.post("/api/parse-properties", async function (req, res) {
+app.post("/api/parse-properties", async (req, res) => {
 	const requirements = req.body.post;
 	const response = await llmApi(requirements);
 
@@ -107,7 +107,7 @@ app.post("/api/parse-properties", async function (req, res) {
 	res.send(propertiesResponse);
 });
 
-app.post("/api/save-property", async function (req, res) {
+app.post("/api/save-property", async (req, res) => {
 	const property = req.body;
 	// call DB API for fetching properties
 	const propertiesResponse = await savePropertyToDB(property);
@@ -117,7 +117,7 @@ app.post("/api/save-property", async function (req, res) {
 	res.send(propertiesResponse);
 });
 
-app.get("/api/property-details", async function (req, res) {
+app.get("/api/property-details", async (req, res) => {
 	const zpid = req.query.zpid;
 
 	const response = await fetch(`${ZILLOW_API.PROPERTY_DETAILS}?zpid=${zpid}`, {
@@ -134,11 +134,11 @@ app.get("/api/property-details", async function (req, res) {
 	res.send(propertyDetail);
 });
 
-app.use("/", function (req, res) {
+app.use("/", (req, res) => {
 	console.log("hitting path /");
 	res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-app.listen(port, function () {
+app.listen(port, () => {
 	console.log(`App listening on port ${port}!`);
 });
