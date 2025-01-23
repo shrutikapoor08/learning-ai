@@ -1,10 +1,10 @@
-import express from "express";
 import path from "node:path";
-import llmApi from "./llm.js";
-
-import "dotenv/config";
-import { createDirectus, rest, createItem, readItems } from "@directus/sdk";
 import { URLSearchParams } from "node:url";
+import express from "express";
+import llmApi from "./llm.js";
+import "dotenv/config";
+import { createDirectus, createItem, readItems, rest } from "@directus/sdk";
+
 const client = createDirectus("https://database.directus.app").with(rest());
 
 const ZILLOW_API = {
