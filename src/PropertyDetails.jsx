@@ -16,13 +16,30 @@ function PropertyDetails({
 }) {
 	const [propertyDetails, setPropertyDetails] = useState({});
 
-	const fetchDetails = async () => {
+	async function fetchDetails() {
 		console.log("fetching details", zpid);
 		const url = `/api/property-details/?zpid=${zpid}`;
 		const response = await fetch(url);
 		const responseData = await response.json();
 		setPropertyDetails(responseData);
-	};
+	}
+
+	function handleClick() {
+		return fetchDetails();
+	}
+
+	/**
+	 * @param {KeyboardEvent<HTMLImageElement>} e
+	 */
+	async function handleKeyUp(e) {
+		switch (e.key) {
+			case " ":
+				await fetchDetails();
+				break;
+			default:
+				break;
+		}
+	}
 
 	return (
 		<div
@@ -32,7 +49,8 @@ function PropertyDetails({
 			<a href="#">
 				<img
 					src={imgSrc}
-					onClick={fetchDetails}
+					onClick={handleClick}
+					onKeyUp={handleKeyUp}
 					className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
 				/>
 			</a>
