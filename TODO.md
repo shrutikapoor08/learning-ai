@@ -62,7 +62,7 @@ Pro -
 
 
 
-## Jan 22, 2025 - Create vector embeddings for JSON. Put in DB
+## ✅ Jan 22, 2025 - Create vector embeddings for JSON. Put in DB
 ## Jan 23, 2025 - Put in DB. Create index.
 ## Jan 24, 2025 - Perform vector similarity search.
 ## Jan 25, 2025 DAY OFF 
