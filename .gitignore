@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Tanstack Router
+src/routeTree.gen.ts
