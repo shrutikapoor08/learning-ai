@@ -5,7 +5,19 @@ import { v } from "convex/values";
 // Perform a vector search by using the "liked" property. fetches embeddings from OpenAI for a particular property, and calls Convex vectorSearch to perform a similaritySearch.
 export const similarProperties = action({
   args: {
-    property: v.object(),
+    property: {
+      zpid: "4tu348tu483",
+      bedrooms: 3,
+      bathrooms: 2,
+      city: "Seattle",
+      streetAddress: "123 Main St",
+      price: "1000000",
+      imgSrc: "https://example.com/image.jpg",
+      homeType: "House",
+      preference: true,
+      embedding: [1, 2, 3],
+      nice_to_haves: ["backyard", "pool"],
+    },
   },
   handler: async (ctx, args) => {
     // TODO:  call OpenAI to get embeddings
