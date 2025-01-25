@@ -12,5 +12,11 @@ export default defineSchema({
     imgSrc: v.string(),
     homeType: v.string(),
     preference: v.boolean(),
+    embedding: v.array(v.float64()),
+    nice_to_haves: v.array(v.string()),
+  }).vectorIndex("by_embedding", {
+    vectorField: "embedding",
+    dimensions: 1536,
+    filterFields: ["nice_to_haves"],
   }),
 });
