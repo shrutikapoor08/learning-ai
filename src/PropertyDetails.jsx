@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useAction } from "convex/react";
+
 import "./App.css";
+import { api } from "../convex/_generated/api";
 
 function PropertyDetails({
   property: {
@@ -16,12 +19,69 @@ function PropertyDetails({
 }) {
   const [propertyDetails, setPropertyDetails] = useState({});
 
+  const performMyAction = useAction(api.vectorFunctions.similarProperties);
+
   const fetchDetails = async () => {
     console.log("fetching details", zpid);
     const url = `/api/property-details/?zpid=${zpid}`;
     const response = await fetch(url);
     const responseData = await response.json();
     setPropertyDetails(responseData);
+  };
+
+  const handleLike = async () => {
+    saveProperty({
+      bedrooms,
+      bathrooms,
+      city,
+      streetAddress,
+      price,
+      imgSrc,
+      homeType,
+      zpid,
+      preference: true,
+    });
+    performMyAction({
+      property: {
+        bedrooms,
+        bathrooms,
+        city,
+        streetAddress,
+        price,
+        imgSrc,
+        homeType,
+        zpid,
+        preference: true,
+      },
+    });
+  };
+
+  const handleDislike = async () => {
+    saveProperty({
+      bedrooms,
+      bathrooms,
+      city,
+      streetAddress,
+      price,
+      imgSrc,
+      homeType,
+      zpid,
+      preference: false,
+    });
+
+    performMyAction({
+      property: {
+        bedrooms,
+        bathrooms,
+        city,
+        streetAddress,
+        price,
+        imgSrc,
+        homeType,
+        zpid,
+        preference: false,
+      },
+    });
   };
 
   return (
@@ -46,37 +106,13 @@ function PropertyDetails({
 
       <div className="flex flex-row justify-center align-center">
         <button
-          onClick={() =>
-            saveProperty({
-              bedrooms,
-              bathrooms,
-              city,
-              streetAddress,
-              price,
-              imgSrc,
-              homeType,
-              zpid,
-              preference: true,
-            })
-          }
+          onClick={handleLike}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
         >
           Like
         </button>
         <button
-          onClick={() =>
-            saveProperty({
-              bedrooms,
-              bathrooms,
-              city,
-              streetAddress,
-              price,
-              imgSrc,
-              homeType,
-              zpid,
-              preference: false,
-            })
-          }
+          onClick={handleDislike}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
         >
           Dislike

@@ -1,33 +1,37 @@
+"use node";
 import { action } from "./_generated/server.js";
-
 import { v } from "convex/values";
+import "dotenv/config";
+
+import { OpenAIEmbeddings } from "@langchain/openai";
 
 // Perform a vector search by using the "liked" property. fetches embeddings from OpenAI for a particular property, and calls Convex vectorSearch to perform a similaritySearch.
 export const similarProperties = action({
   args: {
-    property: {
-      zpid: "4tu348tu483",
-      bedrooms: 3,
-      bathrooms: 2,
-      city: "Seattle",
-      streetAddress: "123 Main St",
-      price: "1000000",
-      imgSrc: "https://example.com/image.jpg",
-      homeType: "House",
-      preference: true,
-      embedding: [1, 2, 3],
-      nice_to_haves: ["backyard", "pool"],
-    },
+    property: v.object({
+      bedrooms: v.number(),
+      bathrooms: v.number(),
+      city: v.string(),
+      streetAddress: v.string(),
+      price: v.float64(),
+      imgSrc: v.string(),
+      homeType: v.string(),
+      zpid: v.float64(),
+      preference: v.boolean(),
+    }),
   },
   handler: async (ctx, args) => {
-    // TODO:  call OpenAI to get embeddings
+    console.log("args in similarProperties", args);
 
-    const stringifiedProperty = JSON.stringify(property);
-    const embeddings_model = new OpenAIEmbeddings();
+    const stringifiedProperty = JSON.stringify(args.property);
+    const embeddings_model = new OpenAIEmbeddings({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
     const embeddings = await embeddings_model.embedQuery(stringifiedProperty);
 
+    console.log({ embeddings });
     const results = await ctx.vectorSearch("property", "by_embedding", {
-      vector: embedding,
+      vector: embeddings,
       limit: 5,
     });
     return results;

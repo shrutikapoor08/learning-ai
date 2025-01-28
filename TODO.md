@@ -62,16 +62,16 @@ Pro -
 
 
 
-## ✅ Jan 22, 2025 - Create vector embeddings for JSON. Put in DB
+## ✅ Jan 22, 2025 - Create vector embeddings for JSON.
 ## ✅Jan 23, 2025 - CSS What's new in 2024. 
-## ✅Jan 24, 2025 ✅ Create index. ✅Create table in database and create schema. ✅Step 3.1: ✅Define a vector index. ✅ Fetch similarity object from similarity search -> Convex vector_search for us. 
+## ✅Jan 24, 2025 ✅ Create vector index. ✅Create table in database and create schema. ✅Step 3.1: ✅Define a vector index. ✅ Fetch similarity object from similarity search -> Convex vector_search for us. 
 ## Jan 25, 2025 DAY OFF 
 ## Jan 26, 2025 DAY OFF 
-## ✅Jan 27, 2025 ✅ 
+## Jan 27, 2025 
   - [] put property in Convex DB
   - [] generate similar properties (doing a test of the code so far)
-## Jan 28, 2025 - Fetch similar propertyies from Zillow API
-## Jan 29, 2025 - Render properties on the page
+## Jan 28, 2025 - Fetch similar properties from Zillow API
+## Jan 29, 2025 - Render similar properties on the page
 ## Jan 30, 2025 - Buffer day. Be lazy. Test.
-## Jan 31, 2025: Ship 
+## Jan 31, 2025 - Ship 
 
