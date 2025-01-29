@@ -18,7 +18,9 @@ To start the application,
 1. run `npm install` to install the dependencies
 2. `npm run dev` to start the development server. The app will be available at `http://localhost:5174`.
 3. run server by `nodemon server.js`. The server is available at `http://localhost:3001`.
+4. run Convex in dev environment by `npx convex dev`.
 
+   
 **Features**
 
 - Search a property in Seattle using only plain english. 
