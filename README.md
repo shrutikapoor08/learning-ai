@@ -1,4 +1,4 @@
-# Real Estate App with Open AI, LangChain, DirectUs and Tailwind CSS
+# Real Estate App with OpenAI, LangChain, Directus, Convex, React and Tailwind CSS, 
 
 ## Tech Stack
 
