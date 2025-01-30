@@ -75,3 +75,12 @@ Pro -
 ## Jan 30, 2025 - Buffer day. Be lazy. Test.
 ## Jan 31, 2025 - Ship 
 
+
+
+
+## Season 2 - FEBRUARY - UI Season - Fix the UI 
+[] ErrorBoundary in React
+[] View Transitions API for Property Details cards. 
+[] Loader for searching properties. 
+[] Styling polish
+[] Pagination

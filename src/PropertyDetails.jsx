@@ -22,7 +22,6 @@ function PropertyDetails({
   const performMyAction = useAction(api.vectorFunctions.similarProperties);
 
   const fetchDetails = async () => {
-    console.log("fetching details", zpid);
     const url = `/api/property-details/?zpid=${zpid}`;
     const response = await fetch(url);
     const responseData = await response.json();
@@ -41,19 +40,19 @@ function PropertyDetails({
       zpid,
       preference: true,
     });
-    performMyAction({
-      property: {
-        bedrooms,
-        bathrooms,
-        city,
-        streetAddress,
-        price,
-        imgSrc,
-        homeType,
-        zpid,
-        preference: true,
-      },
-    });
+    // performMyAction({
+    //   property: {
+    //     bedrooms,
+    //     bathrooms,
+    //     city,
+    //     streetAddress,
+    //     price,
+    //     imgSrc,
+    //     homeType,
+    //     zpid,
+    //     preference: true,
+    //   },
+    // });
   };
 
   const handleDislike = async () => {
@@ -69,19 +68,19 @@ function PropertyDetails({
       preference: false,
     });
 
-    performMyAction({
-      property: {
-        bedrooms,
-        bathrooms,
-        city,
-        streetAddress,
-        price,
-        imgSrc,
-        homeType,
-        zpid,
-        preference: false,
-      },
-    });
+    // performMyAction({
+    //   property: {
+    //     bedrooms,
+    //     bathrooms,
+    //     city,
+    //     streetAddress,
+    //     price,
+    //     imgSrc,
+    //     homeType,
+    //     zpid,
+    //     preference: false,
+    //   },
+    // });
   };
 
   return (

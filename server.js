@@ -1,11 +1,16 @@
 import express from "express";
 import path from "path";
 import llmApi from "./llm.js";
-
-import "dotenv/config";
-import { createDirectus, rest, createItem, readItems } from "@directus/sdk";
+import { ConvexHttpClient } from "convex/browser";
+import * as dotenv from "dotenv";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { URLSearchParams } from "url";
-const client = createDirectus("https://database.directus.app").with(rest());
+// import { query, mutation } from "./convex/_generated/server";
+
+dotenv.config({ path: ".env.local" });
+
+// Initialize Convex client
+const convex = new ConvexHttpClient(process.env["VITE_CONVEX_URL"]);
 
 const ZILLOW_API = {
   SEARCH: "https://zillow-working-api.p.rapidapi.com/search/byaddress",
@@ -54,6 +59,15 @@ const fetchProperties = async ({ propertiesRequirements }) => {
   }
 };
 
+const generateEmbeddings = async (property) => {
+  const stringifiedProperty = JSON.stringify(property);
+  const embeddings_model = new OpenAIEmbeddings({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  const embeddings = await embeddings_model.embedQuery(stringifiedProperty);
+  return embeddings;
+};
+
 const savePropertyToDB = async (property) => {
   const {
     bedrooms,
@@ -66,27 +80,32 @@ const savePropertyToDB = async (property) => {
     zpid,
     preference,
   } = property;
-  let item;
   try {
-    item = await client.request(
-      createItem("Property", {
-        zpid,
-        bedrooms,
-        bathrooms,
-        city,
-        streetAddress,
-        price,
-        imgSrc,
-        homeType,
-        preference,
-      })
-    );
+    const embeddings = await generateEmbeddings(property);
+
+    // Convert types to match schema
+    const formattedProperty = {
+      zpid: String(zpid),
+      bedrooms: Number(bedrooms),
+      bathrooms: Number(bathrooms),
+      city: String(city),
+      streetAddress: String(streetAddress),
+      price: String(price),
+      imgSrc: String(imgSrc),
+      homeType: String(homeType),
+      preference: Boolean(preference),
+      nice_to_haves: [], // Required by schema
+      embedding: embeddings,
+    };
+
+    // Call the Convex mutation with properly typed data
+    const item = await convex.mutation("property:insert", formattedProperty);
+
+    return item;
   } catch (e) {
     console.error(e);
     throw new Error(e.message);
   }
-
-  return item;
 };
 
 app.post("/api/parse-properties", async function (req, res) {
@@ -110,6 +129,7 @@ app.post("/api/parse-properties", async function (req, res) {
 app.post("/api/save-property", async function (req, res) {
   const property = req.body;
   // call DB API for fetching properties
+  console.log({ property });
   const propertiesResponse = await savePropertyToDB(property);
 
   res.set("Access-Control-Allow-Origin", "*");

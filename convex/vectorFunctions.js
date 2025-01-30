@@ -22,18 +22,10 @@ export const similarProperties = action({
     }),
   },
   handler: async (ctx, args) => {
-    const stringifiedProperty = JSON.stringify(args.property);
-    console.log(process.env);
-    const embeddings_model = new OpenAIEmbeddings({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-    const embeddings = await embeddings_model.embedQuery(stringifiedProperty);
-
-    console.log({ embeddings });
-    const results = await ctx.vectorSearch("property", "by_embedding", {
-      vector: embeddings,
-      limit: 5,
-    });
-    return results;
+    // const results = await ctx.vectorSearch("property", "by_embedding", {
+    //   vector: embeddings,
+    //   limit: 5,
+    // });
+    // return results;
   },
 });
