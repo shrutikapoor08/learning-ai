@@ -1,7 +1,8 @@
 "use node";
 import { action } from "./_generated/server.js";
 import { v } from "convex/values";
-import "dotenv/config";
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env" });
 
 import { OpenAIEmbeddings } from "@langchain/openai";
 
@@ -21,9 +22,8 @@ export const similarProperties = action({
     }),
   },
   handler: async (ctx, args) => {
-    console.log("args in similarProperties", args);
-
     const stringifiedProperty = JSON.stringify(args.property);
+    console.log(process.env);
     const embeddings_model = new OpenAIEmbeddings({
       apiKey: process.env.OPENAI_API_KEY,
     });
