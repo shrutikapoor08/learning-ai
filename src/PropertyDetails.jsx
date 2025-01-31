@@ -68,19 +68,19 @@ function PropertyDetails({
       preference: false,
     });
 
-    // performMyAction({
-    //   property: {
-    //     bedrooms,
-    //     bathrooms,
-    //     city,
-    //     streetAddress,
-    //     price,
-    //     imgSrc,
-    //     homeType,
-    //     zpid,
-    //     preference: false,
-    //   },
-    // });
+    performMyAction({
+      property: {
+        bedrooms,
+        bathrooms,
+        city,
+        streetAddress,
+        price,
+        imgSrc,
+        homeType,
+        zpid,
+        preference: false,
+      },
+    });
   };
 
   return (
