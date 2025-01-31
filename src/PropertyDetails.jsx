@@ -25,7 +25,24 @@ function PropertyDetails({
     const url = `/api/property-details/?zpid=${zpid}`;
     const response = await fetch(url);
     const responseData = await response.json();
-    setPropertyDetails(responseData);
+
+    const property = {
+      bedrooms: responseData?.propertyDetails.bedrooms,
+      bathrooms: responseData?.propertyDetails.bathrooms,
+      city: responseData?.propertyDetails.city,
+      streetAddress: responseData?.propertyDetails.streetAddress,
+      price: responseData?.propertyDetails.price,
+      imgSrc: responseData?.propertyDetails.hiResImageLink,
+      photos: responseData?.propertyDetails.originalPhotos,
+      homeType: responseData?.propertyDetails.homeType,
+      zpid,
+      preference: true,
+      nice_to_haves:
+        responseData?.propertyDetails?.homeInsights?.[0]?.insights?.[0]
+          ?.phrases || [],
+    };
+
+    setPropertyDetails(property);
   };
 
   const handleLike = async () => {
@@ -39,6 +56,7 @@ function PropertyDetails({
       homeType,
       zpid,
       preference: true,
+      nice_to_haves: propertyDetails?.nice_to_haves,
     });
     performMyAction({
       property: {
@@ -51,6 +69,7 @@ function PropertyDetails({
         homeType,
         zpid,
         preference: true,
+        nice_to_haves: propertyDetails?.nice_to_haves,
       },
     });
   };
@@ -66,6 +85,7 @@ function PropertyDetails({
       homeType,
       zpid,
       preference: false,
+      nice_to_haves: propertyDetails?.nice_to_haves,
     });
 
     performMyAction({
@@ -79,6 +99,7 @@ function PropertyDetails({
         homeType,
         zpid,
         preference: false,
+        nice_to_haves: propertyDetails?.nice_to_haves,
       },
     });
   };
@@ -102,6 +123,7 @@ function PropertyDetails({
       <p className="text-xs">
         {streetAddress}, {city}
       </p>
+      <p className="text-xs">{propertyDetails?.nice_to_haves?.join(", ")}</p>
 
       <div className="flex flex-row justify-center align-center">
         <button

@@ -19,6 +19,7 @@ export const similarProperties = action({
       homeType: v.string(),
       zpid: v.float64(),
       preference: v.boolean(),
+      nice_to_haves: v.optional(v.array(v.string())),
     }),
   },
   handler: async (ctx, args) => {
@@ -29,7 +30,6 @@ export const similarProperties = action({
       filterFields: ["price", "bedrooms", "bathrooms", "nice_to_haves"],
     });
 
-    console.log({ results });
     return results;
   },
 });

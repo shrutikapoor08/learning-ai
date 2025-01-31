@@ -10,7 +10,7 @@ dotenv.config({ path: ".env.local" });
 
 const ZILLOW_API = {
   SEARCH: "https://zillow-working-api.p.rapidapi.com/search/byaddress",
-  PROPERTY_DETAILS: "https://zillow-working-api.p.rapidapi.com/byzpid",
+  PROPERTY_DETAILS: "https://zillow-working-api.p.rapidapi.com/pro/byzpid",
 };
 
 const app = express();
@@ -64,6 +64,7 @@ async function savePropertyToDB(property) {
     homeType,
     zpid,
     preference,
+    nice_to_haves,
   } = property;
 
   try {
@@ -78,7 +79,7 @@ async function savePropertyToDB(property) {
       imgSrc: String(imgSrc),
       homeType: String(homeType),
       preference: Boolean(preference),
-      nice_to_haves: [],
+      nice_to_haves: nice_to_haves || [],
       embedding: embeddings,
     };
 

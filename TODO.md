@@ -69,11 +69,11 @@ Pro -
 ## Jan 26, 2025 DAY OFF 
 ## Jan 27, 2025 
   - [✅] put property in Convex DB
-  - [] generate similar properties (doing a test of the code so far)
-## Jan 28, 2025 - Fetch similar properties from Zillow API
-## Jan 29, 2025 - Render similar properties on the page
+  - [✅] generate similar properties (doing a test of the code so far)
+## ~~Jan 28, 2025 - Fetch similar properties from Zillow API
+## ~~Jan 29, 2025 - Render similar properties on the page
 ## Jan 30, 2025 - Buffer day. Be lazy. Test.
-## Jan 31, 2025 - Ship 
+## Jan 31, 2025 - DAY OFF  
 
 
 
@@ -96,3 +96,4 @@ Pro -
 
 ## Improvements to the app
 [] Move to TS
+[] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location ...
