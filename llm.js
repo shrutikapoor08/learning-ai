@@ -3,10 +3,17 @@ import { JSONLoader } from "langchain/document_loaders/fs/json";
 import { OpenAI } from "@langchain/openai";
 import { StructuredOutputParser } from "langchain/output_parsers";
 import { RunnableSequence } from "@langchain/core/runnables";
-
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { z } from "zod";
-
 import "dotenv/config";
+
+export async function generateEmbeddings(property) {
+  const stringifiedProperty = JSON.stringify(property);
+  const embeddings_model = new OpenAIEmbeddings({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  return embeddings_model.embedQuery(stringifiedProperty);
+}
 
 const llmApi = async (description) => {
   const llm = new OpenAI({
@@ -47,7 +54,6 @@ const llmApi = async (description) => {
     format_instructions: parser.getFormatInstructions(),
   });
 
-  console.log({ response });
   return response;
 };
 

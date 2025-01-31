@@ -82,7 +82,7 @@ function App() {
   };
 
   return (
-    <div className="flex p-4 m-4">
+    <main className="flex p-4 m-4">
       <div className="mx-auto justify-center items-center m-10 min-h-screen">
         <h1 className="sm:text-6xl text-4xl text-slate-900 mb-10 font-bold sans-serif">
           Search for properties in Seattle
@@ -92,38 +92,49 @@ function App() {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           rows="4"
-          className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border 
+            border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           placeholder="I am looking for a 3 bedroom single family house in Seattle..."
         />
 
-        <button
-          onClick={() =>
-            setSearchInput(
-              "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000"
-            )
-          }
-          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
-        >
-          Fill Description
-        </button>
+        {/* Action Buttons */}
+        <div className="flex gap-2 my-10">
+          <button
+            onClick={() =>
+              setSearchInput(
+                "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000"
+              )
+            }
+            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 
+              hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
+              focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg 
+              text-sm px-5 py-3 text-center"
+          >
+            Fill Description
+          </button>
 
-        <button
-          onClick={handleSubmit}
-          className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
-        >
-          Search
-        </button>
+          <button
+            onClick={handleSubmit}
+            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 
+              hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
+              focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg 
+              text-sm px-5 py-3 text-center"
+          >
+            Search
+          </button>
+        </div>
 
-        <div id="properties" className="flex flex-row justify-center flex-wrap">
+        {/* Properties List */}
+        <section className="flex flex-row justify-center flex-wrap">
           {properties.length > 0 && (
             <h2 className="font-bold text-xl w-full">
               Seattle WA Real Estate & Homes For Sale
             </h2>
           )}
           {renderProperties(properties)}
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
 

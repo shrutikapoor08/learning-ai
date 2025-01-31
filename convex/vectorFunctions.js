@@ -4,7 +4,7 @@ import { v } from "convex/values";
 import * as dotenv from "dotenv";
 dotenv.config({ path: ".env" });
 
-import { OpenAIEmbeddings } from "@langchain/openai";
+import { generateEmbeddings } from "../llm.js";
 
 // Perform a vector search by using the "liked" property. fetches embeddings from OpenAI for a particular property, and calls Convex vectorSearch to perform a similaritySearch.
 export const similarProperties = action({
@@ -22,10 +22,13 @@ export const similarProperties = action({
     }),
   },
   handler: async (ctx, args) => {
-    // const results = await ctx.vectorSearch("property", "by_embedding", {
-    //   vector: embeddings,
-    //   limit: 5,
-    // });
-    // return results;
+    const embeddings = await generateEmbeddings(args.property);
+    const results = await ctx.vectorSearch("property", "by_embedding", {
+      vector: embeddings,
+      limit: 5,
+    });
+
+    console.log({ results });
+    return results;
   },
 });

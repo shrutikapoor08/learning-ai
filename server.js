@@ -1,16 +1,12 @@
 import express from "express";
 import path from "path";
-import llmApi from "./llm.js";
+import { URLSearchParams } from "url";
 import { ConvexHttpClient } from "convex/browser";
 import * as dotenv from "dotenv";
-import { OpenAIEmbeddings } from "@langchain/openai";
-import { URLSearchParams } from "url";
-// import { query, mutation } from "./convex/_generated/server";
+import llmApi, { generateEmbeddings } from "./llm.js";
 
+// Configuration
 dotenv.config({ path: ".env.local" });
-
-// Initialize Convex client
-const convex = new ConvexHttpClient(process.env["VITE_CONVEX_URL"]);
 
 const ZILLOW_API = {
   SEARCH: "https://zillow-working-api.p.rapidapi.com/search/byaddress",
@@ -19,18 +15,18 @@ const ZILLOW_API = {
 
 const app = express();
 const port = process.env.PORT || 3001;
-
+const convex = new ConvexHttpClient(process.env["VITE_CONVEX_URL"]);
 const __dirname = path.resolve(path.dirname(""));
 
+// Middleware
 app.use(express.json({ strict: false }));
-
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
   next();
 });
 
-//TODO: Move to utility.
-const fetchProperties = async ({ propertiesRequirements }) => {
+// Utility functions
+async function fetchProperties({ propertiesRequirements }) {
   const params = new URLSearchParams({
     location: "Seattle, WA",
     listingStatus: "For_Sale",
@@ -39,7 +35,7 @@ const fetchProperties = async ({ propertiesRequirements }) => {
     min: propertiesRequirements.price_starting,
     max: propertiesRequirements.price_ending,
   }).toString();
-  const url = `${ZILLOW_API.SEARCH}?${params}`;
+
   const options = {
     method: "GET",
     headers: {
@@ -48,27 +44,16 @@ const fetchProperties = async ({ propertiesRequirements }) => {
     },
   };
 
-  let result;
   try {
-    const response = await fetch(url, options);
-
-    result = JSON.parse(await response.text());
+    const response = await fetch(`${ZILLOW_API.SEARCH}?${params}`, options);
+    const result = JSON.parse(await response.text());
     return result?.searchResults;
   } catch (error) {
     throw new Error(error.message);
   }
-};
+}
 
-const generateEmbeddings = async (property) => {
-  const stringifiedProperty = JSON.stringify(property);
-  const embeddings_model = new OpenAIEmbeddings({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-  const embeddings = await embeddings_model.embedQuery(stringifiedProperty);
-  return embeddings;
-};
-
-const savePropertyToDB = async (property) => {
+async function savePropertyToDB(property) {
   const {
     bedrooms,
     bathrooms,
@@ -80,10 +65,9 @@ const savePropertyToDB = async (property) => {
     zpid,
     preference,
   } = property;
+
   try {
     const embeddings = await generateEmbeddings(property);
-
-    // Convert types to match schema
     const formattedProperty = {
       zpid: String(zpid),
       bedrooms: Number(bedrooms),
@@ -94,71 +78,75 @@ const savePropertyToDB = async (property) => {
       imgSrc: String(imgSrc),
       homeType: String(homeType),
       preference: Boolean(preference),
-      nice_to_haves: [], // Required by schema
+      nice_to_haves: [],
       embedding: embeddings,
     };
 
-    // Call the Convex mutation with properly typed data
-    const item = await convex.mutation("property:insert", formattedProperty);
-
-    return item;
-  } catch (e) {
-    console.error(e);
-    throw new Error(e.message);
+    return await convex.mutation("property:insert", formattedProperty);
+  } catch (error) {
+    console.error(error);
+    throw new Error(error.message);
   }
-};
+}
 
-app.post("/api/parse-properties", async function (req, res) {
-  const requirements = req.body.post;
-  const response = await llmApi(requirements);
+// Routes
+app.post("/api/parse-properties", async (req, res) => {
+  try {
+    const requirements = req.body.post;
+    const response = await llmApi(requirements);
 
-  const propertiesRequirements = {
-    price_ending: response?.price_ending?.replace(/,/g, ""),
-    price_starting: response?.price_starting?.replace(/,/g, ""),
-    bedrooms: response?.bedrooms,
-    zpid: response?.zpid,
-  };
+    const propertiesRequirements = {
+      price_ending: response?.price_ending?.replace(/,/g, ""),
+      price_starting: response?.price_starting?.replace(/,/g, ""),
+      bedrooms: response?.bedrooms,
+      zpid: response?.zpid,
+    };
 
-  // call API for fetching properties
-  const propertiesResponse = await fetchProperties({ propertiesRequirements });
-
-  res.set("Access-Control-Allow-Origin", "*");
-  res.send(propertiesResponse);
+    const propertiesResponse = await fetchProperties({
+      propertiesRequirements,
+    });
+    res.send(propertiesResponse);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-app.post("/api/save-property", async function (req, res) {
-  const property = req.body;
-  // call DB API for fetching properties
-  console.log({ property });
-  const propertiesResponse = await savePropertyToDB(property);
-
-  res.set("Access-Control-Allow-Origin", "*");
-
-  res.send(propertiesResponse);
+app.post("/api/save-property", async (req, res) => {
+  try {
+    const property = req.body;
+    const propertiesResponse = await savePropertyToDB(property);
+    res.send(propertiesResponse);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-app.get("/api/property-details", async function (req, res) {
-  const zpid = req.query.zpid;
+app.get("/api/property-details", async (req, res) => {
+  try {
+    const { zpid } = req.query;
+    const response = await fetch(
+      `${ZILLOW_API.PROPERTY_DETAILS}?zpid=${zpid}`,
+      {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+          "X-RapidAPI-Host": "zillow-working-api.p.rapidapi.com",
+        },
+      }
+    );
 
-  const response = await fetch(`${ZILLOW_API.PROPERTY_DETAILS}?zpid=${zpid}`, {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "zillow-working-api.p.rapidapi.com",
-    },
-  });
-
-  const propertyDetail = await response.json();
-
-  res.set("Access-Control-Allow-Origin", "*");
-  res.send(propertyDetail);
+    const propertyDetail = await response.json();
+    res.send(propertyDetail);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-app.use("/", function (req, res) {
-  console.log("hitting path /");
-  res.sendFile(path.join(__dirname + "/index.html"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.listen(port, function () {
-  console.log(`App listening on port ${port}!`);
+// Start server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

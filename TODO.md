@@ -68,7 +68,7 @@ Pro -
 ## Jan 25, 2025 DAY OFF 
 ## Jan 26, 2025 DAY OFF 
 ## Jan 27, 2025 
-  - [] put property in Convex DB
+  - [✅] put property in Convex DB
   - [] generate similar properties (doing a test of the code so far)
 ## Jan 28, 2025 - Fetch similar properties from Zillow API
 ## Jan 29, 2025 - Render similar properties on the page
@@ -84,3 +84,15 @@ Pro -
 [] Loader for searching properties. 
 [] Styling polish
 [] Pagination
+[] ShadCNUI
+[] Implement Routes 
+
+
+
+## Bug fixes
+
+[] Insert / Update based on whether a property exists or not
+
+
+## Improvements to the app
+[] Move to TS

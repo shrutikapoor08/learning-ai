@@ -40,19 +40,19 @@ function PropertyDetails({
       zpid,
       preference: true,
     });
-    // performMyAction({
-    //   property: {
-    //     bedrooms,
-    //     bathrooms,
-    //     city,
-    //     streetAddress,
-    //     price,
-    //     imgSrc,
-    //     homeType,
-    //     zpid,
-    //     preference: true,
-    //   },
-    // });
+    performMyAction({
+      property: {
+        bedrooms,
+        bathrooms,
+        city,
+        streetAddress,
+        price,
+        imgSrc,
+        homeType,
+        zpid,
+        preference: true,
+      },
+    });
   };
 
   const handleDislike = async () => {
