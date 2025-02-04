@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAction } from "convex/react";
-
+import NiceToHaveFeatures from "./components/NiceToHaveFeatures";
 import "./App.css";
 import { api } from "../convex/_generated/api";
 
@@ -109,21 +109,22 @@ function PropertyDetails({
       key={zpid}
       className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
     >
-      <a href="#">
-        <img
-          src={imgSrc}
-          onClick={fetchDetails}
-          className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
-        />
-      </a>
+      <img
+        src={imgSrc}
+        onClick={fetchDetails}
+        className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
+      />
+
       <p className="text-l font-bold">${price}</p>
+      {propertyDetails?.nice_to_haves && (
+        <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
+      )}
       <p className="text-xs m-1">
         {bedrooms} bedrooms, {bathrooms} bathrooms
       </p>
       <p className="text-xs">
         {streetAddress}, {city}
       </p>
-      <p className="text-xs">{propertyDetails?.nice_to_haves?.join(", ")}</p>
 
       <div className="flex flex-row justify-center align-center">
         <button
