@@ -13,6 +13,7 @@ function NiceToHaveFeatures(nice_to_haves) {
           className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full"
         >
           {feature}
+
         </span>
       ))}
     </div>

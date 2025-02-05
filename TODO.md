@@ -79,21 +79,21 @@ Pro -
 
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
-[] ErrorBoundary in React
-[] View Transitions API for Property Details cards. 
+[ ] ErrorBoundary in React
+[cdnjvd] View Transitions API for Property Details cards. 
 [] Loader for searching properties. 
 [] Styling polish
 [] Pagination
 [] ShadCNUI
 [] Implement Routes 
-
+[] vdsbvbdfbhdbfhd
 
 
 ## Bug fixes
-
+fgfgfgfnmdnfbndfmbknfgklbklfgbgklf
 [] Insert / Update based on whether a property exists or not
-
+dfvkdfmvkdfdfmvkndfm,bnm,df
 
 ## Improvements to the app
 [] Move to TS
-[] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location ...
+[] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location ...vkdfnvkdfnkfv
