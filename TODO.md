@@ -79,21 +79,32 @@ Pro -
 
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
-[] ErrorBoundary in React
-[] View Transitions API for Property Details cards. 
+**MVP Items**
+[] Show recommendation properties in the UI
+[] Implement Property Details card
 [] Loader for searching properties. 
-[] Styling polish
-[] Pagination
-[] ShadCNUI
+[] Implement pagination / infinite scrolling for loading more properties. 
+
+
+**Bug Fixes**
+[] Insert / Update based on whether a property exists or not in the database.  
+[] It should not show properties outside the budget. 
+
+
+**Functionality Items**
 [] Implement Routes 
+[] Implement tags / features
+[] Ranking preferences
+[] View Transitions API for Property Details cards. 
 
-
-
-## Bug fixes
-
-[] Insert / Update based on whether a property exists or not
-
-
-## Improvements to the app
+**Tech Stack Improvements to the app**
+[] Server side rendering
+[] Improve data fetching
 [] Move to TS
-[] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location ...
+[] Move to TailwindCSS V4
+
+
+**Nice to haves**
+[] Add zillow link for each property. 
+
+
