@@ -115,6 +115,9 @@ function PropertyDetails({
         className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
       />
 
+
+      
+
       <p className="text-l font-bold">${price}</p>
       {propertyDetails?.nice_to_haves && (
         <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
