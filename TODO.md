@@ -2,17 +2,7 @@
 
 
 # TODO
-✅ Add Tailwind
-✅ Make it look pretty
-✅  add address as a heading.
-(LATER) add a slideshow of photos.
-✅ price should be in a bigger font
-✅  save button should be smaller and should be a heart button
- ✅ Add save functionality.
- ✅ Save items to the DB.
-(FUTURE VIDEO) Fetch from DB.
 
- ----
 ## Jan 4, 2025
 ### Recommendation engine
 - ✅Step 1: Create a dataset for liked / disliked properties.
@@ -27,11 +17,11 @@
 - ✅Step 1: Find a database that is compatible with vector data. -> Convex. 
 -  ✅Step 2: Create vector embeddings for properties (text). Use LangChain to generate embeddings. 
 -  ✅Step 2.1: create vector embeddings for json. 
-- Step 3: Create table in database and create schema. 
-  - Step 3.1: Define a vector index
+- ✅Step 3: Create table in database and create schema. 
+  - ✅Step 3.1: Define a vector index
 
-- Step 4: store vector embeddings in database. 
-- Step 5: Perform vector Similarity search
+- ✅Step 4: store vector embeddings in database. 
+- ✅Step 5: Perform vector Similarity search
   
 
 ### Database choices. 
@@ -65,17 +55,11 @@ Pro -
 ## ✅ Jan 22, 2025 - Create vector embeddings for JSON.
 ## ✅Jan 23, 2025 - CSS What's new in 2024. 
 ## ✅Jan 24, 2025 ✅ Create vector index. ✅Create table in database and create schema. ✅Step 3.1: ✅Define a vector index. ✅ Fetch similarity object from similarity search -> Convex vector_search for us. 
-## Jan 25, 2025 DAY OFF 
-## Jan 26, 2025 DAY OFF 
 ## Jan 27, 2025 
   - [✅] put property in Convex DB
   - [✅] generate similar properties (doing a test of the code so far)
-## ~~Jan 28, 2025 - Fetch similar properties from Zillow API
-## ~~Jan 29, 2025 - Render similar properties on the page
-## Jan 30, 2025 - Buffer day. Be lazy. Test.
-## Jan 31, 2025 - DAY OFF  
-
-
+## ✅Jan 28, 2025 - Fetch similar properties from Zillow API
+## ✅Jan 29, 2025 - Render similar properties on the page
 
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
