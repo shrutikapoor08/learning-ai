@@ -64,6 +64,7 @@ Pro -
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
 **MVP Items**
+
 [] Show recommendation properties in the UI
 [] Implement Property Details card
 [] Loader for searching properties. 
@@ -71,17 +72,20 @@ Pro -
 
 
 **Bug Fixes**
+
 [] Insert / Update based on whether a property exists or not in the database.  
 [] It should not show properties outside the budget. 
 
 
 **Functionality Items**
+
 [] Implement Routes 
 [] Implement tags / features
 [] Ranking preferences
 [] View Transitions API for Property Details cards. 
 
 **Tech Stack Improvements to the app**
+
 [] Server side rendering
 [] Improve data fetching
 [] Move to TS
