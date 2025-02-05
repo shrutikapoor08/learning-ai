@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import PropertyDetails from "./PropertyDetails";
-
+import PropertiesList from './components/PropertiesList/PropertiesList.jsx'
 const PREFERENCE = {
   LIKED: true,
   DISLIKED: false,
@@ -11,58 +10,21 @@ const PREFERENCE = {
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [properties, setProperties] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const saveProperty = async (property) => {
-    // Send data to parse properties
-    const url = "/api/save-property";
-
-    const responseData = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(property),
-    });
-
-    if (!responseData.ok) {
-      const errorMessage = await responseData.text();
-      console.error(errorMessage);
-      throw new Error(errorMessage);
-    }
-  };
-
-  const renderProperties = (properties) => {
-    return properties?.map?.(({ property }) => {
-      const { bedrooms, bathrooms, address, price, media, propertyType, zpid } =
-        property;
-
-      return (
-        <PropertyDetails
-          key={zpid}
-          property={{
-            bedrooms,
-            bathrooms,
-            city: address.city,
-            streetAddress: address.streetAddress,
-            price: price?.value,
-            imgSrc: media?.allPropertyPhotos?.highResolution[0],
-            homeType: propertyType,
-            zpid,
-            saveProperty,
-          }}
-        />
-      );
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const description = searchInput;
     if (!description) return;
 
+    
+setIsLoading(true)
+
     // Send data to parse properties
     const url = "/api/parse-properties";
     const formData = { post: description };
+
 
     const responseData = await fetch(url, {
       method: "POST",
@@ -74,11 +36,12 @@ function App() {
 
     if (!responseData.ok) {
       const errorMessage = await responseData.text();
-      throw new Error(errorMessage);
+      throw new Error(errorMessage); 
     }
 
     const parsedData = await responseData.json();
     setProperties(parsedData);
+    setIsLoading(false)
   };
 
   return (
@@ -124,15 +87,20 @@ function App() {
           </button>
         </div>
 
-        {/* Properties List */}
+        {isLoading ? (<div> Loading </div>)
+        : (
+
+        
         <section className="flex flex-row justify-center flex-wrap">
           {properties.length > 0 && (
             <h2 className="font-bold text-xl w-full">
               Seattle WA Real Estate & Homes For Sale
             </h2>
           )}
-          {renderProperties(properties)}
+          <PropertiesList properties={properties} />
+
         </section>
+        )}
       </div>
     </main>
   );

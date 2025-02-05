@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useAction } from "convex/react";
-import NiceToHaveFeatures from "./components/NiceToHaveFeatures";
-import "./App.css";
-import { api } from "../convex/_generated/api";
+import NiceToHaveFeatures from "../NiceToHaveFeatures/NiceToHaveFeatures";
+import "../../App.css";
+import { api } from "../../../convex/_generated/api";
 
 function PropertyDetails({
   property: {
@@ -14,7 +14,6 @@ function PropertyDetails({
     imgSrc,
     homeType,
     zpid,
-    saveProperty,
   },
 }) {
   const [propertyDetails, setPropertyDetails] = useState({});
@@ -43,6 +42,25 @@ function PropertyDetails({
     };
 
     setPropertyDetails(property);
+  };
+
+  const saveProperty = async (property) => {
+    // Send data to parse properties
+    const url = "/api/save-property";
+
+    const responseData = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(property),
+    });
+
+    if (!responseData.ok) {
+      const errorMessage = await responseData.text();
+      console.error(errorMessage);
+      throw new Error(errorMessage);
+    }
   };
 
   const handleLike = async () => {
@@ -104,6 +122,7 @@ function PropertyDetails({
     });
   };
 
+
   return (
     <div
       key={zpid}
@@ -114,9 +133,6 @@ function PropertyDetails({
         onClick={fetchDetails}
         className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
       />
-
-
-      
 
       <p className="text-l font-bold">${price}</p>
       {propertyDetails?.nice_to_haves && (

@@ -63,15 +63,14 @@ Pro -
 
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
-[ ] ErrorBoundary in React
-[cdnjvd] View Transitions API for Property Details cards. 
 **MVP Items**
-
+[ ] ErrorBoundary in React
+[] Code refactor
 [] Show recommendation properties in the UI
 [] Implement Property Details card
 [] Implement pagination / infinite scrolling for loading more properties. 
-
-
+[] Loader 
+[] Write test cases. 
 **Bug Fixes**
 
 [] Insert / Update based on whether a property exists or not in the database.  
@@ -81,7 +80,7 @@ Pro -
 **Functionality Items**
 
 [] Implement Routes 
-
+[] Add React compiler
 
 ## Bug fixes
 
@@ -101,5 +100,6 @@ Pro -
 
 **Nice to haves**
 [] Add zillow link for each property. 
+[] View Transitions API for Property Details cards. 
 
 
