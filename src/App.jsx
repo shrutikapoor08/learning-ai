@@ -19,7 +19,7 @@ function App() {
     if (!description) return;
 
     
-setIsLoading(true)
+setIsLoading(true);
 
     // Send data to parse properties
     const url = "/api/parse-properties";
@@ -41,7 +41,7 @@ setIsLoading(true)
 
     const parsedData = await responseData.json();
     setProperties(parsedData);
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   return (

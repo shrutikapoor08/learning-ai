@@ -64,13 +64,14 @@ Pro -
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
 **MVP Items**
-[ ] ErrorBoundary in React
-[] Code refactor
+[ X] ErrorBoundary in React
 [] Show recommendation properties in the UI
 [] Implement Property Details card
 [] Implement pagination / infinite scrolling for loading more properties. 
-[] Loader 
+[x] Loader 
 [] Write test cases. 
+[] Code refactor
+
 **Bug Fixes**
 
 [] Insert / Update based on whether a property exists or not in the database.  
@@ -101,5 +102,5 @@ Pro -
 **Nice to haves**
 [] Add zillow link for each property. 
 [] View Transitions API for Property Details cards. 
-
+[] React cscahttps://github.com/aidenybai/react-scan
 
