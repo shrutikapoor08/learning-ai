@@ -85,16 +85,16 @@ Pro -
 **Performance Optimizations**
 - [] Add React compiler
 - [] Lazy load images
-- 
+- [] React scan https://github.com/aidenybai/react-scan
+
+ 
 **Nice to haves**
 - [] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location
 - [] Add zillow link for each property. 
 - [] View Transitions API for Property Details cards. 
-- [] React cscahttps://github.com/aidenybai/react-scan
-
+- [] Something you need is sticky input... so when you scroll, you can still go back
 
 **Tech Stack Improvements to the app**
-
 - [] Server side rendering
 - [] Improve data fetching through React query
 - [] Move to TS
