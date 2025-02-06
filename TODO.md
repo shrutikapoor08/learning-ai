@@ -67,41 +67,35 @@ Pro -
 -  ✅ ErrorBoundary in React
 -  ✅ Code refactor
 -  ✅ Loader 
-[] Show recommendation properties in the UI
-[] Implement Property Details card
-[] Implement pagination / infinite scrolling for loading more properties. 
-[] Write test cases. 
-[] Code refactor
+- [] Show recommendation properties in the UI
+- [] Implement Property Details card
+- [] Implement pagination / infinite scrolling for loading more properties. 
+- [] Write test cases. 
+- [] Code refactor
+- [] Implement pills
 
 **Bug Fixes**
-
-[] Insert / Update based on whether a property exists or not in the database.  
-[] It should not show properties outside the budget. 
+- [] Insert / Update based on whether a property exists or not in the database.  
+- [] It should not show properties outside the budget. 
 
 
 **Functionality Items**
+- [] Implement Routes 
 
-[] Implement Routes 
-[] Add React compiler
+**Performance Optimizations**
+- [] Add React compiler
+- [] Lazy load images
+- 
+**Nice to haves**
+- [] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location
+- [] Add zillow link for each property. 
+- [] View Transitions API for Property Details cards. 
+- [] React cscahttps://github.com/aidenybai/react-scan
 
-## Bug fixes
-
-[] Insert / Update based on whether a property exists or not
-
-## Improvements to the app
-[] Move to TS
-[] tags based on priority of preference, consider I am keen to look for a specific layout I'd rank it 1 , 2nd price, 3rd location ...vkdfnvkdfnkfv
 
 **Tech Stack Improvements to the app**
 
-[] Server side rendering
-[] Improve data fetching
-[] Move to TS
-[] Move to TailwindCSS V4
-
-
-**Nice to haves**
-[] Add zillow link for each property. 
-[] View Transitions API for Property Details cards. 
-[] React cscahttps://github.com/aidenybai/react-scan
-
+- [] Server side rendering
+- [] Improve data fetching through React query
+- [] Move to TS
+- [] Move to TailwindCSS V4
