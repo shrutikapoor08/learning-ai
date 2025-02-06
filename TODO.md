@@ -64,12 +64,12 @@ Pro -
 
 ## Season 2 - FEBRUARY - UI Season - Fix the UI 
 **MVP Items**
-[ ] ErrorBoundary in React
-[] Code refactor
+-  ✅ ErrorBoundary in React
+-  ✅ Code refactor
+-  ✅ Loader 
 [] Show recommendation properties in the UI
 [] Implement Property Details card
 [] Implement pagination / infinite scrolling for loading more properties. 
-[] Loader 
 [] Write test cases. 
 **Bug Fixes**
 
