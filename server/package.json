@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --exec node --loader ts-node/esm --no-warnings=ExperimentalWarning src/index.ts",
+    "dev:convex": "npx convex dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@langchain/core": "^0.3.38",
+    "@langchain/google-genai": "^0.1.8",
+    "@langchain/openai": "^0.4.2",
+    "convex": "^1.19.0",
+    "express": "^4.21.2",
+    "langchain": "^0.3.15",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9",
+    "prettier": "3.4.2",
+    "ts-node": "^10.9.2"
+  }
+}
