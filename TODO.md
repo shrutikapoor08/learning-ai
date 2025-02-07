@@ -66,26 +66,26 @@ Pro -
 **MVP Items**
 -  ✅ ErrorBoundary in React
 -  ✅ Code refactor
--  ✅ Loader 
+-  ✅ Loader
+-  [] Implement pills
+-  [] Implement property details page (Tanstack router)
+-  [] Implement Property card
 - [] Show recommendation properties in the UI
-- [] Implement Property Details card
 - [] Implement pagination / infinite scrolling for loading more properties. 
 - [] Write test cases. 
 - [] Code refactor
-- [] Implement pills
+- [] Improve Loader component
+
 
 **Bug Fixes**
 - [] Insert / Update based on whether a property exists or not in the database.  
 - [] It should not show properties outside the budget. 
 
-
-**Functionality Items**
-- [] Implement Routes 
-
 **Performance Optimizations**
 - [] Add React compiler
 - [] Lazy load images
 - [] React scan https://github.com/aidenybai/react-scan
+- [] Server side rendering
 
  
 **Nice to haves**
@@ -95,7 +95,6 @@ Pro -
 - [] Something you need is sticky input... so when you scroll, you can still go back
 
 **Tech Stack Improvements to the app**
-- [] Server side rendering
 - [] Improve data fetching through React query
 - [] Move to TS
 - [] Move to TailwindCSS V4
