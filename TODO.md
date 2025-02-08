@@ -67,9 +67,12 @@ Pro -
 -  ✅ ErrorBoundary in React
 -  ✅ Code refactor
 -  ✅ Loader
--  [] Implement pills
--  [] Implement property details page (Tanstack router)
--  [] Implement Property card
+-  ✅ Implement pills
+-  ✅ Implement property details page (Tanstack router)
+-  ✅ Implement Property card
+-  Design homepage
+-  Design property details page
+-  Design property card
 - [] Show recommendation properties in the UI
 - [] Implement pagination / infinite scrolling for loading more properties. 
 - [] Write test cases. 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useAction } from "convex/react";
 import NiceToHaveFeatures from "../NiceToHaveFeatures/NiceToHaveFeatures";
+import PropertyCard from "../PropertyCard/PropertyCard";
+import PropertyActions from "../PropertyActions/PropertyActions";
 import "../../App.css";
 import { api } from "../../../convex/_generated/api";
-import { Link } from "@tanstack/react-router";
 
 function PropertyDetails({
   property: {
@@ -128,39 +129,17 @@ function PropertyDetails({
       key={zpid}
       className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
     >
-      <Link to={`/details/${zpid}`}>
-        <img
-          src={imgSrc}
-          alt="Property Image"
-          className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
-        />
-
-        <p className="text-l font-bold">${price}</p>
-        {propertyDetails?.nice_to_haves && (
-          <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
-        )}
-        <p className="text-xs m-1">
-          {bedrooms} bedrooms, {bathrooms} bathrooms
-        </p>
-        <p className="text-xs">
-          {streetAddress}, {city}
-        </p>
-      </Link>
-
-      <div className="flex flex-row justify-center align-center">
-        <button
-          onClick={handleLike}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-        >
-          Like
-        </button>
-        <button
-          onClick={handleDislike}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-        >
-          Dislike
-        </button>
-      </div>
+      <PropertyCard
+        zpid={zpid}
+        imgSrc={imgSrc}
+        price={price}
+        propertyDetails={propertyDetails}
+        bedrooms={bedrooms}
+        bathrooms={bathrooms}
+        streetAddress={streetAddress}
+        city={city}
+      />
+      <PropertyActions onLike={handleLike} onDislike={handleDislike} />
     </div>
   );
 }
