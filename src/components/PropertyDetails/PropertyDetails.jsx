@@ -17,10 +17,13 @@ function PropertyDetails({
     homeType,
     zpid,
   },
+  setRecommendedProperties,
 }) {
   const [propertyDetails, setPropertyDetails] = useState({});
 
-  const performMyAction = useAction(api.vectorFunctions.similarProperties);
+  const generateRecommendations = useAction(
+    api.vectorFunctions.similarProperties
+  );
 
   const fetchDetails = async () => {
     const url = `/api/property-details/?zpid=${zpid}`;
@@ -78,7 +81,7 @@ function PropertyDetails({
       preference: true,
       nice_to_haves: propertyDetails?.nice_to_haves,
     });
-    performMyAction({
+    const recommendedProperties = await generateRecommendations({
       property: {
         bedrooms,
         bathrooms,
@@ -92,6 +95,8 @@ function PropertyDetails({
         nice_to_haves: propertyDetails?.nice_to_haves,
       },
     });
+    console.log(recommendedProperties);
+    setRecommendedProperties(recommendedProperties);
   };
 
   const handleDislike = async () => {
@@ -108,7 +113,7 @@ function PropertyDetails({
       nice_to_haves: propertyDetails?.nice_to_haves,
     });
 
-    performMyAction({
+    generateRecommendations({
       property: {
         bedrooms,
         bathrooms,

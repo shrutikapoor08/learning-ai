@@ -28,7 +28,9 @@ const llmApi = async (description) => {
       price_starting: z
         .string()
         .describe("Starting price of budget. Return 0 if not passed"),
-      bedrooms: z.number().describe("Number of bedrooms."),
+      bedrooms: z
+        .number()
+        .describe("Number of bedrooms. Return 1 if not passed"),
       bathrooms: z
         .number()
         .describe("Number of bathrooms. Return 1 if not passed"),
@@ -54,6 +56,7 @@ const llmApi = async (description) => {
     format_instructions: parser.getFormatInstructions(),
   });
 
+  console.log(response);
   return response;
 };
 

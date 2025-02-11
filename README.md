@@ -2,6 +2,7 @@
 
 A real estate application that allows users to search properties in Seattle using natural language and get AI-powered recommendations based on their preferences.
 
+[Figma Link](https://www.figma.com/design/YnEQVsWxtTTkZQx3hmMG7D/Real-Estate-app?node-id=0-1&p=f&t=WcdCMDIklN5ug0SS-0)
 ## Features
 
 - Search properties in Seattle using natural language queries

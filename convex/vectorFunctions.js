@@ -26,7 +26,7 @@ export const similarProperties = action({
     const embeddings = await generateEmbeddings(args.property);
     const results = await ctx.vectorSearch("property", "by_embedding", {
       vector: embeddings,
-      limit: 5,
+      limit: 10,
       filterFields: ["price", "bedrooms", "bathrooms", "nice_to_haves"],
     });
 

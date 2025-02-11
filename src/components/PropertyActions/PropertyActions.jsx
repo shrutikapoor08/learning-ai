@@ -1,22 +1,26 @@
 import React from "react";
+import { ThumbsUp, ThumbsDown } from "lucide-react";
 
 function PropertyActions({ onLike, onDislike }) {
   return (
     <div className="flex flex-row justify-center align-center">
-      <button
-        onClick={onLike}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-      >
-        Like
+      <button onClick={onLike}>
+        <ThumbsUp fill="black" />
       </button>
-      <button
-        onClick={onDislike}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-      >
-        Dislike
+      <button onClick={onDislike}>
+        <ThumbsDown fill="black" />
       </button>
     </div>
   );
 }
 
 export default PropertyActions;
+//
+// {properties: [ {id: '123', street: '123 Main St'}, {id: '456', street: '456 Main St'}],
+// recommendedProperties: [{
+//   propertyId: 'jbfdjbnjdfbjfg',
+// }],
+
+// }
+
+//

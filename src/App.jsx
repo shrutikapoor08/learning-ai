@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import PropertiesList from './components/PropertiesList/PropertiesList.jsx'
+import PropertiesList from "./components/PropertiesList/PropertiesList.jsx";
 const PREFERENCE = {
   LIKED: true,
   DISLIKED: false,
@@ -10,21 +10,19 @@ const PREFERENCE = {
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [properties, setProperties] = useState([]);
+  const [recommendedProperties, setRecommendedProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const description = searchInput;
     if (!description) return;
 
-    
-setIsLoading(true);
+    setIsLoading(true);
 
     // Send data to parse properties
     const url = "/api/parse-properties";
     const formData = { post: description };
-
 
     const responseData = await fetch(url, {
       method: "POST",
@@ -36,13 +34,48 @@ setIsLoading(true);
 
     if (!responseData.ok) {
       const errorMessage = await responseData.text();
-      throw new Error(errorMessage); 
+      throw new Error(errorMessage);
     }
 
     const parsedData = await responseData.json();
-    setProperties(parsedData);
+    setProperties(parsedData.slice(0, 12));
     setIsLoading(false);
   };
+
+  const renderProperties = () => (
+    <>
+      {properties.length > 0 && (
+        <h2 className="font-bold text-xl w-full">
+          Seattle WA Real Estate & Homes For Sale
+        </h2>
+      )}
+      {properties.length > 0 && (
+        <PropertiesList
+          properties={properties}
+          setRecommendedProperties={setRecommendedProperties}
+        />
+      )}
+
+      {recommendedProperties.length > 0 && (
+        <>
+          <h2 className="font-bold text-xl w-full">
+            Based on your recommendations
+          </h2>
+
+          {/* <PropertiesList properties={recommendedProperties} /> */}
+
+          {recommendedProperties?.map?.((property) => {
+            console.log({ property });
+            return (
+              <div key={property?._id}>
+                <h2>{property?._score}</h2>
+              </div>
+            );
+          })}
+        </>
+      )}
+    </>
+  );
 
   return (
     <main className="flex p-4 m-4">
@@ -87,19 +120,14 @@ setIsLoading(true);
           </button>
         </div>
 
-        {isLoading ? (<div> Loading </div>)
-        : (
-
-        
-        <section className="flex flex-row justify-center flex-wrap">
-          {properties.length > 0 && (
-            <h2 className="font-bold text-xl w-full">
-              Seattle WA Real Estate & Homes For Sale
-            </h2>
-          )}
-          <PropertiesList properties={properties} />
-
-        </section>
+        {isLoading ? (
+          <div> Loading </div>
+        ) : (
+          <>
+            <section className="flex flex-row justify-center flex-wrap">
+              {renderProperties()}
+            </section>
+          </>
         )}
       </div>
     </main>
