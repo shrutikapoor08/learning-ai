@@ -48,7 +48,7 @@ async function fetchProperties({
 
   try {
     const response = await fetch(`${ZILLOW_API.SEARCH}?${params}`, options);
-    const result = JSON.parse(await response.text());
+    const result = await response.json();
     return result?.searchResults;
   } catch (error) {
     throw new Error((error as Error).message);
