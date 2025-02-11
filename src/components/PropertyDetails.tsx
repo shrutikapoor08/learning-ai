@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAction } from "convex/react";
 import NiceToHaveFeatures from "./NiceToHaveFeatures";
 import { api } from "../../server/convex/_generated/api";
+import { Link } from "@tanstack/react-router";
 
 interface Property {
   bedrooms: number;
@@ -157,22 +158,24 @@ function PropertyDetails({ property }: PropertyDetailsProps) {
       key={zpid}
       className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
     >
-      <img
-        src={imgSrc}
-        onClick={fetchDetails}
-        className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
-      />
+      <Link to="/details/$propertyId" params={{ propertyId: zpid }}>
+        <img
+          src={imgSrc}
+          onClick={fetchDetails}
+          className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
+        />
 
-      <p className="text-l font-bold">${price}</p>
-      {propertyDetails?.nice_to_haves && (
-        <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
-      )}
-      <p className="text-xs m-1">
-        {bedrooms} bedrooms, {bathrooms} bathrooms
-      </p>
-      <p className="text-xs">
-        {streetAddress}, {city}
-      </p>
+        <p className="text-l font-bold">${price}</p>
+        {propertyDetails?.nice_to_haves && (
+          <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
+        )}
+        <p className="text-xs m-1">
+          {bedrooms} bedrooms, {bathrooms} bathrooms
+        </p>
+        <p className="text-xs">
+          {streetAddress}, {city}
+        </p>
+      </Link>
 
       <div className="flex flex-row justify-center align-center">
         <button
