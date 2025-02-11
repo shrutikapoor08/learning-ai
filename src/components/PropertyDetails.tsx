@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useAction } from "convex/react";
-import NiceToHaveFeatures from "./NiceToHaveFeatures";
 import { api } from "../../server/convex/_generated/api";
-import { Link } from "@tanstack/react-router";
+import PropertyCard from "./PropertyCard";
+import PropertyActions from "./PropertyActions";
 
-interface Property {
+export interface Property {
   bedrooms: number;
   bathrooms: number;
   city: string;
@@ -15,7 +15,7 @@ interface Property {
   zpid: string;
 }
 
-interface PropertyDetailsType {
+export interface PropertyDetailsType {
   bedrooms?: number;
   bathrooms?: number;
   city?: string;
@@ -28,6 +28,10 @@ interface PropertyDetailsType {
   preference: boolean;
   nice_to_haves?: string[];
 }
+
+export type PropertyAllDetails = {
+  propertyDetails: PropertyDetailsType;
+} & Property;
 
 interface PropertyDetailsProps {
   property: Property;
@@ -158,39 +162,18 @@ function PropertyDetails({ property }: PropertyDetailsProps) {
       key={zpid}
       className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
     >
-      <Link to="/details/$propertyId" params={{ propertyId: zpid }}>
-        <img
-          src={imgSrc}
-          onClick={fetchDetails}
-          className="featured-image h-56 max-h-2x w-full rounded-s object-cover"
-        />
-
-        <p className="text-l font-bold">${price}</p>
-        {propertyDetails?.nice_to_haves && (
-          <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
-        )}
-        <p className="text-xs m-1">
-          {bedrooms} bedrooms, {bathrooms} bathrooms
-        </p>
-        <p className="text-xs">
-          {streetAddress}, {city}
-        </p>
-      </Link>
-
-      <div className="flex flex-row justify-center align-center">
-        <button
-          onClick={handleLike}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-        >
-          Like
-        </button>
-        <button
-          onClick={handleDislike}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
-        >
-          Dislike
-        </button>
-      </div>
+      <PropertyCard
+        zpid={zpid}
+        imgSrc={imgSrc}
+        price={price}
+        propertyDetails={propertyDetails}
+        bedrooms={bedrooms}
+        bathrooms={bathrooms}
+        streetAddress={streetAddress}
+        city={city}
+        homeType="For Sale"
+      />
+      <PropertyActions onLike={handleLike} onDislike={handleDislike} />
     </div>
   );
 }
