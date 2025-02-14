@@ -96,6 +96,7 @@ function PropertyDetails({
       },
     });
     console.log(recommendedProperties);
+    //fetch recommendations from Zillow API
     setRecommendedProperties(recommendedProperties);
   };
 

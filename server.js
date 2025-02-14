@@ -83,6 +83,7 @@ async function savePropertyToDB(property) {
       embedding: embeddings,
     };
 
+    //TODO: bug fix - dont insert if property already exist. upsert.
     return await convex.mutation("property:insert", formattedProperty);
   } catch (error) {
     console.error(error);
