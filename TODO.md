@@ -71,15 +71,16 @@ Pro -
 -  ✅ Implement property details page (Tanstack router)
 -  ✅ Implement Property card
 -  ✅ State management - Context, Redux, Tanstack Query  - tanstack query!  
-- [] Implement pagination / infinite scrolling for loading more properties. 
-- - ⏱️ [] ✅ In progress - Show recommendation properties in the UI - Good second issue
-      - Fetch property from the DB based on its recommendation id.  - Good second issue
+- ✅ Implement pagination / infinite scrolling for loading more properties. 
+- ⏱️ [] ✅ In progress - Show recommendation properties in the UI - Good second issue
+- [] Code refactor (Feb 20)
+- [] Improve Loader component (Feb 20)
+- Fetch property from the DB based on its recommendation id.  - Good second issue
+- [] Design property details page -  Good first issue
 - [] Design homepage - Good first issue
--  [] Design property details page -  Good first issue
--  [] Design property card -  Good first issue
+- [] Design property card -  Good first issue
 - [] Write test cases. 
-- [] Code refactor
-- [] Improve Loader component
+
 
 
 **Bug Fixes**
@@ -87,10 +88,11 @@ Pro -
 - [] It should not show properties outside the budget. 
 
 **Performance Optimizations**
+- [] Server side rendering (Feb 21)
 - [] Add React compiler
 - [] Lazy load images
 - [] React scan https://github.com/aidenybai/react-scan
-- [] Server side rendering
+
 
  
 **Nice to haves**

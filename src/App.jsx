@@ -59,7 +59,6 @@ function App() {
     });
     allDataRef.current = await responseData.json();
 
-    console.log({ allDataRef });
     if (pageParam === 0) {
       return allDataRef.current.slice(0, 20);
     } else {
