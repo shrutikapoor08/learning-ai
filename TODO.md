@@ -70,10 +70,10 @@ Pro -
 -  ✅ Implement pills
 -  ✅ Implement property details page (Tanstack router)
 -  ✅ Implement Property card
--  []✅ State management - Context, Redux, Tanstack Query  - tanstack query!  
-- ⏱️ [] ✅ In progress - Show recommendation properties in the UI
-  - Fetch property from the DB based on its recommendation id.  
+-  ✅ State management - Context, Redux, Tanstack Query  - tanstack query!  
 - [] Implement pagination / infinite scrolling for loading more properties. 
+- - ⏱️ [] ✅ In progress - Show recommendation properties in the UI - Good second issue
+      - Fetch property from the DB based on its recommendation id.  - Good second issue
 - [] Design homepage - Good first issue
 -  [] Design property details page -  Good first issue
 -  [] Design property card -  Good first issue

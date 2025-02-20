@@ -3,6 +3,7 @@ import PropertyDetails from "../PropertyDetails/PropertyDetails";
 const PropertiesList = ({ properties, setRecommendedProperties }) => {
   const renderProperties = () => {
     return properties?.map?.(({ property }) => {
+      if (!property || !property?.zpid) return null;
       const { bedrooms, bathrooms, address, price, media, propertyType, zpid } =
         property;
 

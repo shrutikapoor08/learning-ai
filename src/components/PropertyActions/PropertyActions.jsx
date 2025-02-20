@@ -15,12 +15,3 @@ function PropertyActions({ onLike, onDislike }) {
 }
 
 export default PropertyActions;
-//
-// {properties: [ {id: '123', street: '123 Main St'}, {id: '456', street: '456 Main St'}],
-// recommendedProperties: [{
-//   propertyId: 'jbfdjbnjdfbjfg',
-// }],
-
-// }
-
-//

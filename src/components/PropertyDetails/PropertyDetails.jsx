@@ -31,14 +31,14 @@ function PropertyDetails({
     const responseData = await response.json();
 
     const property = {
-      bedrooms: responseData?.propertyDetails.bedrooms,
-      bathrooms: responseData?.propertyDetails.bathrooms,
-      city: responseData?.propertyDetails.city,
-      streetAddress: responseData?.propertyDetails.streetAddress,
-      price: responseData?.propertyDetails.price,
-      imgSrc: responseData?.propertyDetails.hiResImageLink,
-      photos: responseData?.propertyDetails.originalPhotos,
-      homeType: responseData?.propertyDetails.homeType,
+      bedrooms: responseData?.propertyDetails?.bedrooms,
+      bathrooms: responseData?.propertyDetails?.bathrooms,
+      city: responseData?.propertyDetails?.city,
+      streetAddress: responseData?.propertyDetails?.streetAddress,
+      price: responseData?.propertyDetails?.price,
+      imgSrc: responseData?.propertyDetails?.hiResImageLink,
+      photos: responseData?.propertyDetails?.originalPhotos,
+      homeType: responseData?.propertyDetails?.homeType,
       zpid,
       preference: true,
       nice_to_haves:
@@ -55,9 +55,7 @@ function PropertyDetails({
 
     const responseData = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(property),
     });
 

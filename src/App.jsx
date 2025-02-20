@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import PropertiesList from "./components/PropertiesList/PropertiesList.jsx";
-import { useQuery } from "@tanstack/react-query";
-const PREFERENCE = {
-  LIKED: true,
-  DISLIKED: false,
-  NO_PREFERENCE: undefined,
-};
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+const PREFERENCE = { LIKED: true, DISLIKED: false, NO_PREFERENCE: undefined };
 
 const Loader = () => (
   <div className="flex justify-center items-center">
@@ -23,6 +20,7 @@ function App() {
   const ref = useRef("");
   const [searchInput, setSearchInput] = useState("");
   const [recommendedProperties, setRecommendedProperties] = useState([]);
+  const allDataRef = useRef(null);
 
   const {
     isLoading,
@@ -30,25 +28,46 @@ function App() {
     error,
     refetch,
     data: properties,
-  } = useQuery({
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
     queryKey: [ref.current],
     queryFn: getPropertiesFromNaturalLanguage,
-    enabled: false,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, pages) => {
+      // Calculate the total number of items displayed so far
+      const totalDisplayed = pages.flat().length;
+      // If all items have been displayed, stop pagination
+      if (allDataRef.current && totalDisplayed >= allDataRef.current.length) {
+        return undefined; // No more pages
+      }
+      // Return the next page number (incremented by 1 for each page)
+      return pages.length;
+    },
   });
 
-  async function getPropertiesFromNaturalLanguage() {
+  async function getPropertiesFromNaturalLanguage({ pageParam = 0 }) {
     const url = "/api/parse-properties";
     const formData = { post: searchInput };
-
     const responseData = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
+    allDataRef.current = await responseData.json();
 
-    return responseData.json();
+    console.log({ allDataRef });
+    if (pageParam === 0) {
+      return allDataRef.current.slice(0, 20);
+    } else {
+      const start = pageParam * 20;
+      const end = start + 20;
+
+      return allDataRef.current.slice(start, end);
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -65,9 +84,9 @@ function App() {
           Seattle WA Real Estate & Homes For Sale
         </h2>
       )}
-      {properties?.length > 0 && (
+      {properties?.pages?.flat().length > 0 && (
         <PropertiesList
-          properties={properties}
+          properties={properties?.pages?.flat()}
           setRecommendedProperties={setRecommendedProperties}
         />
       )}
@@ -135,6 +154,16 @@ function App() {
         <section className="flex flex-row justify-center flex-wrap">
           {renderProperties()}
         </section>
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+              ? "Load More"
+              : "Nothing more to load"}
+        </button>
       </div>
     </main>
   );
