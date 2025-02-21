@@ -1,6 +1,6 @@
 import PropertyDetails from "../PropertyDetails/PropertyDetails";
 
-const PropertiesList = ({ properties, setRecommendedProperties }) => {
+const PropertiesListings = ({ properties, setRecommendedProperties }) => {
   const renderProperties = () => {
     return properties?.map?.(({ property }) => {
       if (!property || !property?.zpid) return null;
@@ -26,7 +26,7 @@ const PropertiesList = ({ properties, setRecommendedProperties }) => {
     });
   };
 
-  return <div> {renderProperties()} </div>;
+  return <div className="flex flex-wrap gap-4"> {renderProperties()} </div>;
 };
 
-export default PropertiesList;
+export default PropertiesListings;

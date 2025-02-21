@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
-import PropertiesList from "./components/PropertiesList/PropertiesList.jsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import PropertyCard from "./components/PropertyCard/PropertyCard.jsx";
+import FeaturedSection from "./components/FeaturedSection/FeaturedSection.jsx";
+import Header from "./components/Header/Header.jsx";
+import SearchBar from "./components/SearchBar/SearchBar.jsx";
+import PropertiesListings from "./components/PropertiesListings/PropertiesListings.jsx";
+
 const PREFERENCE = { LIKED: true, DISLIKED: false, NO_PREFERENCE: undefined };
 
 const Loader = () => (
@@ -84,7 +89,7 @@ function App() {
         </h2>
       )}
       {properties?.pages?.flat().length > 0 && (
-        <PropertiesList
+        <PropertiesListings
           properties={properties?.pages?.flat()}
           setRecommendedProperties={setRecommendedProperties}
         />
@@ -108,62 +113,64 @@ function App() {
       )}
     </>
   );
-
   return (
-    <main className="flex p-4 m-4">
-      <div className="mx-auto justify-center items-center m-10 min-h-screen">
-        <h1 className="sm:text-6xl text-4xl text-slate-900 mb-10 font-bold sans-serif">
-          Search for properties in Seattle
-        </h1>
-        <textarea
-          value={searchInput || ref.current}
+    <main className="min-h-screen">
+      <FeaturedSection>
+        <Header />
+        <SearchBar
+          value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          rows="4"
-          className="block p-2.5 w-full text-sm text-gray-900 rounded-lg border 
-            border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="I am looking for a 3 bedroom single family house in Seattle..."
+          onSearch={handleSubmit}
+          onFillDescription={() =>
+            setSearchInput(
+              "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000"
+            )
+          }
         />
-        <div className="flex gap-2 my-10">
-          <button
-            onClick={() =>
-              setSearchInput(
-                "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000"
-              )
-            }
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 
-              hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
-              focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg 
-              text-sm px-5 py-3 text-center"
-          >
-            Fill Description
-          </button>
+      </FeaturedSection>
 
-          <button
-            onClick={handleSubmit}
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 
-              hover:bg-gradient-to-bl focus:ring-4 focus:outline-none 
-              focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg 
-              text-sm px-5 py-3 text-center"
+      {isLoading && <Loader />}
+      {isError && <Error error={error} />}
+
+      <section id="search-listings" className="py-12">
+        <PropertiesListings
+          properties={properties?.pages?.flat() || []}
+          title="Seattle WA Real Estate & Homes For Sale"
+        >
+          {properties?.pages?.flat().map(({ property }) => (
+            <PropertyCard key={property.zpid} property={property} />
+          ))}
+        </PropertiesListings>
+      </section>
+
+      {recommendedProperties.length > 0 && (
+        <section id="recommended-listings" className="py-12 bg-gray-50">
+          <PropertiesListings
+            properties={recommendedProperties}
+            title="Recommended Properties"
           >
-            Search
+            {recommendedProperties.map((property) => (
+              <PropertyCard key={property._id} property={property} />
+            ))}
+          </PropertiesListings>
+        </section>
+      )}
+
+      {hasNextPage && (
+        <div className="flex justify-center py-8">
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg disabled:opacity-50"
+          >
+            {isFetchingNextPage
+              ? "Loading more..."
+              : hasNextPage
+                ? "Load More"
+                : "Nothing more to load"}
           </button>
         </div>
-        {isLoading && <Loader />}
-        {isError && <Error error={error} />}
-        <section className="flex flex-row justify-center flex-wrap">
-          {renderProperties()}
-        </section>
-        <button
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage || isFetchingNextPage}
-        >
-          {isFetchingNextPage
-            ? "Loading more..."
-            : hasNextPage
-              ? "Load More"
-              : "Nothing more to load"}
-        </button>
-      </div>
+      )}
     </main>
   );
 }
