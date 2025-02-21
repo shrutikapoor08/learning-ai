@@ -73,7 +73,7 @@ Pro -
 -  ✅ State management - Context, Redux, Tanstack Query  - tanstack query!  
 - ✅ Implement pagination / infinite scrolling for loading more properties. 
 - ⏱️ [] ✅ In progress - Show recommendation properties in the UI - Good second issue
-- [] Code refactor (Feb 20)
+- ✅ Code refactor (Feb 20)
 - [] Improve Loader component (Feb 20)
 - Fetch property from the DB based on its recommendation id.  - Good second issue
 - [] Design property details page -  Good first issue

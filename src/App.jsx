@@ -11,8 +11,8 @@ import PropertiesListings from "./components/PropertiesListings/PropertiesListin
 const PREFERENCE = { LIKED: true, DISLIKED: false, NO_PREFERENCE: undefined };
 
 const Loader = () => (
-  <div className="flex justify-center items-center">
-    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+  <div className="flex justify-center items-center m-10">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
   </div>
 );
 const Error = ({ error }) => (
