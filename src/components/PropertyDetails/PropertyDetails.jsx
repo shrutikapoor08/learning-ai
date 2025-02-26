@@ -131,7 +131,7 @@ function PropertyDetails({
   return (
     <div
       key={zpid}
-      className="flex flex-col rounded-lg s-p-1 s-m-1 p-4 m-2 shadow-sm shadow-indigo-100 text-center"
+      className="flex flex-col bg-white rounded-lg overflow-hidden border border-[#e3e3e3] hover:shadow-md transition-shadow text-center"
     >
       <PropertyCard
         zpid={zpid}
@@ -142,8 +142,9 @@ function PropertyDetails({
         bathrooms={bathrooms}
         streetAddress={streetAddress}
         city={city}
+        onLike={handleLike}
+        onDislike={handleDislike}
       />
-      <PropertyActions onLike={handleLike} onDislike={handleDislike} />
     </div>
   );
 }

@@ -68,14 +68,14 @@ Pro -
 -  ✅ Code refactor
 -  ✅ Loader
 -  ✅ Implement pills
--  ✅ Implement property details page (Tanstack router)
+-  ✅ Implement property details page (vTanstack router)
 -  ✅ Implement Property card
 -  ✅ State management - Context, Redux, Tanstack Query  - tanstack query!  
 - ✅ Implement pagination / infinite scrolling for loading more properties. 
 - ⏱️ [] ✅ In progress - Show recommendation properties in the UI - Good second issue
 - ✅ Code refactor (Feb 20)
-- [] Improve Loader component (Feb 20)
-- Fetch property from the DB based on its recommendation id.  - Good second issue
+- ✅ Improve Loader component (Feb 20)
+- Fetch property from the DB based on its recommendation id.  - Good second issue - (Feb 21)
 - [] Design property details page -  Good first issue
 - [] Design homepage - Good first issue
 - [] Design property card -  Good first issue
