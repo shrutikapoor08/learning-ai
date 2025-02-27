@@ -21,18 +21,18 @@ export default function Recommendations() {
   );
 
   useEffect(() => {
-    useRecommendedPropertyStore.subscribe((state) => state.likedProperty);
-  }, []);
+    useRecommendedPropertyStore.subscribe(
+      (state) => state.likedProperty,
+      fetchRecommendations(likedProperty)
+    );
+  }, [likedProperty]);
 
-  console.log("liked property ", likedProperty);
-
-  //   const fetchRecommendations = async () => {
-  //     const propertiesResult =
-  //       likedProperty && (await generateRecommendations(likedProperty));
-  //     setRecommendedProperties(propertiesResult);
-  //   };
-
-  //   console.log({ recommendedProperties });
+  async function fetchRecommendations(property) {
+    console.log({ property });
+    const propertiesResult = await generateRecommendations({ property });
+    console.log({ propertiesResult });
+    setRecommendedProperties(propertiesResult);
+  }
 
   return (
     recommendedProperties?.length > 0 && (
