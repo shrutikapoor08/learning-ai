@@ -20,7 +20,6 @@ const PropertiesListings = ({ properties, setRecommendedProperties }) => {
             homeType: propertyType,
             zpid,
           }}
-          setRecommendedProperties={setRecommendedProperties}
         />
       );
     });

@@ -7,6 +7,7 @@ import FeaturedSection from "./components/FeaturedSection/FeaturedSection.jsx";
 import Header from "./components/Header/Header.jsx";
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import PropertiesListings from "./components/PropertiesListings/PropertiesListings.jsx";
+import Recommendations from "./components/Recommendations/Recommendations.jsx";
 
 const PREFERENCE = { LIKED: true, DISLIKED: false, NO_PREFERENCE: undefined };
 
@@ -24,7 +25,6 @@ const Error = ({ error }) => (
 function App() {
   const ref = useRef("");
   const [searchInput, setSearchInput] = useState("");
-  const [recommendedProperties, setRecommendedProperties] = useState([]);
   const allDataRef = useRef(null);
 
   const {
@@ -81,38 +81,6 @@ function App() {
     refetch();
   };
 
-  const renderProperties = () => (
-    <>
-      {properties?.length > 0 && (
-        <h2 className="font-bold text-xl w-full">
-          Seattle WA Real Estate & Homes For Sale
-        </h2>
-      )}
-      {properties?.pages?.flat().length > 0 && (
-        <PropertiesListings
-          properties={properties?.pages?.flat()}
-          setRecommendedProperties={setRecommendedProperties}
-        />
-      )}
-
-      {recommendedProperties.length > 0 && (
-        <>
-          <h2 className="font-bold text-xl w-full">
-            Based on your recommendations
-          </h2>
-
-          {recommendedProperties?.map?.((property) => {
-            console.log({ property });
-            return (
-              <div key={property?._id}>
-                <h2>{property?._id}</h2>
-              </div>
-            );
-          })}
-        </>
-      )}
-    </>
-  );
   return (
     <main className="min-h-screen">
       <FeaturedSection>
@@ -143,18 +111,7 @@ function App() {
         </PropertiesListings>
       </section>
 
-      {recommendedProperties.length > 0 && (
-        <section id="recommended-listings" className="py-12 bg-gray-50">
-          <PropertiesListings
-            properties={recommendedProperties}
-            title="Recommended Properties"
-          >
-            {recommendedProperties.map((property) => (
-              <PropertyCard key={property._id} property={property} />
-            ))}
-          </PropertiesListings>
-        </section>
-      )}
+      <Recommendations />
 
       {hasNextPage && (
         <div className="flex justify-center py-8">

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useAction } from "convex/react";
-import NiceToHaveFeatures from "../NiceToHaveFeatures/NiceToHaveFeatures";
+import React, { useState } from "react";
 import PropertyCard from "../PropertyCard/PropertyCard";
-import PropertyActions from "../PropertyActions/PropertyActions";
+import useRecommendedPropertyStore from "../../store/recommendedProperty";
 import "../../App.css";
-import { api } from "../../../convex/_generated/api";
 
 function PropertyDetails({
   property: {
@@ -17,37 +14,15 @@ function PropertyDetails({
     homeType,
     zpid,
   },
-  setRecommendedProperties,
 }) {
   const [propertyDetails, setPropertyDetails] = useState({});
 
-  const generateRecommendations = useAction(
-    api.vectorFunctions.similarProperties
+  const setLikedProperty = useRecommendedPropertyStore(
+    (state) => state.setLikedProperty
   );
-
-  const fetchDetails = async () => {
-    const url = `/api/property-details/?zpid=${zpid}`;
-    const response = await fetch(url);
-    const responseData = await response.json();
-
-    const property = {
-      bedrooms: responseData?.propertyDetails?.bedrooms,
-      bathrooms: responseData?.propertyDetails?.bathrooms,
-      city: responseData?.propertyDetails?.city,
-      streetAddress: responseData?.propertyDetails?.streetAddress,
-      price: responseData?.propertyDetails?.price,
-      imgSrc: responseData?.propertyDetails?.hiResImageLink,
-      photos: responseData?.propertyDetails?.originalPhotos,
-      homeType: responseData?.propertyDetails?.homeType,
-      zpid,
-      preference: true,
-      nice_to_haves:
-        responseData?.propertyDetails?.homeInsights?.[0]?.insights?.[0]
-          ?.phrases || [],
-    };
-
-    setPropertyDetails(property);
-  };
+  const setDislikedProperty = useRecommendedPropertyStore(
+    (state) => state.setDislikedProperty
+  );
 
   const saveProperty = async (property) => {
     // Send data to parse properties
@@ -67,7 +42,7 @@ function PropertyDetails({
   };
 
   const handleLike = async () => {
-    saveProperty({
+    const property = {
       bedrooms,
       bathrooms,
       city,
@@ -78,28 +53,13 @@ function PropertyDetails({
       zpid,
       preference: true,
       nice_to_haves: propertyDetails?.nice_to_haves,
-    });
-    const recommendedProperties = await generateRecommendations({
-      property: {
-        bedrooms,
-        bathrooms,
-        city,
-        streetAddress,
-        price,
-        imgSrc,
-        homeType,
-        zpid,
-        preference: true,
-        nice_to_haves: propertyDetails?.nice_to_haves,
-      },
-    });
-    console.log(recommendedProperties);
-    //fetch recommendations from Zillow API
-    setRecommendedProperties(recommendedProperties);
+    };
+    saveProperty(property);
+    setLikedProperty(property); //update store
   };
 
   const handleDislike = async () => {
-    saveProperty({
+    const property = {
       bedrooms,
       bathrooms,
       city,
@@ -110,22 +70,9 @@ function PropertyDetails({
       zpid,
       preference: false,
       nice_to_haves: propertyDetails?.nice_to_haves,
-    });
-
-    generateRecommendations({
-      property: {
-        bedrooms,
-        bathrooms,
-        city,
-        streetAddress,
-        price,
-        imgSrc,
-        homeType,
-        zpid,
-        preference: false,
-        nice_to_haves: propertyDetails?.nice_to_haves,
-      },
-    });
+    };
+    saveProperty(property);
+    setDislikedProperty(property); //update store
   };
 
   return (

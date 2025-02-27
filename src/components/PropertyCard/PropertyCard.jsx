@@ -18,31 +18,32 @@ function PropertyCard({
   onDislike,
 }) {
   return (
-    <Link to={`/details/${zpid}`}>
-      <img
-        src={imgSrc}
-        alt="Property Image"
-        className="featured-image aspect-3/2 w-full h-48 rounded-s object-cover"
-      />
-      <PropertyActions onLike={onLike} onDislike={onDislike} />
+    <>
+      <Link to={`/details/${zpid}`}>
+        <img
+          src={imgSrc}
+          alt="Property Image"
+          className="featured-image aspect-3/2 w-full h-48 rounded-s object-cover"
+        />
 
-      <div className="mb-2">
-        <h3 className="text-xl font-bold">${price}</h3>
-        <div className="flex text-sm text-[#767676]">
-          <MapPin className="w-4 h-4 mr-1" />
-          <p>
-            {streetAddress}, {city}
-          </p>
+        <div className="mb-2 p-4">
+          <h3 className="text-xl font-bold mb-2 mt-2">${price}</h3>
+          <div className="flex items-center text-center ext-sm text-[#767676]">
+            <p>
+              {streetAddress}, {city}
+            </p>
+          </div>
         </div>
-      </div>
 
-      {propertyDetails?.nice_to_haves && (
-        <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
-      )}
-      <p className="text-xs m-1">
-        {bedrooms} bedrooms, {bathrooms} bathrooms
-      </p>
-    </Link>
+        {propertyDetails?.nice_to_haves && (
+          <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
+        )}
+        <p className="text-xs m-1">
+          {bedrooms} bedrooms, {bathrooms} bathrooms
+        </p>
+      </Link>
+      <PropertyActions onLike={onLike} onDislike={onDislike} />
+    </>
   );
 }
 
