@@ -19,7 +19,13 @@ function PropertyCard({
 }) {
   return (
     <>
-      <Link to={`/details/${zpid}`}>
+      <Link
+        to={`/details/${zpid}`}
+        search={{
+          price: price,
+          bedrooms: bedrooms,
+        }}
+      >
         <img
           src={imgSrc}
           alt="Property Image"

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import PropertyDetailsPage from "../components/PropertyDetailsPage/PropertyDetailsPage";
 
 export const Route = createFileRoute("/details/$propertyId")({
   component: Details,
@@ -6,6 +7,13 @@ export const Route = createFileRoute("/details/$propertyId")({
 
 function Details() {
   const { propertyId } = Route.useParams();
+  const { price, bedrooms } = Route.useSearch();
 
-  return <div>Hello {propertyId}</div>;
+  const propertyDetails = {
+    bedrooms,
+    price,
+    zpid: propertyId,
+  };
+
+  return <PropertyDetailsPage propertyDetails={propertyDetails} />;
 }
