@@ -24,6 +24,13 @@ function PropertyCard({
         search={{
           price: price,
           bedrooms: bedrooms,
+          bathrooms: bathrooms,
+          streetAddress: streetAddress,
+          city: city,
+          imgSrc: imgSrc,
+          homeType: propertyDetails?.homeType,
+          nice_to_haves: propertyDetails?.nice_to_haves,
+          preference: propertyDetails?.preference,
         }}
       >
         <img

@@ -7,12 +7,29 @@ export const Route = createFileRoute("/details/$propertyId")({
 
 function Details() {
   const { propertyId } = Route.useParams();
-  const { price, bedrooms } = Route.useSearch();
+  const {
+    price,
+    bedrooms,
+    bathrooms,
+    city,
+    streetAddress,
+    imgSrc,
+    homeType,
+    preference,
+    nice_to_haves,
+  } = Route.useSearch();
 
   const propertyDetails = {
     bedrooms,
     price,
-    zpid: propertyId,
+    bathrooms,
+    city,
+    streetAddress,
+    imgSrc,
+    homeType,
+    preference,
+    nice_to_haves,
+    propertyId,
   };
 
   return <PropertyDetailsPage propertyDetails={propertyDetails} />;

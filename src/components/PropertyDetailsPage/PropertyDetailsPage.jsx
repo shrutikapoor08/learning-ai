@@ -9,19 +9,19 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Carousel = () => {
+const Carousel = ({ imgSrc }) => {
   return (
-    <div className="flex justify-between items-center mt-4 h-96">
+    <div className="flex justify-between items-center mt-4 h-full">
       <Button variant="outline" className="w-full">
         Previous
       </Button>
       <div className="flex gap-2">
         <img
-          src="/placeholder.svg?height=700&width=800"
+          src={imgSrc}
           alt="Property"
           height={700}
           width={800}
-          className="w-16 h-16 object-cover rounded-lg"
+          className="object-cover rounded-lg"
         />
       </div>
       <Button variant="outline" className="w-full">
@@ -32,8 +32,17 @@ const Carousel = () => {
 };
 
 export default function PropertyDetailPage({ propertyDetails }) {
-  const { price, bedrooms, zpid } = propertyDetails;
-  console.log(propertyDetails);
+  const {
+    price,
+    bedrooms,
+    bathrooms,
+    streetAddress,
+    city,
+    imgSrc,
+    homeType,
+    zpid,
+    nice_to_haves,
+  } = propertyDetails;
   return (
     <div className="min-h-screen bg-white">
       {/* Main Content */}
@@ -46,7 +55,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
         </div>
 
         <div className="mb-6">
-          <Carousel />
+          <Carousel imgSrc={imgSrc} />
         </div>
 
         <div className="">
@@ -55,31 +64,29 @@ export default function PropertyDetailPage({ propertyDetails }) {
             <div className="mb-8">
               <div className="flex justify-between items-start mb-2">
                 <h1 className="text-3xl font-bold">${price}</h1>
-
-                <div className="relative">
-                  <button className="absolute top-4 right-4 bg-white p-2 rounded-full">
-                    <Heart className="w-5 h-5 text-[#767676]" />
-                  </button>
-                  <button className="absolute top-4 right-16 bg-white p-2 rounded-full">
-                    <Share2 className="w-5 h-5 text-[#767676]" />
-                  </button>
-                </div>
+                <p>
+                  {streetAddress}, {city}
+                </p>
                 <div className="flex items-center text-sm text-[#767676]">
-                  <MapPin className="w-4 h-4 mr-1" />
-                  <span>Atlanta, GA 30342</span>
+                  <div className="relative">
+                    <button className="absolute top-4 right-4 bg-white p-2 rounded-full">
+                      <Heart className="w-5 h-5 text-[#767676]" />
+                    </button>
+                    <button className="absolute top-4 right-16 bg-white p-2 rounded-full">
+                      <Share2 className="w-5 h-5 text-[#767676]" />
+                    </button>
+                  </div>
                 </div>
               </div>
-              <h2 className="text-xl text-[#3e4958] mb-4">
-                Beautiful Single Family Home
-              </h2>
+              <h2 className="text-xl text-[#3e4958] mb-4">{homeType}</h2>
               <div className="flex flex-wrap gap-6 mb-6 text-sm">
                 <div className="flex items-center">
                   <Bed className="w-5 h-5 mr-2 text-[#767676]" />
-                  <span>3 Beds</span>
+                  <span>{bedrooms} Beds</span>
                 </div>
                 <div className="flex items-center">
                   <Bath className="w-5 h-5 mr-2 text-[#767676]" />
-                  <span>2 Baths</span>
+                  <span>{bathrooms} Baths</span>
                 </div>
                 <div className="flex items-center">
                   <Square className="w-5 h-5 mr-2 text-[#767676]" />
@@ -87,7 +94,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
                 </div>
               </div>
 
-              <div className="border-t border-b py-4 my-4">
+              <iv className="border-t border-b py-4 my-4">
                 <h3 className="font-semibold mb-2">About this home</h3>
                 <p className="text-[#4b545a] text-sm leading-relaxed">
                   This beautiful single-family home features an open floor plan
@@ -98,7 +105,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
                   with excellent schools nearby and easy access to shopping and
                   dining.
                 </p>
-              </div>
+              </iv>
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
                 <div className="border rounded-md p-3">
@@ -127,6 +134,15 @@ export default function PropertyDetailPage({ propertyDetails }) {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="flex  lg:justify-between items-stretch gap-4">
+            <Button className="text-xl lg:w-full py-4 bg-[#4128EA] hover:bg-[#4128EA]/90 text-white">
+              Love It
+            </Button>
+            <Button className="text-xl lg:w-full py-4 bg-slate-800 text-white">
+              Not For Me
+            </Button>
           </div>
 
           {/* Right Column - Contact and Map */}

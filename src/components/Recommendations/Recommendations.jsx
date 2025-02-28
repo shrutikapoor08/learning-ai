@@ -30,6 +30,9 @@ export default function Recommendations() {
   async function fetchRecommendations(property) {
     console.log({ property });
     const propertiesResult = await generateRecommendations({ property });
+
+    // TODO: using the _id from the database, make a query to the databse to get the property details.
+
     console.log({ propertiesResult });
     setRecommendedProperties(propertiesResult);
   }
