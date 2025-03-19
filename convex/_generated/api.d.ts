@@ -14,7 +14,6 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as property from "../property.js";
-import type * as v from "../v.js";
 import type * as vectorFunctions from "../vectorFunctions.js";
 
 /**
@@ -27,7 +26,6 @@ import type * as vectorFunctions from "../vectorFunctions.js";
  */
 declare const fullApi: ApiFromModules<{
   property: typeof property;
-  v: typeof v;
   vectorFunctions: typeof vectorFunctions;
 }>;
 export declare const api: FilterApi<

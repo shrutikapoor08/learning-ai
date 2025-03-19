@@ -32,7 +32,7 @@ const agent = createReactAgent({
 
 // Now it's time to use!
 const agentFinalState = await agent.invoke(
-  { messages: [new HumanMessage("what is the walk score of 5899-5601 142nd Pl NE, Marysville, WA 98271?")] },
+  { messages: [new HumanMessage(`what is the walk score of ${propertyDetails?.address}?`)] },
   { configurable: { thread_id: "42" } },
 );
 
@@ -41,12 +41,17 @@ console.log(
 );
 
 const agentNextState = await agent.invoke(
-  { messages: [new HumanMessage("how many 4 star or higher restaurants are close to this property within a 0.5 mile radius and which cuisines?")] },
+  { messages: [new HumanMessage("how many restaurants are close to this property within a 0.5 mile radius and which cuisines?")] },
+  { configurable: { thread_id: "42" } },
+);
+
+const agentOpenRestaurantState = await agent.invoke(
+  { messages: [new HumanMessage("which ones are open now?")] },
   { configurable: { thread_id: "42" } },
 );
 
 console.log(
-  agentNextState.messages[agentNextState.messages.length - 1].content,
+  agentOpenRestaurantState.messages[agentOpenRestaurantState.messages.length - 1].content,
 );
 
 const result = agentNextState.messages[agentNextState.messages.length - 1].content;
@@ -55,3 +60,9 @@ return result;
 }
 
 export default realEstateAgent;
+
+const propertyDetails = {
+  'address': 'Aster St SE, Tumwater, WA 98501, United States'
+}
+
+realEstateAgent({ propertyDetails});
