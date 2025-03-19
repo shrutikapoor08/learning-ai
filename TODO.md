@@ -84,7 +84,7 @@ Pro -
 
 
 ## Season 3 - Build an Agent with LangGraph and Convex
-- Day 4: Parse nice to haves (walk score) and send to agent
+- ✅ Day 4: Parse nice to haves (walk score) and send to agent
 - Day 5: Agent calculates walk score and other nice to haves
 - Day 6: Rate properties based on nice to haves
 - Day 7: UI updates

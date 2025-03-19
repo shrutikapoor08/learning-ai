@@ -45,7 +45,6 @@ export default function PropertyDetailPage({ propertyDetails }) {
   } = propertyDetails;
   return (
     <div className="min-h-screen bg-white">
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         <div className="mb-6">
           <a href="/" className="flex items-center text-[#0249ff]">
@@ -59,7 +58,6 @@ export default function PropertyDetailPage({ propertyDetails }) {
         </div>
 
         <div className="">
-          {/* Left Column - Property Details */}
           <div className="lg:col-span-2">
             <div className="mb-8">
               <div className="flex justify-between items-start mb-2">
@@ -94,7 +92,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
                 </div>
               </div>
 
-              <iv className="border-t border-b py-4 my-4">
+              <div className="border-t border-b py-4 my-4">
                 <h3 className="font-semibold mb-2">About this home</h3>
                 <p className="text-[#4b545a] text-sm leading-relaxed">
                   This beautiful single-family home features an open floor plan
@@ -105,7 +103,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
                   with excellent schools nearby and easy access to shopping and
                   dining.
                 </p>
-              </iv>
+              </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
                 <div className="border rounded-md p-3">
@@ -144,37 +142,6 @@ export default function PropertyDetailPage({ propertyDetails }) {
               Not For Me
             </Button>
           </div>
-
-          {/* Right Column - Contact and Map */}
-          {/* <div>
-            <div>
-              <h3 className="font-semibold mb-4">Recommendations for you</h3>
-              <div className="space-y-4">
-                {[1, 2].map((item) => (
-                  <div key={item} className="border rounded-lg p-3 flex gap-3">
-                    <img
-                      src="/placeholder.svg?height=80&width=120"
-                      alt="Property"
-                      width={120}
-                      height={80}
-                      className="w-24 h-20 object-cover rounded"
-                    />
-                    <div className="flex-1">
-                      <div className="font-bold">$189,500</div>
-                      <div className="text-xs text-[#767676] mb-1">
-                        Marietta, GA
-                      </div>
-                      <div className="flex justify-between text-xs text-[#767676]">
-                        <span>3 bd</span>
-                        <span>2 ba</span>
-                        <span>1,650 sqft</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div> */}
         </div>
       </main>
     </div>

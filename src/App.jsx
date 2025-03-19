@@ -63,7 +63,7 @@ function App() {
       body: JSON.stringify(formData),
     });
 
-    //AGENT WORK
+    // TODO: AGENT WORK
     // it looks up walkability score
     // populates walkability score in the database for each property in the list.
     // ranks properties by walkability score and returns it

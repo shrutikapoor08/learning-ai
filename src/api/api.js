@@ -4,6 +4,7 @@ import { URLSearchParams } from "url";
 import { ConvexHttpClient } from "convex/browser";
 import * as dotenv from "dotenv";
 import llmApi, { generateEmbeddings } from "./llm.js";
+import realEstateAgent from "./agent.js";
 
 // Configuration
 dotenv.config({ path: ".env.local" });
@@ -104,6 +105,10 @@ app.post("/api/parse-properties", async (req, res) => {
       zpid: response?.zpid,
     };
 
+    console.log({
+      propertiesRequirements,
+    });
+
     const propertiesResponse = await fetchProperties({
       propertiesRequirements,
     });
@@ -123,6 +128,19 @@ app.post("/api/save-property", async (req, res) => {
   }
 });
 
+app.get("/api/agent", async (req, res) => {
+  try {
+    const { address } = req.query;
+    console.log({ address });
+    const response = await realEstateAgent({ propertyDetails: { address } });
+
+    console.log({ response });
+    res.send(response);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get("/api/property-details", async (req, res) => {
   try {
     const { zpid } = req.query;
@@ -136,6 +154,8 @@ app.get("/api/property-details", async (req, res) => {
         },
       }
     );
+
+    //TODO: Call AGENT here in propertydetail
 
     const propertyDetail = await response.json();
     res.send(propertyDetail);
