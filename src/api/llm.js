@@ -38,7 +38,7 @@ const llmApi = async (description) => {
         .string()
         .array()
         .describe(
-          "Nice to haves. Return as an array of string. If nothing is passed, return backyard."
+          "Additional preferences of the user, such as frontyard, backyard, nice neighborhood, proximity to schools, etc. Return as an array of string. If nothing is passed, return empty array."
         ),
     })
   );

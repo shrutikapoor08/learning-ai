@@ -77,13 +77,19 @@ Pro -
 -   ✅ Design property details page -  Good first issue
 -  ✅ Design homepage - Good first issue
 -  ✅ Design property card -  Good first issue
--  - Fetch property from the DB based on its recommendation id.  - Good second issue - (Feb 21)
--  - ⏱️ [] ✅ In progress - Show recommendation properties in the UI - Good second issue
+-  ✅  Fetch property from the DB based on its recommendation id.
+-  - ⏱️[]✅ In progress - Show recommendation properties in the UI
 - Implement Carousel component
 - [] Write test cases. 
 
 
+## Season 3 - Build an Agent with LangGraph and Convex
+- Day 4: Parse nice to haves (walk score) and send to agent
+- Day 5: Agent calculates walk score and other nice to haves
+- Day 6: Rate properties based on nice to haves
+- Day 7: UI updates
 
+--- 
 **Bug Fixes**
 - [] Insert / Update based on whether a property exists or not in the database.  
 - [] It should not show properties outside the budget. 
@@ -106,3 +112,6 @@ Pro -
 - [] Improve data fetching through React query
 - [] Move to TS
 - [] Move to TailwindCSS V4
+
+
+

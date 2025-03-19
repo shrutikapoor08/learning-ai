@@ -62,6 +62,13 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
+
+    //AGENT WORK
+    // it looks up walkability score
+    // populates walkability score in the database for each property in the list.
+    // ranks properties by walkability score and returns it
+    //allDataRef= getRankedPropertiesAccordingToNiceToHaves
+
     allDataRef.current = await responseData.json();
 
     if (pageParam === 0) {

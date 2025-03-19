@@ -9,12 +9,21 @@ import { MemorySaver } from "@langchain/langgraph";
 import { HumanMessage } from "@langchain/core/messages";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 
-// Define the tools for the agent to use
-const agentTools = [new TavilySearchResults({ maxResults: 3 })];
-const agentModel = new ChatOpenAI({ temperature: 0, apiKey: process.env.OPENAI_API_KEY });
 
-// Initialize memory to persist state between graph runs
-const agentCheckpointer = new MemorySaver();
+// AGENTS 
+/*
+Model - OpenAI GPT 4o
+Memory - Short Term, Long Term. 
+Tools - Tavily Search, Booking tool, Calendar
+*/
+
+const realEstateAgent = async ({ propertyDetails }) => {
+
+  console.log({ propertyDetails });
+const agentTools = [new TavilySearchResults({ maxResults: 3 })]; // Initialize tools
+const agentModel = new ChatOpenAI({ temperature: 0, apiKey: process.env.OPENAI_API_KEY });
+const agentCheckpointer = new MemorySaver(); // Initialize memory to persist state between graph runs
+
 const agent = createReactAgent({
   llm: agentModel,
   tools: agentTools,
@@ -39,3 +48,10 @@ const agentNextState = await agent.invoke(
 console.log(
   agentNextState.messages[agentNextState.messages.length - 1].content,
 );
+
+const result = agentNextState.messages[agentNextState.messages.length - 1].content;
+
+return result;
+}
+
+export default realEstateAgent;
