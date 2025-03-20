@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import useRecommendedPropertyStore from "../../store/recommendedProperty";
-import PropertyCard from "../PropertyCard/PropertyCard";
 import PropertiesListings from "../PropertiesListings/PropertiesListings";
 import "../../App.css";
 
@@ -42,12 +41,9 @@ export default function Recommendations() {
       <section id="recommended-listings" className="py-12 bg-gray-50">
         <PropertiesListings
           properties={recommendedProperties}
+          // ERROR: title is not defined
           title="Recommended Properties"
-        >
-          {recommendedProperties.map((property) => (
-            <PropertyCard key={property._id} property={property} />
-          ))}
-        </PropertiesListings>
+        />
       </section>
     )
   );

@@ -1,5 +1,4 @@
 import { PromptTemplate } from "@langchain/core/prompts";
-import { JSONLoader } from "langchain/document_loaders/fs/json";
 import { OpenAI } from "@langchain/openai";
 import { StructuredOutputParser } from "langchain/output_parsers";
 import { RunnableSequence } from "@langchain/core/runnables";
