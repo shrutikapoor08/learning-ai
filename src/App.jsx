@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import React, { useState, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import PropertyCard from "./components/PropertyCard/PropertyCard.jsx";
 import FeaturedSection from "./components/FeaturedSection/FeaturedSection.jsx";
 import Header from "./components/Header/Header.jsx";
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import PropertiesListings from "./components/PropertiesListings/PropertiesListings.jsx";
 import Recommendations from "./components/Recommendations/Recommendations.jsx";
+import "./App.css";
 
 const PREFERENCE = { LIKED: true, DISLIKED: false, NO_PREFERENCE: undefined };
 
@@ -103,12 +101,9 @@ function App() {
       <section id="search-listings" className="py-12">
         <PropertiesListings
           properties={properties?.pages?.flat() || []}
+          // ERROR: title is redundant not defined
           title="Seattle WA Real Estate & Homes For Sale"
-        >
-          {properties?.pages?.flat().map(({ property }) => (
-            <PropertyCard key={property.zpid} property={property} />
-          ))}
-        </PropertiesListings>
+        />
       </section>
 
       <Recommendations />

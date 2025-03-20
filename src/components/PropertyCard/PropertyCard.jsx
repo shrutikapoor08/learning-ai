@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "@tanstack/react-router";
 import NiceToHaveFeatures from "../NiceToHaveFeatures/NiceToHaveFeatures";
-import { Heart, MapPin, Bed, Bath, Square, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import PropertyActions from "../PropertyActions/PropertyActions";
 
 function PropertyCard({
