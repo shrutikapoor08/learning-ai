@@ -14,14 +14,14 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt";
 /*
 Model - OpenAI GPT 4o
 Memory - Short Term, Long Term. 
-Tools - Tavily Search, Booking tool, Calendar
+Tools - Tavily Search (proximity search), DIY Tool (parser)
 */
 
 const realEstateAgent = async ({ propertyDetails }) => {
 
   console.log({ propertyDetails });
 const agentTools = [new TavilySearchResults({ maxResults: 3 })]; // Initialize tools
-const agentModel = new ChatOpenAI({ temperature: 0, apiKey: process.env.OPENAI_API_KEY });
+const agentModel = new ChatOpenAI({ temperature: 0, apiKey: process.env.OPENAI_API_KEY, maxRetries: 2 });
 const agentCheckpointer = new MemorySaver(); // Initialize memory to persist state between graph runs
 
 const agent = createReactAgent({
