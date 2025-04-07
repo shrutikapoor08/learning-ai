@@ -79,17 +79,23 @@ Pro -
 -  ✅ Design property card -  Good first issue
 -  ✅  Fetch property from the DB based on its recommendation id.
 -  - ⏱️[]✅ In progress - Show recommendation properties in the UI
-- Implement Carousel component
-- [] Write test cases. 
 
 
 ## Season 3 - Build an Agent with LangGraph and Convex
-- Day 4: Parse nice to haves (walk score) and send to agent
-- Day 5: Agent calculates walk score and other nice to haves
-- Day 6: Rate properties based on nice to haves
-- Day 7: UI updates
+- ✅ Day 4: Parse nice to haves (walk score) and send to agent
+- ✅Day 5: Agent calculates walk score and other nice to haves
 
---- 
+
+## Season 4 - Making Agents Robust
+  - Create a tool that parses subjective text to quantifiable information, such as parse "fun neighborhood" into proximity to restaurants, bars, things to do, etc. 
+  - Create a proximity tool that uses an address and gives a proximity score, such as walk score. 
+  - Parse scores(high and low) and show as a "likeability" score for each property.
+
+UI Updates - 
+  - Rate properties based on nice to haves
+  - "Properties we think you will love"
+  - "Properties in your budget / preferences but outside of your area"
+
 **Bug Fixes**
 - [] Insert / Update based on whether a property exists or not in the database.  
 - [] It should not show properties outside the budget. 
@@ -107,6 +113,8 @@ Pro -
 - [] Add zillow link for each property. 
 - [] View Transitions API for Property Details cards. 
 - [] Something you need is sticky input... so when you scroll, you can still go back
+- Implement Carousel component
+- [] Write test cases. 
 
 **Tech Stack Improvements to the app**
 - [] Improve data fetching through React query
