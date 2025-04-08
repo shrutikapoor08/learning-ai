@@ -94,7 +94,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
                 </div>
               </div>
 
-              <iv className="border-t border-b py-4 my-4">
+              <div className="border-t border-b py-4 my-4">
                 <h3 className="font-semibold mb-2">About this home</h3>
                 <p className="text-[#4b545a] text-sm leading-relaxed">
                   This beautiful single-family home features an open floor plan
@@ -105,7 +105,7 @@ export default function PropertyDetailPage({ propertyDetails }) {
                   with excellent schools nearby and easy access to shopping and
                   dining.
                 </p>
-              </iv>
+              </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 my-6">
                 <div className="border rounded-md p-3">

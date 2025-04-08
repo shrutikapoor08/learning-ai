@@ -24,7 +24,9 @@ const llmApi = async (description) => {
     z.object({
       price_ending: z
         .string()
-        .describe("Ending price of budget. Return 1000000 if not passed"),
+        .describe(
+          "Ending price of budget. Return 1000000 for properties that are for sale, 0 otherwise."
+        ),
       price_starting: z
         .string()
         .describe("Starting price of budget. Return 0 if not passed"),
@@ -39,6 +41,18 @@ const llmApi = async (description) => {
         .array()
         .describe(
           "Additional preferences of the user, such as frontyard, backyard, nice neighborhood, proximity to schools, etc. Return as an array of string. If nothing is passed, return empty array."
+        ),
+      location: z
+        .string()
+        .optional()
+        .describe(
+          "Location preferences of the user. Return as a string. If nothing is passed, return Seattle, WA."
+        ),
+      listingStatus: z
+        .string()
+        .optional()
+        .describe(
+          "Is it rental property or for sale? Return as a string. If nothing is passed, return for sale."
         ),
     })
   );

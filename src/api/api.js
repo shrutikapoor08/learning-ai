@@ -28,8 +28,9 @@ app.use((req, res, next) => {
 // Utility functions
 async function fetchProperties({ propertiesRequirements }) {
   const params = new URLSearchParams({
-    location: "Seattle, WA",
-    listingStatus: "For_Sale",
+    location: propertiesRequirements.location || "Seattle, WA",
+    listingStatus: propertiesRequirements.listingStatus || "For_Sale",
+    propertyType: "",
     bed_min: propertiesRequirements.bedrooms,
     bed_max: "No_Max",
     min: propertiesRequirements.price_starting,

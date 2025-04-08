@@ -10,6 +10,7 @@ export default function Recommendations() {
   const likedProperty = useRecommendedPropertyStore(
     (state) => state.likedProperty
   );
+  console.log({ likedProperty });
   const setRecommendedProperties = useRecommendedPropertyStore(
     (state) => state.setRecommendedProperties
   );
@@ -25,7 +26,7 @@ export default function Recommendations() {
       (state) => state.likedProperty,
       fetchRecommendations(likedProperty)
     );
-  }, [likedProperty]);
+  }, [likedProperty?.zpid]);
 
   async function fetchRecommendations(property) {
     console.log({ property });
@@ -45,7 +46,9 @@ export default function Recommendations() {
           title="Recommended Properties"
         >
           {recommendedProperties.map((property) => (
-            <PropertyCard key={property._id} property={property} />
+            (<PropertyCard key={property._id} property={property} />
+            <p>{property?._score}</p>
+            )
           ))}
         </PropertiesListings>
       </section>

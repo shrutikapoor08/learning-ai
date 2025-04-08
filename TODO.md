@@ -97,11 +97,12 @@ UI Updates -
   - "Properties in your budget / preferences but outside of your area"
 
 **Bug Fixes**
+- [] Do not call llm api multiple times on
 - [] Insert / Update based on whether a property exists or not in the database.  
 - [] It should not show properties outside the budget. 
 
 **Performance Optimizations**
-- [] Server side rendering (Feb 21)
+- [] Server side rendering 
 - [] Add React compiler
 - [] Lazy load images
 - [] React scan https://github.com/aidenybai/react-scan
@@ -120,6 +121,4 @@ UI Updates -
 - [] Improve data fetching through React query
 - [] Move to TS
 - [] Move to TailwindCSS V4
-
-
 
