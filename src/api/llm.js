@@ -25,11 +25,13 @@ const llmApi = async (description) => {
       price_ending: z
         .string()
         .describe(
-          "Ending price of budget. Return 1000000 for properties that are for sale, 0 otherwise."
+          "Ending price of budget. Return 10000000 for properties that are for sale. If the user is looking for a property for rent, then return 10000. If nothing is passed, return 10000000."
         ),
       price_starting: z
         .string()
-        .describe("Starting price of budget. Return 0 if not passed"),
+        .describe(
+          "Starting price of budget.  Return 1000000 for properties that are for sale. If the user is looking for a property for rent, then return 1500. If nothing is passed, return 1000000."
+        ),
       bedrooms: z
         .number()
         .describe("Number of bedrooms. Return 1 if not passed"),
@@ -49,10 +51,11 @@ const llmApi = async (description) => {
           "Location preferences of the user. Return as a string. If nothing is passed, return Seattle, WA."
         ),
       listingStatus: z
-        .string()
+        .enum(["For_Sale", "For_Rent", "For_Sale_Or_Rent"])
+        .default("For_Sale")
         .optional()
         .describe(
-          "Is it rental property or for sale? Return as a string. If nothing is passed, return for sale."
+          "If the user is looking for a property for rent, then return For_Rent. If the user is looking for a property for sale, then return For_Sale. If the user is looking for a property for rent or sale, then return For_Sale_Or_Rent. If nothing is passed, return For_Sale"
         ),
     })
   );

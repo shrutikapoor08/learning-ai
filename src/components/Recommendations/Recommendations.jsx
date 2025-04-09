@@ -46,9 +46,7 @@ export default function Recommendations() {
           title="Recommended Properties"
         >
           {recommendedProperties.map((property) => (
-            (<PropertyCard key={property._id} property={property} />
-            <p>{property?._score}</p>
-            )
+            <PropertyCard key={property._id} property={property} />
           ))}
         </PropertiesListings>
       </section>

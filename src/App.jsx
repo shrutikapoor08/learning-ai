@@ -54,7 +54,18 @@ function App() {
     },
   });
 
+  const getProperties = () => {
+    if (properties?.pages?.flat().length === 0) return null;
+    const filteredData =
+      properties?.pages?.flat().filter((item) => !!item && item.property) || [];
+
+    if (!filteredData.length) return null;
+
+    return filteredData;
+  };
   async function getPropertiesFromNaturalLanguage({ pageParam = 0 }) {
+    if (!ref.current) return;
+
     const url = "/api/parse-properties";
     const formData = { post: searchInput };
     const responseData = await fetch(url, {
@@ -72,6 +83,7 @@ function App() {
     allDataRef.current = await responseData.json();
 
     if (pageParam === 0) {
+      if (!allDataRef.current) return null;
       return allDataRef.current.slice(0, 20);
     } else {
       const start = pageParam * 20;
@@ -98,7 +110,7 @@ function App() {
           onSearch={handleSubmit}
           onFillDescription={() =>
             setSearchInput(
-              "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000"
+              "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000 for sale"
             )
           }
         />
@@ -107,20 +119,22 @@ function App() {
       {isLoading && <Loader />}
       {isError && <Error error={error} />}
 
-      <section id="search-listings" className="py-12">
-        <PropertiesListings
-          properties={properties?.pages?.flat() || []}
-          title="Seattle WA Real Estate & Homes For Sale"
-        >
-          {properties?.pages?.flat().map(({ property }) => (
-            <PropertyCard key={property.zpid} property={property} />
-          ))}
-        </PropertiesListings>
-      </section>
+      {getProperties()?.length > 0 && (
+        <section id="search-listings" className="py-12">
+          <PropertiesListings
+            properties={properties?.pages?.flat()}
+            title="Seattle WA Real Estate & Homes For Sale"
+          >
+            {properties?.pages?.flat().map(({ property }) => (
+              <PropertyCard key={property.zpid} property={property} />
+            ))}
+          </PropertiesListings>
+        </section>
+      )}
 
       <Recommendations />
 
-      {hasNextPage && (
+      {hasNextPage && getProperties()?.length > 0 && (
         <div className="flex justify-center py-8">
           <button
             onClick={() => fetchNextPage()}
@@ -133,6 +147,11 @@ function App() {
                 ? "Load More"
                 : "Nothing more to load"}
           </button>
+        </div>
+      )}
+      {!getProperties() && (
+        <div className="flex justify-center py-8">
+          <h2 className="text-2xl"> Search for a property to get started</h2>
         </div>
       )}
     </main>

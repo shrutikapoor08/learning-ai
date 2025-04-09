@@ -18,12 +18,14 @@ A real estate application that allows users to search properties in Seattle usin
 - Vite
 - Tailwind CSS
 - TanStack Router (formerly React Router)
+- TanStack Query
+- Zustand (for state management)
 
 ### Backend
 - Express.js
 - Node.js
 - Convex (for vector database)
-- LangChain
+- LangChain, LangGraph
 - OpenAI
 
 ### APIs
