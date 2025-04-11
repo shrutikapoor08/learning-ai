@@ -86,7 +86,13 @@ Pro -
 - ✅Day 5: Agent calculates walk score and other nice to haves
 
 
-## Season 4 - Making Agents Robust
+## Season 4 - Making Agents Robust and Adding Tools with MCP, and LangGraph
+"Looking for a 2 bedroom apartment for rent in a safe and fun neighborhood in the budget of $3000 per month"
+
+parses into "2 bedroom", "apartment", "for rent", "$3000 per month", 
+"safe - low crime rate", 
+"fun - lots of things to do, restaurats, bars, etc"
+
   - Create a tool that parses subjective text to quantifiable information, such as parse "fun neighborhood" into proximity to restaurants, bars, things to do, etc. 
   - Create a proximity tool that uses an address and gives a proximity score, such as walk score. 
   - Parse scores(high and low) and show as a "likeability" score for each property.
