@@ -6,8 +6,11 @@ const scoreTool = tool((input) => {
   // call api to get score
   // return score
 if(input.metric === "fun"){
+  //LOGIC OF TOOLS
   return 70;
-}}, {
+}
+return 40;
+}, {
     name: "score", 
     description: "Returns a score based on the metric. High score - 71 - 100, Medium score - 41 - 70 , Low score - 0 - 40",
     schema: z.object({

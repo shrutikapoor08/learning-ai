@@ -8,4 +8,4 @@ const webTool = new TavilySearchResults({ maxResults: 3 })
 const tools = [scoreTool, webTool];
 const toolNode = new ToolNode(tools)
 
-export default toolNode;
+export default tools;
