@@ -72,7 +72,7 @@ npx convex dev
 
 2. Start the Express backend server:
 ```bash
-npx nodemon server.js
+npx nodemon src/api/api.js
 ```
 The server will run on http://localhost:3001
 

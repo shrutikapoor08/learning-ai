@@ -8,6 +8,7 @@ import Header from "./components/Header/Header.jsx";
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import PropertiesListings from "./components/PropertiesListings/PropertiesListings.jsx";
 import Recommendations from "./components/Recommendations/Recommendations.jsx";
+import RealEstateAgent from "./components/RealEstateAgent/RealEstateAgent.jsx";
 
 const PREFERENCE = { LIKED: true, DISLIKED: false, NO_PREFERENCE: undefined };
 
@@ -84,10 +85,10 @@ function App() {
 
     if (pageParam === 0) {
       if (!allDataRef.current) return null;
-      return allDataRef.current.slice(0, 20);
+      return allDataRef.current.slice(0, 4);
     } else {
-      const start = pageParam * 20;
-      const end = start + 20;
+      const start = pageParam * 4;
+      const end = start + 4;
 
       return allDataRef.current.slice(start, end);
     }
@@ -132,20 +133,25 @@ function App() {
         </section>
       )}
 
-      <Recommendations />
+      {/* <Recommendations /> */}
 
+      {getProperties()?.length > 0 && (
+        <div className="flex justify-center w-full">
+          <RealEstateAgent />
+        </div>
+      )}
       {hasNextPage && getProperties()?.length > 0 && (
-        <div className="flex justify-center py-8">
+        <div className="flex justify-center py-4">
           <button
             onClick={() => fetchNextPage()}
             disabled={!hasNextPage || isFetchingNextPage}
             className="px-6 py-3 bg-blue-500 text-white rounded-lg disabled:opacity-50"
           >
             {isFetchingNextPage
-              ? "Loading more..."
+              ? "Loading more properties..."
               : hasNextPage
-                ? "Load More"
-                : "Nothing more to load"}
+                ? "Show More Properties"
+                : "No more properties to load"}
           </button>
         </div>
       )}

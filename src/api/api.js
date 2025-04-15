@@ -4,6 +4,7 @@ import { URLSearchParams } from "url";
 import { ConvexHttpClient } from "convex/browser";
 import * as dotenv from "dotenv";
 import llmApi, { generateEmbeddings } from "./llm.js";
+import realEstateAgent from "./agent.ts";
 
 // Configuration
 dotenv.config({ path: ".env.local" });
@@ -140,6 +141,17 @@ app.get("/api/property-details", async (req, res) => {
 
     const propertyDetail = await response.json();
     res.send(propertyDetail);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/real-estate-agent", async (req, res) => {
+  try {
+    console.log(" real estate agent", req);
+    const { userQuestion } = req.body;
+    const response = await realEstateAgent({ userQuestion });
+    res.send(response);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

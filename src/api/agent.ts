@@ -7,9 +7,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { MemorySaver } from "@langchain/langgraph";
 import { HumanMessage } from "@langchain/core/messages";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
-import tools from "./tools/tools.ts";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
-import scoreTool from "./tools/scoreTool.ts";
 
 // AGENTS 
 /*
@@ -18,24 +16,24 @@ Memory - Short Term, Long Term.
 Tools - Tavily Search (web search - figuring out proximity), Parser Tool (DIY)
 */
 
-const realEstateAgent = async ({ propertyDetails }) => {
+const realEstateAgent = async ({ userQuestion }) => {
   const webTool = new TavilySearchResults({ maxResults: 3 })
 
-console.log({ propertyDetails });
+console.log({ userQuestion });
 // const agentTools = [tools]; // Initialize tools
 const agentModel = new ChatOpenAI({ temperature: 0, apiKey: process.env.OPENAI_API_KEY, maxRetries: 2 });
 const agentCheckpointer = new MemorySaver(); // Initialize memory to persist state between graph runs
 
 const agent = createReactAgent({
   llm: agentModel,
-  tools: [scoreTool],
+  tools: [webTool],
   checkpointSaver: agentCheckpointer,
 });
 
 
 // Now it's time to use!
 const agentNextState = await agent.invoke(
-  { messages: [new HumanMessage("how many fun restaurants are close to this property within a 0.5 mile radius and which cuisines?")] },
+  { messages: [new HumanMessage(userQuestion)] },
   { configurable: { thread_id: "42" } },
 );
 console.log(
@@ -60,9 +58,9 @@ console.log(
 
 export default realEstateAgent;
 
-const propertyDetails = {
-  'address': '808 3rd Ave, Seattle, WA 98104, United States'
-}
+// const propertyDetails = {
+//   'address': '808 3rd Ave, Seattle, WA 98104, United States'
+// }
 
 
-realEstateAgent({ propertyDetails});
+// realEstateAgent({ propertyDetails});
