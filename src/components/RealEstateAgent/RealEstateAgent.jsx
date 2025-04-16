@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import useAgentStore from "../../store/agentStore";
 
-const RealEstateAgent = ({ realEstateAgentRef }) => {
+const RealEstateAgent = () => {
   const [userInput, setUserInput] = useState("");
-
+  const realEstateAgentRef = useRef(null);
+  const setRealEstateAgentRef = useAgentStore(
+    (state) => state.setRealEstateAgentRef
+  );
+  setRealEstateAgentRef(realEstateAgentRef);
   const property = useAgentStore((state) => state.property);
-  console.log({ property });
 
   const placeholderText = property
     ? `Ask me about ${property?.streetAddress}`
@@ -30,7 +33,7 @@ const RealEstateAgent = ({ realEstateAgentRef }) => {
   };
 
   return (
-    <div className="relative flex flex-col w-full ">
+    <div className="flex flex-col w-full justify-center">
       <div className="relative">
         <input
           type="text"

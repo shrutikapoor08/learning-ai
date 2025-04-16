@@ -18,6 +18,7 @@ function PropertyCard(property) {
     propertyDetails,
   } = property;
   const setProperty = useAgentStore((state) => state.setProperty);
+  const realEstateAgentRef = useAgentStore((state) => state.realEstateAgentRef);
 
   return (
     <>
@@ -59,8 +60,11 @@ function PropertyCard(property) {
       </Link>
       <PropertyActions
         onAskQuestion={() => {
-          console.log("testing click of property");
           setProperty(property);
+          realEstateAgentRef.current.scrollIntoView({
+            behavior: "smooth",
+          });
+          realEstateAgentRef.current.focus();
         }}
       />
     </>

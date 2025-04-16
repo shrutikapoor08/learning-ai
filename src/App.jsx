@@ -25,7 +25,6 @@ const Error = ({ error }) => (
 
 function App() {
   const ref = useRef("");
-  const realEstateAgentRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
   const allDataRef = useRef(null);
   const [selectedPropertyForQuestion, setSelectedPropertyForQuestion] =
@@ -140,14 +139,7 @@ function App() {
           </PropertiesListings>
         </section>
       )}
-      {getProperties()?.length > 0 && (
-        <div className="flex justify-center w-full">
-          <RealEstateAgent
-            selectedPropertyForQuestion={selectedPropertyForQuestion}
-            ref={realEstateAgentRef}
-          />
-        </div>
-      )}
+      {getProperties()?.length > 0 && <RealEstateAgent />}
       {hasNextPage && getProperties()?.length > 0 && (
         <div className="flex justify-center py-4">
           <button
