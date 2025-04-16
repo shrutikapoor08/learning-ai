@@ -38,9 +38,7 @@ function App() {
     data: properties,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
-    status,
   } = useInfiniteQuery({
     queryKey: [ref.current],
     queryFn: getPropertiesFromNaturalLanguage,
@@ -56,11 +54,6 @@ function App() {
       return pages.length;
     },
   });
-
-  const handleAskQuestion = () => {
-    console.log("asking questions about a property");
-    setProperty({ zpid: 1234567890 });
-  };
 
   const getProperties = () => {
     if (properties?.pages?.flat().length === 0) return null;

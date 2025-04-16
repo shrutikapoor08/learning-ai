@@ -12,8 +12,8 @@ const RealEstateAgent = () => {
   setRealEstateAgentRef(realEstateAgentRef);
   const property = useAgentStore((state) => state.property);
 
-  const placeholderText = property
-    ? `Ask me about ${property?.streetAddress}`
+  const placeholderText = property?.streetAddress
+    ? `Ask me about ${property?.streetAddress} in ${property?.city}`
     : "Ask me about a property";
 
   const onChange = (e) => {
@@ -26,7 +26,7 @@ const RealEstateAgent = () => {
     const result = await fetch("/api/real-estate-agent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userQuestion: userInput }),
+      body: JSON.stringify({ userQuestion: userInput, property: property }),
     });
     const data = await result.json();
     console.log({ data });
@@ -38,9 +38,14 @@ const RealEstateAgent = () => {
         <input
           type="text"
           onChange={onChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSubmit(e);
+            }
+          }}
           value={userInput}
           placeholder={placeholderText}
-          className="w-full px-4 py-4 text-gray-900 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-4 text-gray-900 placeholder-gray-600 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           ref={realEstateAgentRef}
         />
         <Button

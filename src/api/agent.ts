@@ -8,6 +8,7 @@ import { MemorySaver } from "@langchain/langgraph";
 import { HumanMessage } from "@langchain/core/messages";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
+import { kMaxLength } from "buffer";
 
 // AGENTS 
 /*
@@ -16,10 +17,10 @@ Memory - Short Term, Long Term.
 Tools - Tavily Search (web search - figuring out proximity), Parser Tool (DIY)
 */
 
-const realEstateAgent = async ({ userQuestion }) => {
+const realEstateAgent = async ({ userQuestion, property }) => {
   const webTool = new TavilySearchResults({ maxResults: 3 })
 
-console.log({ userQuestion });
+console.log("{ property }", property);
 // const agentTools = [tools]; // Initialize tools
 const agentModel = new ChatOpenAI({ temperature: 0, apiKey: process.env.OPENAI_API_KEY, maxRetries: 2 });
 const agentCheckpointer = new MemorySaver(); // Initialize memory to persist state between graph runs
@@ -30,30 +31,19 @@ const agent = createReactAgent({
   checkpointSaver: agentCheckpointer,
 });
 
+const question = new HumanMessage(userQuestion + " " + JSON.stringify(property) );
 
-// Now it's time to use!
 const agentNextState = await agent.invoke(
-  { messages: [new HumanMessage(userQuestion)] },
-  { configurable: { thread_id: "42" } },
+  { messages: [question] },
+  { configurable: { thread_id: property?.zpid } },
 );
 console.log(
   agentNextState.messages[agentNextState.messages.length - 1].content,
 );
 
-// const agentFunRestaurantState = await agent.invoke(
-//   { messages: [new HumanMessage("is it in a fun neighborhood? Yes, no, or maybe?")] },
-//   { configurable: { thread_id: "42" } },
-// );
+const result = agentNextState.messages[agentNextState.messages.length - 1].content;
 
-// console.log(agentFunRestaurantState?.messages);
-
-// console.log(
-//   agentFunRestaurantState.messages[agentFunRestaurantState.messages.length - 1].content,
-// );
-
-// const result = agentNextState.messages[agentNextState.messages.length - 1].content;
-
-// return result;
+return result;
 }
 
 export default realEstateAgent;

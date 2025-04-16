@@ -148,8 +148,8 @@ app.get("/api/property-details", async (req, res) => {
 
 app.post("/api/real-estate-agent", async (req, res) => {
   try {
-    const { userQuestion } = req.body;
-    const response = await realEstateAgent({ userQuestion });
+    const { userQuestion, property } = req.body;
+    const response = await realEstateAgent({ userQuestion, property });
     res.send(response);
   } catch (error) {
     res.status(500).json({ error: error.message });

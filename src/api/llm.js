@@ -73,7 +73,6 @@ const llmApi = async (description) => {
     format_instructions: parser.getFormatInstructions(),
   });
 
-  console.log(response);
   return response;
 };
 
