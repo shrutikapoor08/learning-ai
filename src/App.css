@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
 }
 
 .logo {
@@ -107,8 +104,6 @@
     @apply bg-background text-foreground;
   }
 }
-
-
 
 @layer base {
   * {

@@ -13,8 +13,8 @@ const RealEstateAgent = () => {
   const property = useAgentStore((state) => state.property);
 
   const placeholderText = property?.streetAddress
-    ? `Ask me about ${property?.streetAddress} in ${property?.city}`
-    : "Ask me about a property";
+    ? `Ask me anything about ${property?.streetAddress} in ${property?.city}`
+    : "Ask me anything about a property";
 
   const onChange = (e) => {
     setUserInput(e.target.value);

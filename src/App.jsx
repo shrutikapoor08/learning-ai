@@ -103,25 +103,35 @@ function App() {
 
   return (
     <main className="min-h-screen">
-      <FeaturedSection>
-        <Header />
-        <SearchBar
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          onSearch={handleSubmit}
-          onFillDescription={() =>
-            setSearchInput(
-              "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000 for sale"
-            )
-          }
-        />
-      </FeaturedSection>
+      <section className="w-full bg-gradient-to-r from-purple-600 to-blue-500 py-16">
+        <div className="container mx-auto">
+          <Header />
+          <SearchBar
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onSearch={handleSubmit}
+            onFillDescription={() =>
+              setSearchInput(
+                "Looking for a 3 bedroom house in Seattle in the starting range of 1000000 to 21000000 for sale"
+              )
+            }
+          />
+        </div>
+      </section>
 
       {isLoading && <Loader />}
       {isError && <Error error={error} />}
+      {!getProperties() && !isLoading && (
+        <div className="flex justify-center py-8">
+          <h2 className="text-2xl"> Search for a property to get started</h2>
+        </div>
+      )}
 
       {getProperties()?.length > 0 && (
-        <section id="search-listings" className="py-12">
+        <section
+          id="search-listings"
+          className="container mx-auto w-full py-12"
+        >
           <PropertiesListings
             properties={properties?.pages?.flat()}
             title="Seattle WA Real Estate & Homes For Sale"
@@ -132,7 +142,12 @@ function App() {
           </PropertiesListings>
         </section>
       )}
-      {getProperties()?.length > 0 && <RealEstateAgent />}
+
+      {getProperties()?.length > 0 && (
+        <section className="container mx-auto py-12">
+          <RealEstateAgent />
+        </section>
+      )}
       {hasNextPage && getProperties()?.length > 0 && (
         <div className="flex justify-center py-4">
           <button
@@ -146,11 +161,6 @@ function App() {
                 ? "Show More Properties"
                 : "No more properties to load"}
           </button>
-        </div>
-      )}
-      {!getProperties() && (
-        <div className="flex justify-center py-8">
-          <h2 className="text-2xl"> Search for a property to get started</h2>
         </div>
       )}
     </main>
