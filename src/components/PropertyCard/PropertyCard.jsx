@@ -4,19 +4,21 @@ import NiceToHaveFeatures from "../NiceToHaveFeatures/NiceToHaveFeatures";
 import { Heart, MapPin, Bed, Bath, Square, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import PropertyActions from "../PropertyActions/PropertyActions";
+import useAgentStore from "../../store/agentStore";
 
-function PropertyCard({
-  zpid,
-  imgSrc,
-  price,
-  propertyDetails,
-  bedrooms,
-  bathrooms,
-  streetAddress,
-  city,
-  onLike,
-  onDislike,
-}) {
+function PropertyCard(property) {
+  const {
+    zpid,
+    imgSrc,
+    price,
+    bedrooms,
+    bathrooms,
+    streetAddress,
+    city,
+    propertyDetails,
+  } = property;
+  const setProperty = useAgentStore((state) => state.setProperty);
+
   return (
     <>
       <Link
@@ -39,11 +41,14 @@ function PropertyCard({
           className="featured-image aspect-3/2 w-full h-48 rounded-s object-cover"
         />
 
-        <div className="mb-2 p-4">
+        <div className="p-4">
           <h3 className="text-xl font-bold mb-2 mt-2">${price}</h3>
-          <div className="flex items-center text-center ext-sm text-[#767676]">
+          <div className="flex flex-col items-center justify-center text-md text-bold text-[#767676]">
             <p>
               {streetAddress}, {city}
+            </p>
+            <p className="text-sm text-black text-center">
+              {bedrooms} bedrooms, {bathrooms} bathrooms
             </p>
           </div>
         </div>
@@ -51,11 +56,13 @@ function PropertyCard({
         {propertyDetails?.nice_to_haves && (
           <NiceToHaveFeatures features={propertyDetails?.nice_to_haves} />
         )}
-        <p className="text-xs m-1">
-          {bedrooms} bedrooms, {bathrooms} bathrooms
-        </p>
       </Link>
-      <PropertyActions onLike={onLike} onDislike={onDislike} />
+      <PropertyActions
+        onAskQuestion={() => {
+          console.log("testing click of property");
+          setProperty(property);
+        }}
+      />
     </>
   );
 }

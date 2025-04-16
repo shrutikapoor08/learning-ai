@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
+import useAgentStore from "../../store/agentStore";
 
-const RealEstateAgent = () => {
+const RealEstateAgent = ({ realEstateAgentRef }) => {
   const [userInput, setUserInput] = useState("");
+
+  const property = useAgentStore((state) => state.property);
+  console.log({ property });
+
+  const placeholderText = property
+    ? `Ask me about ${property?.streetAddress}`
+    : "Ask me about a property";
+
   const onChange = (e) => {
     setUserInput(e.target.value);
   };
@@ -21,14 +30,15 @@ const RealEstateAgent = () => {
   };
 
   return (
-    <div className="relative flex flex-col w-full">
+    <div className="relative flex flex-col w-full ">
       <div className="relative">
         <input
           type="text"
           onChange={onChange}
           value={userInput}
-          placeholder="Ask a question about your properties"
+          placeholder={placeholderText}
           className="w-full px-4 py-4 text-gray-900 rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ref={realEstateAgentRef}
         />
         <Button
           type="submit"

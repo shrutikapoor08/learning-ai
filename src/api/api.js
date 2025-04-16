@@ -148,7 +148,6 @@ app.get("/api/property-details", async (req, res) => {
 
 app.post("/api/real-estate-agent", async (req, res) => {
   try {
-    console.log(" real estate agent", req);
     const { userQuestion } = req.body;
     const response = await realEstateAgent({ userQuestion });
     res.send(response);

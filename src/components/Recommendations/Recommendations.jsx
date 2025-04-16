@@ -10,7 +10,6 @@ export default function Recommendations() {
   const likedProperty = useRecommendedPropertyStore(
     (state) => state.likedProperty
   );
-  console.log({ likedProperty });
   const setRecommendedProperties = useRecommendedPropertyStore(
     (state) => state.setRecommendedProperties
   );

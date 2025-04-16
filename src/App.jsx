@@ -25,8 +25,11 @@ const Error = ({ error }) => (
 
 function App() {
   const ref = useRef("");
+  const realEstateAgentRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
   const allDataRef = useRef(null);
+  const [selectedPropertyForQuestion, setSelectedPropertyForQuestion] =
+    useState(null);
 
   const {
     isLoading,
@@ -54,6 +57,11 @@ function App() {
       return pages.length;
     },
   });
+
+  const handleAskQuestion = () => {
+    console.log("asking questions about a property");
+    setProperty({ zpid: 1234567890 });
+  };
 
   const getProperties = () => {
     if (properties?.pages?.flat().length === 0) return null;
@@ -132,12 +140,12 @@ function App() {
           </PropertiesListings>
         </section>
       )}
-
-      {/* <Recommendations /> */}
-
       {getProperties()?.length > 0 && (
         <div className="flex justify-center w-full">
-          <RealEstateAgent />
+          <RealEstateAgent
+            selectedPropertyForQuestion={selectedPropertyForQuestion}
+            ref={realEstateAgentRef}
+          />
         </div>
       )}
       {hasNextPage && getProperties()?.length > 0 && (
