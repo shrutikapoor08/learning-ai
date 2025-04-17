@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Search } from "lucide-react";
 import useAgentStore from "../../store/agentStore";
-
 const RealEstateAgent = () => {
   const [userInput, setUserInput] = useState("");
+  const [response, setResponse] = useState(null);
   const realEstateAgentRef = useRef(null);
   const setRealEstateAgentRef = useAgentStore(
     (state) => state.setRealEstateAgentRef
@@ -23,13 +23,28 @@ const RealEstateAgent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = await fetch("/api/real-estate-agent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userQuestion: userInput, property: property }),
-    });
-    const data = await result.json();
-    console.log({ data });
+    try {
+      setResponse("Loading response...");
+
+      const result = await fetch("/api/real-estate-agent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userQuestion: userInput, property: property }),
+      });
+
+      if (!result.ok) {
+        throw new Error(`Server responded with status: ${result.status}`);
+      }
+      const text = await result.text();
+      if (!text) {
+        throw new Error("Empty response from server");
+      }
+
+      setResponse(text);
+    } catch (error) {
+      console.error("Error fetching response:", error);
+      setResponse(`Error: ${error.message}`);
+    }
   };
 
   return (
@@ -57,6 +72,7 @@ const RealEstateAgent = () => {
           <Search className="w-5 h-5" />
         </Button>
       </div>
+      <div className="mt-4">{response && <p>{response}</p>}</div>
     </div>
   );
 };
