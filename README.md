@@ -14,15 +14,15 @@ A real estate application that allows users to search properties in Seattle usin
 ## Tech Stack
 
 ### Frontend
-- React 18
+- React 19
 - Vite
 - Tailwind CSS
-- TanStack Router (formerly React Router)
+- TanStack Router 
 - TanStack Query
 - Zustand (for state management)
 
 ### Backend
-- Express.js
+- Express
 - Node.js
 - Convex (for vector database)
 - LangChain, LangGraph

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropertyCard from "../PropertyCard/PropertyCard";
-import useRecommendedPropertyStore from "../../store/recommendedProperty";
+// import useRecommendedPropertyStore from "../../store/recommendedProperty";
 import "../../App.css";
 
 function PropertyDetails({
@@ -17,12 +17,12 @@ function PropertyDetails({
 }) {
   const [propertyDetails, setPropertyDetails] = useState({});
 
-  const setLikedProperty = useRecommendedPropertyStore(
-    (state) => state.setLikedProperty
-  );
-  const setDislikedProperty = useRecommendedPropertyStore(
-    (state) => state.setDislikedProperty
-  );
+  // const setLikedProperty = useRecommendedPropertyStore(
+  //   (state) => state.setLikedProperty
+  // );
+  // const setDislikedProperty = useRecommendedPropertyStore(
+  //   (state) => state.setDislikedProperty
+  // );
 
   const saveProperty = async (property) => {
     // Send data to parse properties
@@ -55,7 +55,7 @@ function PropertyDetails({
       nice_to_haves: propertyDetails?.nice_to_haves,
     };
     saveProperty(property);
-    setLikedProperty(property); //update store
+    // setLikedProperty(property); //update store
   };
 
   const handleDislike = async () => {
@@ -72,7 +72,7 @@ function PropertyDetails({
       nice_to_haves: propertyDetails?.nice_to_haves,
     };
     saveProperty(property);
-    setDislikedProperty(property); //update store
+    // setDislikedProperty(property); //update store
   };
 
   return (
@@ -89,8 +89,7 @@ function PropertyDetails({
         bathrooms={bathrooms}
         streetAddress={streetAddress}
         city={city}
-        onLike={handleLike}
-        onDislike={handleDislike}
+        homeType={homeType}
       />
     </div>
   );

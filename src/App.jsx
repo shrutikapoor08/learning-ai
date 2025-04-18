@@ -148,6 +148,11 @@ function App() {
           <RealEstateAgent />
         </section>
       )}
+      {getProperties()?.length > 0 && (
+        <section className="container mx-auto py-12">
+          <Recommendations />
+        </section>
+      )}
       {hasNextPage && getProperties()?.length > 0 && (
         <div className="flex justify-center py-4">
           <button

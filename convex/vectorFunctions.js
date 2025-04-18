@@ -16,20 +16,27 @@ export const similarProperties = action({
       streetAddress: v.string(),
       price: v.float64(),
       imgSrc: v.string(),
-      homeType: v.string(),
+      homeType: v.optional(v.string()),
       zpid: v.float64(),
-      preference: v.boolean(),
-      nice_to_haves: v.optional(v.array(v.string())),
+      preference: v.optional(v.boolean()),
     }),
   },
   handler: async (ctx, args) => {
     const embeddings = await generateEmbeddings(args.property);
+    console.log({ embeddings });
     const results = await ctx.vectorSearch("property", "by_embedding", {
       vector: embeddings,
-      limit: 10,
-      filterFields: ["price", "bedrooms", "bathrooms", "nice_to_haves"],
+      limit: 5,
+      filterFields: [
+        "preference",
+        "price",
+        "bedrooms",
+        "bathrooms",
+        "streetAddress",
+        "city",
+        "nice_to_haves",
+      ],
     });
-
     return results;
   },
 });

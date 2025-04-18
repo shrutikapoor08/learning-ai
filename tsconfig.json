@@ -9,7 +9,9 @@
       "baseUrl": ".",
       "paths": {
         "@/*": ["./src/*"]
-      }
+      },
+      "moduleResolution": "nodenext",
+      "module": "nodenext"
     }
   }
   

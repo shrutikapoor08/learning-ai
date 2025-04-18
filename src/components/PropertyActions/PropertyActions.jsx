@@ -1,10 +1,7 @@
 import React from "react";
-import { ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react";
-import useAgentStore from "../../store/agentStore";
+import { MessageSquare } from "lucide-react";
 
 function PropertyActions({ onAskQuestion }) {
-  const property = useAgentStore((state) => state.property);
-
   return (
     <div className="flex flex-row justify-center align-center mb-5 mt-5">
       <button

@@ -16,6 +16,7 @@ function PropertyCard(property) {
     streetAddress,
     city,
     propertyDetails,
+    homeType,
   } = property;
   const setProperty = useAgentStore((state) => state.setProperty);
   const realEstateAgentRef = useAgentStore((state) => state.realEstateAgentRef);
