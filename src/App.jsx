@@ -144,12 +144,12 @@ function App() {
       )}
 
       {getProperties()?.length > 0 && (
-        <section className="container mx-auto py-12">
+        <section className="container mx-auto">
           <RealEstateAgent />
         </section>
       )}
       {getProperties()?.length > 0 && (
-        <section className="container mx-auto py-12">
+        <section className="container mx-auto">
           <Recommendations />
         </section>
       )}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useAgentStore from "../../store/agentStore";
 import ChatBot from "../ChatBot/ChatBot";
 
@@ -6,11 +6,26 @@ const RealEstateAgent = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const realEstateAgentRef = useRef(null);
+
+  // Get expanded state and setter from store
+  const isExpanded = useAgentStore((state) => state.isAgentExpanded);
+  const setIsExpanded = useAgentStore((state) => state.setIsAgentExpanded);
   const setRealEstateAgentRef = useAgentStore(
     (state) => state.setRealEstateAgentRef
   );
-  setRealEstateAgentRef(realEstateAgentRef);
+
+  useEffect(() => {
+    setRealEstateAgentRef(realEstateAgentRef);
+  }, [setRealEstateAgentRef]);
+
   const property = useAgentStore((state) => state.property);
+
+  // Scroll into view when expanded
+  useEffect(() => {
+    if (isExpanded && realEstateAgentRef?.current) {
+      realEstateAgentRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isExpanded]);
 
   const placeholderText = property?.streetAddress
     ? `Ask me anything about ${property?.streetAddress} in ${property?.city}`
@@ -54,16 +69,39 @@ const RealEstateAgent = () => {
     }
   };
 
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
-    <div className="w-full" ref={realEstateAgentRef}>
-      <ChatBot
-        messages={chatHistory}
-        onSendMessage={handleSendMessage}
-        placeholder={placeholderText}
-        isLoading={isLoading}
-        botName="Real Estate Agent"
-        maxHeight={500}
-      />
+    <div
+      className="fixed bottom-0 right-0 z-50 w-full md:w-96 transition-all duration-300 shadow-lg"
+      style={{
+        height: isExpanded ? "500px" : "60px",
+        maxWidth: "100%",
+      }}
+      ref={realEstateAgentRef}
+    >
+      <div
+        className="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-3 flex justify-between items-center cursor-pointer rounded-t-lg"
+        onClick={toggleExpand}
+      >
+        <div className="font-bold text-lg">Real Estate Agent</div>
+        <div>{isExpanded ? "▼" : "▲"}</div>
+      </div>
+
+      {isExpanded && (
+        <div className="w-full h-full bg-white border border-gray-200 border-t-0 rounded-b-lg overflow-hidden">
+          <ChatBot
+            messages={chatHistory}
+            onSendMessage={handleSendMessage}
+            placeholder={placeholderText}
+            isLoading={isLoading}
+            botName="Real Estate Agent"
+            maxHeight={440}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import NiceToHaveFeatures from "../NiceToHaveFeatures/NiceToHaveFeatures";
 import { Heart, MapPin, Bed, Bath, Square, ChevronRight } from "lucide-react";
@@ -20,6 +20,13 @@ function PropertyCard(property) {
   } = property;
   const setProperty = useAgentStore((state) => state.setProperty);
   const realEstateAgentRef = useAgentStore((state) => state.realEstateAgentRef);
+
+  useEffect(() => {
+    if (realEstateAgentRef?.current) {
+      realEstateAgentRef?.current?.scrollIntoView({ behavior: "smooth" });
+    }
+    realEstateAgentRef?.current?.focus();
+  }, [property]);
 
   return (
     <>
@@ -62,10 +69,6 @@ function PropertyCard(property) {
       <PropertyActions
         onAskQuestion={() => {
           setProperty(property);
-          realEstateAgentRef.current.scrollIntoView({
-            behavior: "smooth",
-          });
-          realEstateAgentRef.current.focus();
         }}
       />
     </>

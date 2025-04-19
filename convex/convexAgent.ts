@@ -20,7 +20,7 @@
 //     // Convex tool
 //     myConvexTool: createTool({
 //       description: "Convex Tool For Fetching Previous History about properties ",
-//       args: v.object({...}),
+//       args: v.object(args),
 //       handler: async (ctx, args) => {
 //         return "Hello, world!";
 //       },

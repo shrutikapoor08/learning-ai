@@ -1,13 +1,14 @@
 import { create } from "zustand";
 
 const useAgentStore = create((set) => ({
-  property: {},
+  property: null,
   setProperty: (property) => {
-    console.log("setProperty", property);
     set({ property: property });
   },
   realEstateAgentRef: null,
   setRealEstateAgentRef: (ref) => set({ realEstateAgentRef: ref }),
+  isAgentExpanded: false,
+  setIsAgentExpanded: (isExpanded) => set({ isAgentExpanded: isExpanded }),
 }));
 
 export default useAgentStore;

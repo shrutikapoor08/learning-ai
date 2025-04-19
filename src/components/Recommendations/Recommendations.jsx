@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useAction } from "convex/react";
+import { useEffect, useState } from "react";
+import { useAction, useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import useRecommendedPropertyStore from "../../store/recommendedProperty";
 import useAgentStore from "../../store/agentStore";
 import PropertyCard from "../PropertyCard/PropertyCard";
-import PropertiesListings from "../PropertiesListings/PropertiesListings";
 import "../../App.css";
 
 export default function Recommendations() {
+  const [propertyIds, setPropertyIds] = useState([]);
   const property = useAgentStore((state) => state.property);
   const setRecommendedProperties = useRecommendedPropertyStore(
     (state) => state.setRecommendedProperties
@@ -19,11 +19,22 @@ export default function Recommendations() {
     api.vectorFunctions.similarProperties
   );
 
+  const recommendedPropertiesDetails = useQuery(api.property.getByIds, {
+    ids: propertyIds,
+  });
+
   useEffect(() => {
-    useAgentStore.subscribe(
-      (state) => state.property,
-      fetchRecommendations(property)
-    );
+    if (recommendedProperties?.length > 0) {
+      // Extract property IDs from the recommendations
+      const ids = recommendedProperties.map((prop) => prop._id);
+      setPropertyIds(ids);
+    }
+  }, [recommendedProperties]);
+
+  useEffect(() => {
+    if (property?.zpid) {
+      fetchRecommendations(property);
+    }
   }, [property?.zpid]);
 
   async function fetchRecommendations(property) {
@@ -40,7 +51,6 @@ export default function Recommendations() {
       propertyDetails,
     } = property;
 
-    console.log({propertyDetails})
     const propertiesResult = await generateRecommendations({
       property: {
         bedrooms,
@@ -54,26 +64,44 @@ export default function Recommendations() {
       },
     });
 
-    // TODO: using the _id from the database, make a query to the databse to get the property details.
-    console.log({ propertiesResult });
-
     setRecommendedProperties(propertiesResult);
   }
 
   return (
-    <div>
-      <h2>Generating recommednations...</h2>
-      {recommendedProperties?.length > 0 && (
-        <section id="recommended-listings" className="py-12 bg-gray-50">
-          <PropertiesListings
-            properties={recommendedProperties}
-            title="Recommended Properties"
-          >
-            {recommendedProperties.map((property) => (
-              <PropertyCard key={property._id} property={property} />
-            ))}
-          </PropertiesListings>
-        </section>
+    <div className="container mx-auto">
+      <h2 className="text-2xl font-bold mb-6">
+        Similar Properties You May Like
+      </h2>
+
+      {!recommendedPropertiesDetails && <p>Generating recommendations...</p>}
+
+      {recommendedPropertiesDetails?.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {recommendedPropertiesDetails.map((property) => (
+            <div
+              key={property._id}
+              className="bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
+            >
+              <PropertyCard
+                zpid={property.zpid}
+                imgSrc={property.imgSrc}
+                price={property.price}
+                bedrooms={property.bedrooms}
+                bathrooms={property.bathrooms}
+                streetAddress={property.streetAddress}
+                city={property.city}
+                propertyDetails={{
+                  homeType: property.homeType,
+                  nice_to_haves: property.nice_to_haves,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {recommendedPropertiesDetails?.length === 0 && property?.zpid && (
+        <p>No similar properties found. Try selecting a different property.</p>
       )}
     </div>
   );

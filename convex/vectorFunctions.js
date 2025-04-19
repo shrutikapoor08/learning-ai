@@ -23,7 +23,6 @@ export const similarProperties = action({
   },
   handler: async (ctx, args) => {
     const embeddings = await generateEmbeddings(args.property);
-    console.log({ embeddings });
     const results = await ctx.vectorSearch("property", "by_embedding", {
       vector: embeddings,
       limit: 5,
