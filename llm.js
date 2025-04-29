@@ -10,7 +10,8 @@ import "dotenv/config";
 const llmApi = async (description) => {
   console.log({ description });
   const llm = new OpenAI({
-    openAIApiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY,
+    temperature: 0,
   });
 
   const parser = StructuredOutputParser.fromZodSchema(
@@ -36,7 +37,7 @@ const llmApi = async (description) => {
     PromptTemplate.fromTemplate(
       "Parse the description provided by user to extract information about real estate preferences.\n{format_instructions}\n{description}."
     ),
-    new OpenAI({ temperature: 0 }),
+    llm,
     parser,
   ]);
 

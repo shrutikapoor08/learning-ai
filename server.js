@@ -9,6 +9,10 @@ import axios from "axios";
 import { createDirectus, rest, createItem, readItems } from "@directus/sdk";
 const client = createDirectus("https://database.directus.app").with(rest());
 
+const ZILLOW_API = {
+  SEARCH: "https://zillow-working-api.p.rapidapi.com/search/byaddress",
+  PROPERTY_DETAILS: "https://zillow-working-api.p.rapidapi.com/pro/byzpid",
+};
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -21,30 +25,33 @@ app.use((req, res, next) => {
   next();
 });
 
-const fetchProperties = async ({ propertiesRequirements }) => {
+async function fetchProperties({ propertiesRequirements }) {
+  const params = new URLSearchParams({
+    location: propertiesRequirements.location || "Seattle, WA",
+    listingStatus: propertiesRequirements.listingStatus || "For_Sale",
+    propertyType: "",
+    bed_min: propertiesRequirements.bedrooms,
+    bed_max: "No_Max",
+    min: propertiesRequirements.price_starting,
+    max: propertiesRequirements.price_ending,
+  }).toString();
+
   const options = {
     method: "GET",
-    url: "https://zillow56.p.rapidapi.com/search",
-    params: {
-      location: "seattle",
-      status: "forSale",
-      beds: propertiesRequirements.bedrooms,
-      price_min: propertiesRequirements.price_starting,
-      price_max: propertiesRequirements.price_ending,
-    },
     headers: {
       "X-RapidAPI-Key": process.env.RAPID_API_KEY,
-      "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
+      "X-RapidAPI-Host": "zillow-working-api.p.rapidapi.com",
     },
   };
 
   try {
-    const response = await axios.request(options);
-    return response.data.results;
+    const response = await fetch(`${ZILLOW_API.SEARCH}?${params}`, options);
+    const result = JSON.parse(await response.text());
+    return result?.searchResults;
   } catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
-};
+}
 
 const savePropertyToDB = async (property) => {
   const {
@@ -60,7 +67,6 @@ const savePropertyToDB = async (property) => {
   } = property;
   let item;
   try {
-    console.log({ preference });
     item = await client.request(
       createItem("Property", {
         zpid,
@@ -79,7 +85,6 @@ const savePropertyToDB = async (property) => {
     throw new Error(e.message);
   }
 
-  console.log({ item });
   return item;
 };
 

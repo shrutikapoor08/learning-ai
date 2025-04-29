@@ -33,53 +33,95 @@ function App() {
   };
 
   const renderProperties = (responseData) => {
-    console.log({ responseData });
-    return responseData.map(
-      ({
+    return responseData.map(({ property }) => {
+      const {
         bedrooms,
         bathrooms,
         city,
-        streetAddress,
+        address,
         price,
-        imgSrc,
+        media,
         homeType,
         zpid,
-      }) => {
-        return (
-          <div
-            key={zpid}
-            className="flex flex-col rounded-lg s-p-1 s-m-1 lg-p-4 lg-m-4 shadow-sm shadow-indigo-100 text-center"
-          >
-            <a href="#">
-              <img
-                src={imgSrc}
-                className="max-h-2x w-full rounded-s object-cover"
-              />
-            </a>
-            <p className="text-l font-bold">${price}</p>
-            <p className="text-xs m-1">
-              {bedrooms} bedrooms, {bathrooms} bathrooms
-            </p>
-            <p className="text-xs">
-              {streetAddress}, {city}
+      } = property;
+      const imgSrc = media?.allPropertyPhotos?.highResolution?.[0];
+      return (
+        <div
+          key={zpid}
+          className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+        >
+          <div className="relative">
+            <img
+              src={
+                imgSrc || "https://via.placeholder.com/400x300?text=No+Image"
+              }
+              alt={`${address?.streetAddress || "Property"}`}
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 m-2 rounded-full text-sm font-semibold">
+              {homeType || "Home"}
+            </div>
+          </div>
+
+          <div className="p-4">
+            <div className="flex justify-between items-start mb-2">
+              <p className="text-xl font-bold text-gray-800">
+                ${price?.value?.toLocaleString() || "Price unavailable"}
+              </p>
+              <div className="flex items-center text-gray-600">
+                <span className="mr-2">{bedrooms || 0}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span className="mx-2">{bathrooms || 0}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <p className="text-gray-600 text-sm mb-3">
+              {address?.streetAddress || ""}, {address?.city || city || ""}
             </p>
 
-            <div className="flex flex-row justify-center align-center">
+            <div className="flex justify-between mt-4">
               <button
                 onClick={() =>
                   saveProperty({
                     bedrooms,
                     bathrooms,
                     city,
-                    streetAddress,
+                    streetAddress: address?.streetAddress,
                     price,
                     imgSrc,
                     homeType,
                     zpid,
-                    preference: true,
+                    preference: PREFERENCE.LIKED,
                   })
                 }
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
+                className="flex-1 mr-2 bg-green-500 hover:bg-green-600 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors"
               >
                 Like
               </button>
@@ -89,23 +131,23 @@ function App() {
                     bedrooms,
                     bathrooms,
                     city,
-                    streetAddress,
+                    streetAddress: address?.streetAddress,
                     price,
                     imgSrc,
                     homeType,
                     zpid,
-                    preference: false,
+                    preference: PREFERENCE.DISLIKED,
                   })
                 }
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-right m-2"
+                className="flex-1 ml-2 bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded-lg text-sm font-medium transition-colors"
               >
                 Dislike
               </button>
             </div>
           </div>
-        );
-      }
-    );
+        </div>
+      );
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -155,7 +197,7 @@ function App() {
               "Looking for a 3 bedroom house in Seattle in the starting range of 1 million to 2 million"
             )
           }
-          className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10"
+          className="w-full text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 my-10 display-none "
         >
           Fill Description
         </button>
